@@ -11,7 +11,24 @@ $(document).ready(() =>{
     }
 
     // Create an empty project and a view for the canvas:
-    paper.setup(canvas);
+		paper.setup(canvas);
+		
+
+		// event-listeners
+		// Create a simple drawing tool:
+		var tool = new paper.Tool();
+		var path;
+
+		// Define a mousedown and mousedrag handler
+		tool.onMouseDown = function(event) {
+			path = new paper.Path();
+			path.strokeColor = 'white';
+			path.add(event.point);
+		}
+
+		tool.onMouseDrag = function(event) {
+			path.add(event.point);
+		}
 
     //dimensions of grid (e.g. a 5x10 grid)
     var rows = 5;
