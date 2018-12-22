@@ -1,0 +1,9 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#origami-editor {
+    width: 100%;
+    background-color: black;
+}

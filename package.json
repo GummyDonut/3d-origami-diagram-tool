@@ -1,0 +1,24 @@
+{
+  "name": "3d-origami-diagram-tool",
+  "version": "1.0.0",
+  "description": "Online tool for creating 3d origami diagrams",
+  "main": "index.html",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "paper": "^0.12.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lantern77/3d-origami-diagram-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lantern77/3d-origami-diagram-tool/issues"
+  },
+  "homepage": "https://github.com/lantern77/3d-origami-diagram-tool#readme"
+}
