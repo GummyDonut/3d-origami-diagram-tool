@@ -5,9 +5,19 @@
         <link rel="stylesheet" type="text/css" href="styles/editor.css">
     <head>
     <body>
-        <canvas id="origami-editor" resize>
-            
-        </canvas>
+       
+        <div id="tool-bar">
+        </div>
+        <div style="width:100%;">
+            <!-- TODO add pan and zoom
+            https://stackoverflow.com/questions/32540165/how-to-pan-using-paperjs
+            https://matthiasberth.com/tech/stable-zoom-and-pan-in-paperjs -->
+            <div id="tool-window">
+            </div>
+            <canvas id="origami-editor" resize></canvas>
+        </div>
+        <div id="tool-footer">
+        </div>
 
         <!-- Note the canvas attribute links to the DOM element-->
         <script type="module" src="editor.js"></script>

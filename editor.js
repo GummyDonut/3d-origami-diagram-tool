@@ -1,4 +1,4 @@
-import test from './components/test.js'
+import grid from './components/grid.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
@@ -12,49 +12,60 @@ $(document).ready(() => {
   // Create an empty project and a view for the canvas:
   paper.setup(canvas)
 
-  // event-listeners
-  // Create a simple drawing tool:
-  var tool = new paper.Tool()
-  var path
-
-  // Define a mousedown and mousedrag handler
-  tool.onMouseDown = function (event) {
-    path = new paper.Path()
-    path.strokeColor = 'white'
-    path.add(event.point)
-  }
-
-  tool.onMouseDrag = function (event) {
-    path.add(event.point)
-  }
-
   // dimensions of grid (e.g. a 5x10 grid)
-  var rows = 5
-  var cols = 10
+  // small note remember that the JS is cached,
+  let rows = 36
+  let cols = 58
 
-  // center coordinates of any circle being drawn
-  var x
-  var y
+  // get the width and height of the canvas
+  let canvasWidth = $('#origami-editor').width()
+  let canvasHeight = $('#origami-editor').height()
 
-  // center coordinates of first circle being drawn
-  var xstart = 50
-  var ystart = 50
+  let columnWidth = canvasWidth / cols
+  let columnHeight = canvasHeight / rows
 
-  // distance between center coordinates
-  var xspacing = 100
-  var yspacing = 100
+  // get the smaller value to make a square
+  if (columnWidth < columnHeight) {
+    columnHeight = columnWidth
+  } else {
+    columnWidth = columnHeight
+  }
 
-  var radius = 10
-  var fillColor = 'orange'
+  // loop through creating shifted grid element, with squares and store information
+  let canvasGrid = grid.grid
 
-  // create grid and draw circles
-  for (var row = 1; row <= rows; row++) {
-    y = ystart + (row - 1) * yspacing
+  // coordinate of drawing point
+  let drawingX = 0
+  let drawingY = 0
+  let offsetted = false // should we shift
+  let offset = columnWidth / 2
+  for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+    for (let columnIndex = 0; columnIndex < cols; columnIndex++) {
+      let xCoordinate = drawingX + ((offsetted) ? offset : 0)
+      let square = new paper.Rectangle(xCoordinate, drawingY, columnWidth, columnHeight)
+      var squarePath = new paper.Path.Rectangle(square)
+      squarePath.strokeColor = 'white'
+      squarePath.fillColor = 'black'
 
-    for (var col = 1; col <= cols; col++) {
-      x = xstart + (col - 1) * xspacing
-      new paper.Path.Circle(new paper.Point(x, y), radius).fillColor = fillColor
+      // square event-listener
+      squarePath.onClick = function (event) {
+        this.fillColor = 'red'
+      }
+      // shift right
+      drawingX += columnWidth
+
+      // store the object
+      if (canvasGrid[rowIndex] === undefined) {
+        canvasGrid[rowIndex] = []
+      }
+
+      canvasGrid[rowIndex][columnIndex] = squarePath
     }
+
+    // shift down, and reset left
+    drawingX = 0
+    drawingY += columnHeight
+    offsetted = !offsetted
   }
 
   // Draw the view now:
