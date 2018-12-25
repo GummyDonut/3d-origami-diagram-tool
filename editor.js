@@ -1,4 +1,5 @@
 import grid from './components/grid.js'
+import tools from './components/tools.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
@@ -9,8 +10,14 @@ $(document).ready(() => {
     return
   }
 
+  // disable right-click options on canvas
+  $('#origami-editor').on('contextmenu', event => event.preventDefault())
+
   // Create an empty project and a view for the canvas:
   paper.setup(canvas)
+
+  // setup tool event listeners
+  tools.init()
 
   // dimensions of grid (e.g. a 5x10 grid)
   // small note remember that the JS is cached,
@@ -44,12 +51,15 @@ $(document).ready(() => {
       let xCoordinate = drawingX + ((offsetted) ? offset : 0)
       let square = new paper.Rectangle(xCoordinate, drawingY, columnWidth, columnHeight)
       var squarePath = new paper.Path.Rectangle(square)
-      squarePath.strokeColor = 'white'
-      squarePath.fillColor = 'black'
+      squarePath.strokeColor = 'black'
+      squarePath.fillColor = 'white'
 
-      // square event-listener
+      // square event-listener, on works on left click and if tool is not active
+      // TODO possible change check of null to triangle tool
       squarePath.onClick = function (event) {
-        this.fillColor = 'red'
+        if (event.event.which === 1 && paper.tool === null) {
+          this.fillColor = 'red'
+        }
       }
       // shift right
       drawingX += columnWidth

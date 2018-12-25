@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
 }
+
 #tool-bar {
     height:12%;
     background-color:blueviolet;
@@ -16,14 +17,26 @@ html, body {
     height: 80%;
     display: inline-block;
     background-color: aqua;
+    padding:0.5em;
 }
 #origami-editor {
     width: 75%;
     height: 80%;
-    position: relative;
+    position: absolute;
     margin-left:auto;
     margin-right:auto;
     background-color: white;
     display: inline-block;
-    border:1px solid black
+    border:1px solid black;
+    cursor: pointer;
+}
+#popover {
+  position: absolute;
+  float: left;
+}
+.cursor-box{
+  width:200px;
+  height:200px;
+  border: 1px solid black;
+  pointer-events: none
 }

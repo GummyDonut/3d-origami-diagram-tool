@@ -3,6 +3,7 @@
     "globals": {
         "paper": false,
         "$": false,
-        "alert": false
+        "alert": false,
+        "tool": false
     }
 }
