@@ -40,6 +40,9 @@ html, body {
   border: 1px solid black;
   pointer-events: none
 }
+.pure-button {
+  border:0.5px solid black;
+}
 .pure-button-active {
-  background-color:#e0dede;
+  background-color:#aa9e9e;
 }

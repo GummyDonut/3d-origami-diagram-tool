@@ -2,7 +2,8 @@
 export default {
   data: {
     // Is this tool currently on
-    active: false
+    plusActive: false,
+    minusActive: false
   },
 
   // tool object that is stored here, we will activate or turn this
@@ -18,8 +19,12 @@ export default {
     // Add event-listener for tools
     this.toolListeners()
 
+    // Plus icon for magnify in
     $('#magnify-plus').on('click', (event) => {
-      if (!this.data.active) {
+      // reset tool to all unactive
+      this.deActivateTool()
+
+      if (!this.data.plusActive) {
         $('#magnify-plus').addClass('pure-button-active')
         $('#origami-editor').css('cursor', 'zoom-in')
         this.tool.activate()
@@ -28,19 +33,48 @@ export default {
         $(document).on('mousemove', this.popover)
 
         // shift key update icon
-        $(document).on('keydown', this.holdShift)
-        $(document).on('keyup', this.releaseShift)
+        $(document).on('keydown', { type: 'plus' }, this.holdShift)
+        $(document).on('keyup', { type: 'plus' }, this.releaseShift)
 
         $('#popover').show()
-      } else {
-        this.deActivateTool()
       }
 
-      this.data.active = !this.data.active
+      // indicate that the plus tool is now active
+      this.data.plusActive = !this.data.plusActive
+    })
+
+    // Minus icon for zooming out
+    $('#magnify-minus').on('click', (event) => {
+      // reset tool to all unactive
+      this.deActivateTool()
+
+      if (!this.data.minusActive) {
+        $('#magnify-minus').addClass('pure-button-active')
+        $('#origami-editor').css('cursor', 'zoom-out')
+
+        // reactive tool
+        this.tool.activate()
+
+        // bind box to cursor
+        $(document).on('mousemove', this.popover)
+
+        // shift key update icon
+        $(document).on('keydown', { type: 'minus' }, this.holdShift)
+        $(document).on('keyup', { type: 'minus' }, this.releaseShift)
+
+        $('#popover').show()
+      }
+
+      // indicate that the minus tool is now active
+      this.data.minusActive = !this.data.minusActive
     })
   },
+  /**
+   * Reset all setting for this tool
+   */
   deActivateTool () {
     $('#magnify-plus').removeClass('pure-button-active')
+    $('#magnify-minus').removeClass('pure-button-active')
     $('#origami-editor').css('cursor', 'pointer')
 
     // remove box from cursor and additional event-listeners
@@ -48,6 +82,8 @@ export default {
     $(document).off('keydown', this.holdshift)
     $(document).off('keyup', this.releaseShift)
     $('#popover').hide()
+    this.data.plusActive = false
+    this.data.minusActive = false
     paper.tool = null
   },
 
@@ -61,11 +97,20 @@ export default {
 
     this.tool.onMouseDown = (event) => {
       // if left click
+
       if (event.event.which === 1) {
-        if (event.modifiers.shift === true) {
-          paper.view.zoom = this.changeZoom(-1)
-        } else {
-          paper.view.zoom = this.changeZoom(1)
+        if (this.data.plusActive === true) {
+          if (event.modifiers.shift === true) {
+            paper.view.zoom = this.changeZoom(-1)
+          } else {
+            paper.view.zoom = this.changeZoom(1)
+          }
+        } else if (this.data.minusActive === true) {
+          if (event.modifiers.shift === true) {
+            paper.view.zoom = this.changeZoom(1)
+          } else {
+            paper.view.zoom = this.changeZoom(-1)
+          }
         }
       } else if (event.event.which === 3) {
         this.deActivateTool()
@@ -100,7 +145,11 @@ export default {
    */
   holdShift (event) {
     if (event.shiftKey === true) {
-      $('#origami-editor').css('cursor', 'zoom-out')
+      if (event.data.type === 'plus') {
+        $('#origami-editor').css('cursor', 'zoom-out')
+      } else {
+        $('#origami-editor').css('cursor', 'zoom-in')
+      }
     }
   },
 
@@ -111,7 +160,11 @@ export default {
    * @param {event} event
    */
   releaseShift (event) {
-    $('#origami-editor').css('cursor', 'zoom-in')
+    if (event.data.type === 'plus') {
+      $('#origami-editor').css('cursor', 'zoom-in')
+    } else {
+      $('#origami-editor').css('cursor', 'zoom-out')
+    }
   },
 
   /**
