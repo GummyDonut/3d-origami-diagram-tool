@@ -40,3 +40,6 @@ html, body {
   border: 1px solid black;
   pointer-events: none
 }
+.pure-button-active {
+  background-color:#e0dede;
+}
