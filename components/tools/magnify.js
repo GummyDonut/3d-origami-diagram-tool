@@ -1,5 +1,6 @@
 
 export default {
+  'tool-type': 'magnify',
   data: {
     // Is this tool currently on
     plusActive: false,
@@ -20,12 +21,12 @@ export default {
     this.toolListeners()
 
     // Plus icon for magnify in
-    $('#magnify-plus').on('click', (event) => {
+    $('#magnify-plus-tool').on('click', (event) => {
       // reset tool to all unactive
       this.deActivateTool()
 
       if (!this.data.plusActive) {
-        $('#magnify-plus').addClass('pure-button-active')
+        $('#magnify-plus-tool').addClass('pure-button-active')
         $('#origami-editor').css('cursor', 'zoom-in')
         this.tool.activate()
 
@@ -44,12 +45,12 @@ export default {
     })
 
     // Minus icon for zooming out
-    $('#magnify-minus').on('click', (event) => {
+    $('#magnify-minus-tool').on('click', (event) => {
       // reset tool to all unactive
       this.deActivateTool()
 
       if (!this.data.minusActive) {
-        $('#magnify-minus').addClass('pure-button-active')
+        $('#magnify-minus-tool').addClass('pure-button-active')
         $('#origami-editor').css('cursor', 'zoom-out')
 
         // reactive tool
@@ -73,8 +74,8 @@ export default {
    * Reset all setting for this tool
    */
   deActivateTool () {
-    $('#magnify-plus').removeClass('pure-button-active')
-    $('#magnify-minus').removeClass('pure-button-active')
+    $('#magnify-plus-tool').removeClass('pure-button-active')
+    $('#magnify-minus-tool').removeClass('pure-button-active')
     $('#origami-editor').css('cursor', 'pointer')
 
     // remove box from cursor and additional event-listeners
