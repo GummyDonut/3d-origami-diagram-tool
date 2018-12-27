@@ -21,7 +21,7 @@ class MagnifyTool extends Tool {
     $('#magnify-plus-tool').on('click', (event) => {
       if (!this.data.plusActive) {
         $('#magnify-plus-tool').addClass('pure-button-active')
-        $('#origami-editor').css('cursor', 'zoom-in')
+        $('#origami-editor').addClass('cursor-magnify-plus')
         this.tool.activate()
 
         // bind box to cursor

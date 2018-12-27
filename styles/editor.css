@@ -30,6 +30,9 @@ html, body {
     border:1px solid black;
     cursor: pointer;
 }
+#origami-editor.cursor-magnify-plus {
+    cursor: url(../assets/img/logo.svg), auto
+}
 #popover {
   position: absolute;
   float: left;
