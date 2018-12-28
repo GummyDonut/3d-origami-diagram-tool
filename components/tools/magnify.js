@@ -99,15 +99,15 @@ class MagnifyTool extends Tool {
       if (event.event.which === 1) {
         if (this.data.plusActive === true) {
           if (event.modifiers.shift === true) {
-            paper.view.zoom = this.changeZoom(-1)
+            this.changeZoom(-1, event.event.offsetX, event.event.offsetY)
           } else {
-            paper.view.zoom = this.changeZoom(1)
+            this.changeZoom(1, event.event.offsetX, event.event.offsetY)
           }
         } else if (this.data.minusActive === true) {
           if (event.modifiers.shift === true) {
-            paper.view.zoom = this.changeZoom(1)
+            this.changeZoom(1, event.event.offsetX, event.event.offsetY)
           } else {
-            paper.view.zoom = this.changeZoom(-1)
+            this.changeZoom(-1, event.event.offsetX, event.event.offsetY)
           }
         }
       } else if (event.event.which === 3) {
@@ -128,14 +128,30 @@ class MagnifyTool extends Tool {
    * Changes the zoom level of the current view
    * @param {Number} delta contains either a negative or positive number indicates which direction to zoom
    * negative is closer, positive is outward
+   * @param {Number} offsetX event offset where we clicked x axis
+   * @param {Number} offsetY event offset where we clicked y axis
    */
-  changeZoom (delta) {
+  changeZoom (delta, offsetX, offsetY) {
+    // zoom in factor
     let factor = 1.05
+    let viewCenter = paper.view.center
+    let mousePosition = new paper.Point(offsetX, offsetY)
+    let viewPosition = paper.view.viewToProject(mousePosition)
+    let newZoom
     if (delta < 0) {
-      return paper.view.zoom / factor
+      newZoom = paper.view.zoom / factor
     } else {
-      return paper.view.zoom * factor
+      newZoom = paper.view.zoom * factor
     }
+
+    // scale and update view center
+    let beta = paper.view.zoom / newZoom
+    let pointC = viewPosition.subtract(viewCenter)
+    let newOffset = viewPosition.subtract(pointC.multiply(beta))
+
+    // update the view
+    paper.view.zoom = newZoom
+    paper.view.center = newOffset
   }
 
   /**
