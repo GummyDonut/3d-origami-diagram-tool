@@ -19,8 +19,8 @@ class MagnifyTool extends Tool {
 
     // Plus icon for magnify in
     $('#magnify-plus-tool').on('click', (event) => {
-      this.deActivateTool()
       if (!this.data.plusActive) {
+        this.deActivateTool()
         $('#magnify-plus-tool').addClass('pure-button-active')
         super.changeToolIcon('cursor-magnify-plus')
         this.tool.activate()
@@ -36,14 +36,14 @@ class MagnifyTool extends Tool {
         // indicate that the plus tool is now active
         this.data.plusActive = true
       } else {
-        super.removeToolIcon()
+        this.deActivateTool()
       }
     })
 
     // Minus icon for zooming out
     $('#magnify-minus-tool').on('click', (event) => {
-      this.deActivateTool()
       if (!this.data.minusActive) {
+        this.deActivateTool()
         // reset tool to all unactive
         $('#magnify-minus-tool').addClass('pure-button-active')
         super.changeToolIcon('cursor-magnify-minus')
@@ -62,7 +62,7 @@ class MagnifyTool extends Tool {
         // indicate that the minus tool is now active
         this.data.minusActive = true
       } else {
-        super.removeToolIcon()
+        this.deActivateTool()
       }
     })
   }
@@ -89,9 +89,9 @@ class MagnifyTool extends Tool {
    * Event listeners to run for the tool
    */
   toolListeners () {
-    // TODO update this to zoom
+    // Create new custom paper tool
     this.tool = new paper.Tool()
-    this.tool.name = 'toolPath'
+    this.tool.name = 'magnifyTool'
 
     this.tool.onMouseDown = (event) => {
       // if left click
@@ -112,7 +112,6 @@ class MagnifyTool extends Tool {
         }
       } else if (event.event.which === 3) {
         this.deActivateTool()
-        super.removeToolIcon()
       }
     }
 

@@ -12,7 +12,10 @@ class tool {
    * Common function to run when deactivating
    */
   deActivateTool () {
-    paper.tool = null
+    if (paper.tool !== null && paper.tool.name === this.tool.name) {
+      paper.tool = null
+      this.removeToolIcon()
+    }
   }
 
   /**
