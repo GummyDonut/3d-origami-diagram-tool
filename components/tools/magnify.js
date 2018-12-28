@@ -19,9 +19,10 @@ class MagnifyTool extends Tool {
 
     // Plus icon for magnify in
     $('#magnify-plus-tool').on('click', (event) => {
+      this.deActivateTool()
       if (!this.data.plusActive) {
         $('#magnify-plus-tool').addClass('pure-button-active')
-        $('#origami-editor').addClass('cursor-magnify-plus')
+        super.changeToolIcon('cursor-magnify-plus')
         this.tool.activate()
 
         // bind box to cursor
@@ -35,17 +36,17 @@ class MagnifyTool extends Tool {
         // indicate that the plus tool is now active
         this.data.plusActive = true
       } else {
-        this.deActivateTool()
         super.removeToolIcon()
       }
     })
 
     // Minus icon for zooming out
     $('#magnify-minus-tool').on('click', (event) => {
+      this.deActivateTool()
       if (!this.data.minusActive) {
         // reset tool to all unactive
         $('#magnify-minus-tool').addClass('pure-button-active')
-        $('#origami-editor').css('cursor', 'zoom-out')
+        super.changeToolIcon('cursor-magnify-minus')
 
         // reactive tool
         this.tool.activate()
@@ -61,7 +62,6 @@ class MagnifyTool extends Tool {
         // indicate that the minus tool is now active
         this.data.minusActive = true
       } else {
-        this.deActivateTool()
         super.removeToolIcon()
       }
     })
@@ -145,9 +145,9 @@ class MagnifyTool extends Tool {
   holdShift (event) {
     if (event.shiftKey === true) {
       if (event.data.type === 'plus') {
-        $('#origami-editor').css('cursor', 'zoom-out')
+        super.changeToolIcon('cursor-magnify-minus')
       } else {
-        $('#origami-editor').css('cursor', 'zoom-in')
+        super.changeToolIcon('cursor-magnify-plus')
       }
     }
   }
@@ -160,9 +160,9 @@ class MagnifyTool extends Tool {
    */
   releaseShift (event) {
     if (event.data.type === 'plus') {
-      $('#origami-editor').css('cursor', 'zoom-in')
+      super.changeToolIcon('cursor-magnify-plus')
     } else {
-      $('#origami-editor').css('cursor', 'zoom-out')
+      super.changeToolIcon('cursor-magnify-minus')
     }
   }
 

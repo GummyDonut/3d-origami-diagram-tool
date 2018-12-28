@@ -31,7 +31,15 @@ html, body {
     cursor: pointer;
 }
 #origami-editor.cursor-magnify-plus {
-    cursor: url(../assets/img/logo.svg), auto
+  cursor: url(../assets/img/search-plus-solid.png), auto
+}
+
+#origami-editor.cursor-magnify-minus {
+  cursor: url(../assets/img/search-plus-minus.png), auto
+}
+
+#origami-editor.cursor-pan {
+  cursor: url(../assets/img/arrows-alt-solid.png), auto
 }
 #popover {
   position: absolute;

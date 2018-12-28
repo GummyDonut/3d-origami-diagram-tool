@@ -19,7 +19,15 @@ class tool {
    * Function for converting icon back to normal
    */
   removeToolIcon () {
-    $('#origami-editor').css('cursor', 'pointer')
+    $('#origami-editor').removeClass()
+  }
+
+  /**
+   * Function for converting changing the icon
+   */
+  changeToolIcon (classname) {
+    $('#origami-editor').removeClass()
+    $('#origami-editor').addClass(classname)
   }
 
   /**

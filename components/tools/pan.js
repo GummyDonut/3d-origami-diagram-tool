@@ -1,28 +1,31 @@
 import Tool from '../tool.js'
 
-let panTool = new Tool('pan')
-
-panTool.data = {
-  active: false
-}
-
-panTool.init = function () {
-  // initialize event-listeners for button
-  this.buttonEventListener()
-}
-
-panTool.buttonEventListener = function () {
-  $('#pan-tool').on('click', () => {
-    if (!this.data.active) {
-      $('#origami-editor').css('cursor', 'move')
+class panTool extends Tool {
+  constructor () {
+    super()
+    this['tool-type'] = 'pan'
+    this.data = {
+      active: false
     }
+  }
 
-    this.data.active = !this.data.active
-  })
-}
+  init () {
+    // initialize event-listeners for button
+    this.buttonEventListener()
+  }
 
-panTool.deActivateTool = function () {
-  this.data.active = false
+  buttonEventListener () {
+    $('#pan-tool').on('click', () => {
+      if (!this.data.active) {
+        super.changeToolIcon('cursor-pan')
+      }
+
+      this.data.active = !this.data.active
+    })
+  }
+  deActivateTool () {
+    this.data.active = false
+  }
 }
 
 /**
