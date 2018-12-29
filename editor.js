@@ -3,15 +3,22 @@ import tools from './components/tools.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
+  let editorSelect = $('#origami-editor')
+  let parent = editorSelect.parent()
+
   // Get a reference to the canvas object
-  var canvas = $('#origami-editor')[0]
+  var canvas = editorSelect[0]
   if (canvas === undefined) {
     alert('Could not retrieve canvas, origami editor')
     return
   }
 
+  // TODO resize event resize canvas
+  // canvas width must be defined in pixels
+  canvas.style.width = parent.width()
+
   // disable right-click options on canvas
-  $('#origami-editor').on('contextmenu', event => event.preventDefault())
+  editorSelect.on('contextmenu', event => event.preventDefault())
 
   // Create an empty project and a view for the canvas:
   paper.setup(canvas)
