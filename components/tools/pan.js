@@ -4,9 +4,6 @@ class panTool extends Tool {
   constructor () {
     super()
     this['tool-type'] = 'pan'
-    this.data = {
-      active: false
-    }
   }
 
   /**
@@ -28,11 +25,10 @@ class panTool extends Tool {
 
         // reactive tool
         this.tool.activate()
+        this.data.active = true
       } else {
         this.deActivateTool()
       }
-
-      this.data.active = !this.data.active
     })
   }
 
@@ -74,8 +70,6 @@ class panTool extends Tool {
    * Deactivate the tool, reset the settings
    */
   deActivateTool () {
-    this.data.active = false
-
     super.deActivateTool()
   }
 }

@@ -5,17 +5,29 @@ class tool {
   constructor () {
     this['tool-type'] = ''
     this.tool = null
-    this.data = {}
+    this.toolOption = null
+    this.data = {
+      active: false
+    }
   }
 
   /**
    * Common function to run when deactivating
    */
   deActivateTool () {
+    // note we check for name as we don't wanna disable global of another tool
     if (paper.tool !== null && paper.tool.name === this.tool.name) {
       paper.tool = null
       this.removeToolIcon()
     }
+
+    // remove tool options
+    if (this.toolOption !== null) {
+      this.toolOption.removeToolOptionsContent()
+    }
+
+    // deactivate tool
+    this.data.active = false
   }
 
   /**

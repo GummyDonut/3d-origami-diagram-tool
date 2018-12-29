@@ -9,7 +9,7 @@ export default {
     Initialize all tools within the project
   */
   init () {
-    // alias
+    // // alias
     let self = this
 
     // loop through initializing each tool
@@ -25,7 +25,7 @@ export default {
       if (toolButton) {
         // loop through deactivating other tools, besides the one clicked
         self.tools.forEach((toolItem) => {
-          if (toolItem['tool-type'] !== toolButton.attr('tool-type')) {
+          if (toolItem['tool-type'] !== toolButton.attr('tool-type') && toolItem.data.active === true) {
             toolItem.deActivateTool()
           }
         })

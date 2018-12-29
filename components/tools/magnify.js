@@ -1,13 +1,15 @@
 import Tool from '../tool.js'
+import MagnifyToolOptions from '../toolOptions/magnifyOptions.js'
+
+let toolOption = new MagnifyToolOptions()
 
 class MagnifyTool extends Tool {
   constructor () {
     super()
     this['tool-type'] = 'magnify'
-    this.data = {
-      plusActive: false,
-      minusActive: false
-    }
+    this.data.plusActive = false
+    this.data.minusActive = false
+    this.toolOption = toolOption
   }
 
   /**
@@ -25,6 +27,9 @@ class MagnifyTool extends Tool {
         super.changeToolIcon('cursor-magnify-plus')
         this.tool.activate()
 
+        // add options to tool options box
+        this.toolOption.addToToolOptionBox()
+
         // bind box to cursor
         $(document).on('mousemove', this.popover)
 
@@ -35,6 +40,7 @@ class MagnifyTool extends Tool {
         $('#popover').show()
         // indicate that the plus tool is now active
         this.data.plusActive = true
+        this.data.active = true
       } else {
         this.deActivateTool()
       }
@@ -51,6 +57,9 @@ class MagnifyTool extends Tool {
         // reactive tool
         this.tool.activate()
 
+        // add options to tool options box
+        this.toolOption.addToToolOptionBox()
+
         // bind box to cursor
         $(document).on('mousemove', this.popover)
 
@@ -61,6 +70,7 @@ class MagnifyTool extends Tool {
         $('#popover').show()
         // indicate that the minus tool is now active
         this.data.minusActive = true
+        this.data.active = true
       } else {
         this.deActivateTool()
       }
@@ -190,6 +200,13 @@ class MagnifyTool extends Tool {
       left: event.pageX - 100,
       top: event.pageY - 100
     })
+  }
+
+  /**
+   * Show the options within the tool options dialog
+   */
+  showToolOptions () {
+    toolOption.addToToolOptionBox()
   }
 }
 
