@@ -201,13 +201,6 @@ class MagnifyTool extends Tool {
       top: event.pageY - 100
     })
   }
-
-  /**
-   * Show the options within the tool options dialog
-   */
-  showToolOptions () {
-    toolOption.addToToolOptionBox()
-  }
 }
 
 export default MagnifyTool

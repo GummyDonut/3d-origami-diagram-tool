@@ -1,33 +1,30 @@
 import ToolOptions from '../toolOptions.js'
 
-let htmlContent = [
-  '<h4>Magnify Options</h4>',
-  '<div id="magnifySlider"></div>'
-]
-
 class MagnifyToolOptions extends ToolOptions {
   /**
    * @param {Array of Strings} html - contains html elements
    */
   constructor (html) {
     super()
-    this.html = htmlContent
+    this.html = 'magnifyOptions.html'
   }
 
   /**
    * Run on start and add HTML to tool box options
    */
   addToToolOptionBox () {
-    super.addToToolOptionBox()
-
-    this.optionsListeners()
+    super.addToToolOptionBox().then(() => {
+      this.optionsListeners()
+    })
   }
 
   /**
    * Event listeners for the items within options box
    */
   optionsListeners () {
-    $('#magnifySlider').slider()
+    $('#scale_amount').on('change', () => {
+      console.log('scale change')
+    })
   }
 }
 

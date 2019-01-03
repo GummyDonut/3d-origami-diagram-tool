@@ -18,4 +18,10 @@ Then cd into the folder of interest and run http-server
 * Use Math functions instead of operators on Point and Size.
 * Draw the view at the end, since that is now only automatically handled when a view.onFrame handler is installed.
 
+
+### Possible but unlikely improvements
+* Get this working with webpack, https://webpack.js.org/guides/getting-started/
+  * Note that paperjs and jquery require unique aliases and setup for webpack https://stackoverflow.com/questions/30576192/paper-js-with-webpack
+  https://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
+
 ### Note the tool has only been tested on Google Chrome and Firefox
