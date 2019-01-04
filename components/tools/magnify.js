@@ -20,6 +20,7 @@ class MagnifyTool extends Tool {
     this.toolListeners()
 
     // Plus icon for magnify in
+    // TODO REFACTOR THIS CODE TO ONE FUNCTION
     $('#magnify-plus-tool').on('click', (event) => {
       if (!this.data.plusActive) {
         this.deActivateTool()
@@ -31,7 +32,8 @@ class MagnifyTool extends Tool {
         this.toolOption.addToToolOptionBox()
 
         // bind box to cursor
-        $(document).on('mousemove', this.popover)
+        $('#origami-editor').on('mousemove', this.popover)
+        $('#origami-editor').on('mouseout', this.hidePopover)
 
         // shift key update icon
         $(document).on('keydown', { type: 'plus' }, this.holdShift)
@@ -61,7 +63,8 @@ class MagnifyTool extends Tool {
         this.toolOption.addToToolOptionBox()
 
         // bind box to cursor
-        $(document).on('mousemove', this.popover)
+        $('#origami-editor').on('mousemove', this.popover)
+        $('#origami-editor').on('mouseout', this.hidePopover)
 
         // shift key update icon
         $(document).on('keydown', { type: 'minus' }, this.holdShift)
@@ -85,7 +88,8 @@ class MagnifyTool extends Tool {
     $('#magnify-minus-tool').removeClass('pure-button-active')
 
     // remove box from cursor and additional event-listeners
-    $(document).off('mousemove', this.popover)
+    $('#origami-editor').off('mousemove', this.popover)
+    $('#origami-editor').off('mouseout', this.hidePopover)
     $(document).off('keydown', this.holdshift)
     $(document).off('keyup', this.releaseShift)
     $('#popover').hide()
@@ -207,10 +211,19 @@ class MagnifyTool extends Tool {
    * https://stackoverflow.com/questions/3385936/jquery-follow-the-cursor-with-a-div
    */
   popover (event) {
+    // check if popover is hidden
+    let visible = $('#popover').is(':visible')
+    if (!visible) {
+      $('#popover').show()
+    }
+
     $('#popover').css({
       left: event.pageX - 100,
       top: event.pageY - 100
     })
+  }
+  hidePopover (event) {
+    $('#popover').hide()
   }
 }
 
