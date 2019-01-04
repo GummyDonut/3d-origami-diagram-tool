@@ -141,8 +141,19 @@ class MagnifyTool extends Tool {
    * @param {Number} offsetY event offset where we clicked y axis
    */
   changeZoom (delta, offsetX, offsetY) {
+    let percent = this.toolOption.factor
+    // if factor is less than 1, error out
+    if (percent < 1) {
+      alert('Factor can not be lower than one')
+      return
+    } else if (percent > 100) {
+      alert('Factor can not be higher than one hundred')
+      return
+    }
+
     // zoom in factor
-    let factor = 1.05
+    let factor = 1 + (percent / 100)
+
     let viewCenter = paper.view.center
     let mousePosition = new paper.Point(offsetX, offsetY)
     let viewPosition = paper.view.viewToProject(mousePosition)

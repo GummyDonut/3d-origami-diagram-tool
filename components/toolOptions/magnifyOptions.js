@@ -1,12 +1,11 @@
 import ToolOptions from '../toolOptions.js'
 
+const toolSelection = '#scale_amount'
 class MagnifyToolOptions extends ToolOptions {
-  /**
-   * @param {Array of Strings} html - contains html elements
-   */
-  constructor (html) {
+  constructor () {
     super()
     this.html = 'magnifyOptions.html'
+    this.factor = 5 // number between 1 and 100
   }
 
   /**
@@ -15,6 +14,10 @@ class MagnifyToolOptions extends ToolOptions {
   addToToolOptionBox () {
     super.addToToolOptionBox().then(() => {
       this.optionsListeners()
+
+      // add initial value
+      this.factor = 5
+      $(toolSelection).val(this.factor)
     })
   }
 
@@ -22,8 +25,11 @@ class MagnifyToolOptions extends ToolOptions {
    * Event listeners for the items within options box
    */
   optionsListeners () {
-    $('#scale_amount').on('change', () => {
-      console.log('scale change')
+    // alias
+    var self = this
+
+    $(toolSelection).on('change', function (event) {
+      self.factor = parseInt(this.value)
     })
   }
 }
