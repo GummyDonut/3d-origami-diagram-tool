@@ -134,7 +134,7 @@ class MagnifyTool extends Tool {
     paper.tool = null
   }
 
-  /* TODO add pan and zoom
+  /*
   https://stackoverflow.com/questions/32540165/how-to-pan-using-paperjs
   https://matthiasberth.com/tech/stable-zoom-and-pan-in-paperjs */
   /**
