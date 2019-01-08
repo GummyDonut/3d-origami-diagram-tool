@@ -3,6 +3,8 @@ import MagnifyToolOptions from '../toolOptions/magnifyOptions.js'
 
 let toolOption = new MagnifyToolOptions()
 
+// TODO REFACTOR SEPERATE PLUS AND MINUS INTO SEPERATE FUNCTIONS
+// SO THAT THIS IS CONSISTENT WITH OTHER BUTTONS
 class MagnifyTool extends Tool {
   constructor () {
     super()
@@ -20,7 +22,6 @@ class MagnifyTool extends Tool {
     this.toolListeners()
 
     // Plus icon for magnify in
-    // TODO REFACTOR THIS CODE TO ONE FUNCTION
     $('#magnify-plus-tool').on('click', (event) => {
       if (!this.data.plusActive) {
         this.deActivateTool()
@@ -124,8 +125,6 @@ class MagnifyTool extends Tool {
             this.changeZoom(-1, event.event.offsetX, event.event.offsetY)
           }
         }
-      } else if (event.event.which === 3) {
-        this.deActivateTool()
       }
     }
 

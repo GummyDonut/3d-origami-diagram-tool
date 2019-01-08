@@ -19,6 +19,9 @@ html, body {
   background-color: aqua;
   padding:0.5em;
 }
+div.tool-row {
+  margin-top:0.25em;
+}
 #tool-options {
   float: right;
   height: 80%;
@@ -47,6 +50,11 @@ html, body {
 #origami-editor.cursor-pan {
   cursor: url(../assets/img/arrows-alt-solid.png), auto
 }
+/*Possibly move cursor origin*/
+/*https://stackoverflow.com/questions/19560878/css-change-custom-cursor-image-origin-hotspot-to-center*/
+#origami-editor.cursor-single-triangle {
+  cursor: url(../assets/img/caret-up-solid.png), auto
+}
 #popover {
   position: absolute;
   float: left;
@@ -62,4 +70,7 @@ html, body {
 }
 .pure-button-active {
   background-color:#aa9e9e;
+}
+button.tool-button {
+  min-width: 49px
 }

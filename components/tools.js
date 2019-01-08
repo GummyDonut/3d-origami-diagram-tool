@@ -1,5 +1,6 @@
 import Magnify from './tools/magnify.js'
 import Pan from './tools/pan.js'
+import SingleTriangle from './tools/singleTriangle.js'
 
 // Useful docs on tools
 // activating tools: https://stackoverflow.com/questions/49215584/toggling-multiple-tools-on-paper-js
@@ -36,5 +37,5 @@ export default {
    * Currently active tool
    */
   'active': null,
-  'tools': [new Magnify(), new Pan()]
+  'tools': [new Magnify(), new Pan(), new SingleTriangle()]
 }

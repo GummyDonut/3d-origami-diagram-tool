@@ -61,13 +61,6 @@ $(document).ready(() => {
       squarePath.strokeColor = 'black'
       squarePath.fillColor = 'white'
 
-      // square event-listener, on works on left click and if tool is not active
-      // TODO possible change check of null to triangle tool
-      squarePath.onClick = function (event) {
-        if (event.event.which === 1 && paper.tool === null) {
-          this.fillColor = 'red'
-        }
-      }
       // shift right
       drawingX += columnWidth
 

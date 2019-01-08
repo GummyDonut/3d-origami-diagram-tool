@@ -44,13 +44,6 @@ class panTool extends Tool {
       this.changeCenter(event)
     }
 
-    // right-click event to deactivate tool
-    this.tool.onMouseDown = (event) => {
-      if (event.event.which === 3) {
-        this.deActivateTool()
-      }
-    }
-
     // setting this to null makes it inactive on start
     // this is global active tool scope
     paper.tool = null
