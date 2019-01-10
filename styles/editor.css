@@ -40,20 +40,20 @@ div.tool-row {
   cursor: pointer;
 }
 #origami-editor.cursor-magnify-plus {
-  cursor: url(../assets/img/search-plus-solid.png), auto
+  cursor: url(../assets/img/search-plus-solid.png), zoom-in
 }
 
 #origami-editor.cursor-magnify-minus {
-  cursor: url(../assets/img/search-plus-minus.png), auto
+  cursor: url(../assets/img/search-plus-minus.png), zoom-out
 }
 
 #origami-editor.cursor-pan {
-  cursor: url(../assets/img/arrows-alt-solid.png), auto
+  cursor: url(../assets/img/arrows-alt-solid.png), move
 }
 /*Possibly move cursor origin*/
 /*https://stackoverflow.com/questions/19560878/css-change-custom-cursor-image-origin-hotspot-to-center*/
 #origami-editor.cursor-single-triangle {
-  cursor: url(../assets/img/caret-up-solid.png), auto
+  cursor: url(../assets/img/caret-up-solid.png) 8 0, pointer
 }
 #popover {
   position: absolute;

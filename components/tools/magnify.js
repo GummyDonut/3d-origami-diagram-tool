@@ -9,6 +9,7 @@ class MagnifyTool extends Tool {
   constructor () {
     super()
     this['tool-type'] = 'magnify'
+    this.toolname = 'magnifyTool'
     this.data.plusActive = false
     this.data.minusActive = false
     this.toolOption = toolOption
@@ -106,7 +107,7 @@ class MagnifyTool extends Tool {
   toolListeners () {
     // Create new custom paper tool
     this.tool = new paper.Tool()
-    this.tool.name = 'magnifyTool'
+    this.tool.name = this.toolname
 
     this.tool.onMouseDown = (event) => {
       // if left click

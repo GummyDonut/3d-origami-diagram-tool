@@ -63,13 +63,15 @@ $(document).ready(() => {
 
       // shift right
       drawingX += columnWidth
-
       // store the object
       if (canvasGrid[rowIndex] === undefined) {
         canvasGrid[rowIndex] = []
       }
 
-      canvasGrid[rowIndex][columnIndex] = squarePath
+      canvasGrid[rowIndex][columnIndex] = {
+        'path': squarePath,
+        'rectangle': square
+      }
     }
 
     // shift down, and reset left

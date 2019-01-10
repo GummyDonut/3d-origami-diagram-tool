@@ -4,6 +4,7 @@ class panTool extends Tool {
   constructor () {
     super()
     this['tool-type'] = 'pan'
+    this.selector = '#pan-tool'
   }
 
   /**
@@ -19,10 +20,11 @@ class panTool extends Tool {
    * Event listenter for button
    */
   buttonEventListener () {
-    $('#pan-tool').on('click', () => {
+    $(this.selector).on('click', () => {
       if (!this.data.active) {
         super.changeToolIcon('cursor-pan')
 
+        $(this.selector).addClass('pure-button-active')
         // reactive tool
         this.tool.activate()
         this.data.active = true
@@ -68,6 +70,7 @@ class panTool extends Tool {
    * Deactivate the tool, reset the settings
    */
   deActivateTool () {
+    $(this.selector).removeClass('pure-button-active')
     super.deActivateTool()
   }
 }
