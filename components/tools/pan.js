@@ -2,9 +2,7 @@ import Tool from '../tool.js'
 
 class panTool extends Tool {
   constructor () {
-    super()
-    this['tool-type'] = 'pan'
-    this.selector = '#pan-tool'
+    super('#pan-tool', 'panTool')
   }
 
   /**
@@ -39,7 +37,7 @@ class panTool extends Tool {
    */
   toolListeners () {
     this.tool = new paper.Tool()
-    this.tool.name = 'panTool'
+    this.tool.name = this.toolname
 
     // on click and drag
     this.tool.onMouseDrag = (event) => {

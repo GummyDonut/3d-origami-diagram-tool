@@ -2,9 +2,15 @@
  * Class for the tool that is used by the program
  */
 class tool {
-  constructor () {
-    this['tool-type'] = ''
+  /**
+   * Constructor
+   * @param {String} selector JQuery selection for the tool button
+   * @param {String} toolname Unique identifier for the tool
+   */
+  constructor (selector, toolname) {
     this.tool = null
+    this.selector = selector
+    this.toolname = toolname
     this.toolOption = null
     this.data = {
       active: false

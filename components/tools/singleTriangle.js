@@ -4,10 +4,7 @@ import Triangle from '../lib/triangle.js'
 
 class singleTriangleTool extends Tool {
   constructor () {
-    super()
-    this['tool-type'] = 'single-triangle'
-    this.selector = '#triangle-single-tool'
-    this.toolname = 'singleTriangleTool'
+    super('#triangle-single-tool', 'singleTriangleTool')
   }
 
   /**

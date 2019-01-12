@@ -6,10 +6,7 @@ let toolOption = new MagnifyToolOptions()
 
 class MagnifyMinusTool extends Tool {
   constructor () {
-    super()
-    this['tool-type'] = 'magnifyMinus'
-    this.toolname = 'magnifyMinusTool'
-    this.data.active = false
+    super('#magnify-minus-tool', 'magnifyMinusTool')
     this.toolOption = toolOption
   }
 
@@ -55,11 +52,13 @@ class MagnifyMinusTool extends Tool {
     $('#magnify-minus-tool').removeClass('pure-button-active')
 
     // remove box from cursor and additional event-listeners
-    $('#origami-editor').off('mousemove', MagnifyLibrary.popover)
-    $('#origami-editor').off('mouseout', MagnifyLibrary.hidePopover)
-    $(document).off('keydown', MagnifyLibrary.holdshift)
-    $(document).off('keyup', MagnifyLibrary.releaseShift)
-    $('#popover').hide()
+    if (paper.tool === null || (paper.tool && paper.tool.name !== 'magnifyPlusTool')) {
+      $('#origami-editor').off('mousemove', MagnifyLibrary.popover)
+      $('#origami-editor').off('mouseout', MagnifyLibrary.hidePopover)
+      $(document).off('keydown', MagnifyLibrary.holdshift)
+      $(document).off('keyup', MagnifyLibrary.releaseShift)
+      $('#popover').hide()
+    }
 
     super.deActivateTool()
   }

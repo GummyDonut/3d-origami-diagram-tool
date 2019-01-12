@@ -28,15 +28,21 @@ export default {
       if (toolButton) {
         // loop through deactivating other tools, besides the one clicked
         self.tools.forEach((toolItem) => {
-          if (toolItem['tool-type'] !== toolButton.attr('tool-type') && toolItem.data.active === true) {
+          if (toolItem.toolname !== toolButton.attr('tool-name') && toolItem.data.active === true) {
             toolItem.deActivateTool()
           }
+        })
+
+        // set the active tool
+        this.active = self.tools.find((toolItem) => {
+          return (toolItem.toolname === toolButton.attr('tool-name'))
         })
       }
     })
   },
   /**
    * Currently active tool
+   * Not really useful but here anyways, as we have paper.tool
    */
   'active': null,
   'tools': [new MagnifyPlus(), new MagnifyMinus(), new Pan(), new SingleTriangle()]
