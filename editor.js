@@ -68,9 +68,11 @@ $(document).ready(() => {
         canvasGrid[rowIndex] = []
       }
 
+      // TODO create grid square class
       canvasGrid[rowIndex][columnIndex] = {
         'path': squarePath,
-        'rectangle': square
+        'rectangle': square,
+        'triangle': null
       }
     }
 

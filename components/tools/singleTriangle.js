@@ -1,5 +1,6 @@
 import grid from '../grid.js'
 import Tool from '../tool.js'
+import Triangle from '../lib/triangle.js'
 
 class singleTriangleTool extends Tool {
   constructor () {
@@ -56,7 +57,8 @@ class singleTriangleTool extends Tool {
         for (let columnIndex = 0; columnIndex < canvasGrid[rowIndex].length; columnIndex++) {
           let square = canvasGrid[rowIndex][columnIndex].rectangle
           if (clickPoint.isInside(square)) {
-            canvasGrid[rowIndex][columnIndex].path.fillColor = 'red'
+            // add triangle or remove triangle based on whats inside the square
+            this.clickedInsideSquare(canvasGrid[rowIndex][columnIndex])
           }
         }
       }
@@ -65,6 +67,21 @@ class singleTriangleTool extends Tool {
     // setting this to null makes it inactive on start
     // this is global active tool scope
     paper.tool = null
+  }
+
+  /**
+   * Either remove or update the triangle that will be in the grid
+   * @param {Object} gridSquare - contains the rectangle, and path object we
+   * will be using to add a triangle in.
+   */
+  clickedInsideSquare (gridSquare) {
+    if (gridSquare.triangle === null) {
+      // The center should be the center of the square as well
+      gridSquare.triangle = new Triangle(gridSquare.rectangle)
+    } else {
+      gridSquare.triangle.path.remove()
+      gridSquare.triangle = null
+    }
   }
 
   deActivateTool () {
