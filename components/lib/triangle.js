@@ -4,8 +4,13 @@ class Triangle extends customShape {
   /**
    * Create a triangle on the board
    * @param {Rectangle} rectangle - rectangle object representing the sqaure grid
+   * @param {Object} options - represents the options we can add to this triangle
+   * {
+   *   strokeColor: <String representing the color>
+   *
+   * }
    */
-  constructor (rectangle) {
+  constructor (rectangle, options) {
     super()
     let path = new paper.Path()
 
@@ -16,7 +21,7 @@ class Triangle extends customShape {
 
     this.path = path
     this.path.fillColor = 'white'
-    this.path.strokeColor = '#ff0000'
+    this.path.strokeColor = (options.strokeColor) ? options.strokeColor : 'blue'
     this.path.selected = true
     this.path.fullySelected = false
   }

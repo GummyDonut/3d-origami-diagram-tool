@@ -1,10 +1,14 @@
 import grid from '../grid.js'
 import Tool from '../tool.js'
 import Triangle from '../lib/triangle.js'
+import SingleTriangleOptions from '../toolOptions/singleTriangleOptions.js'
+
+let toolOption = new SingleTriangleOptions()
 
 class singleTriangleTool extends Tool {
   constructor () {
     super('#triangle-single-tool', 'singleTriangleTool')
+    this.toolOption = toolOption
   }
 
   /**
@@ -25,6 +29,9 @@ class singleTriangleTool extends Tool {
         super.changeToolIcon('cursor-single-triangle')
 
         $(this.selector).addClass('pure-button-active')
+
+        // add options to tool options box
+        this.toolOption.addToToolOptionBox()
 
         // reactive tool
         this.tool.activate()
@@ -74,7 +81,9 @@ class singleTriangleTool extends Tool {
   clickedInsideSquare (gridSquare) {
     if (gridSquare.triangle === null) {
       // The center should be the center of the square as well
-      gridSquare.triangle = new Triangle(gridSquare.rectangle)
+      gridSquare.triangle = new Triangle(gridSquare.rectangle, {
+        'strokeColor': this.toolOption.strokeColor
+      })
     } else {
       gridSquare.triangle.path.remove()
       gridSquare.triangle = null

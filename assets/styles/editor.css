@@ -40,20 +40,20 @@ div.tool-row {
   cursor: pointer;
 }
 #origami-editor.cursor-magnify-plus {
-  cursor: url(../assets/img/search-plus-solid.png), zoom-in
+  cursor: url(../img/search-plus-solid.png), zoom-in
 }
 
 #origami-editor.cursor-magnify-minus {
-  cursor: url(../assets/img/search-plus-minus.png), zoom-out
+  cursor: url(../img/search-plus-minus.png), zoom-out
 }
 
 #origami-editor.cursor-pan {
-  cursor: url(../assets/img/arrows-alt-solid.png), move
+  cursor: url(../img/arrows-alt-solid.png), move
 }
 /*Possibly move cursor origin*/
 /*https://stackoverflow.com/questions/19560878/css-change-custom-cursor-image-origin-hotspot-to-center*/
 #origami-editor.cursor-single-triangle {
-  cursor: url(../assets/img/caret-up-solid.png) 8 0, pointer
+  cursor: url(../img/caret-up-solid.png) 8 0, pointer
 }
 #popover {
   position: absolute;
@@ -64,6 +64,7 @@ div.tool-row {
   height:200px;
   border: 1px solid black;
   pointer-events: none;
+  z-index:100;
 }
 .pure-button {
   border:0.5px solid black;
@@ -73,4 +74,18 @@ div.tool-row {
 }
 button.tool-button {
   min-width: 49px
+}
+div.color-picker-box {
+  position: relative;
+	width: 36px;
+	height: 36px;
+  background: url(../lib/colorpicker/images/select2.png);
+}
+div.color-picker-box div {
+  position: absolute;
+  top: 4px;
+	left: 4px;
+  width: 28px;
+  height: 28px;
+  background: url(../lib/colorpicker/images/select2.png) center;
 }
