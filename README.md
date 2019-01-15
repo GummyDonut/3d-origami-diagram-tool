@@ -18,6 +18,33 @@ Then cd into the folder of interest and run http-server
 * Use Math functions instead of operators on Point and Size.
 * Draw the view at the end, since that is now only automatically handled when a view.onFrame handler is installed.
 
+### Main Todo list
+* Create all the necessary tools
+  * Single Triangle tool
+  * Line tool
+  * Eraser tool
+  * Text tool
+  * Square tool
+  * Paint bucket tool
+* Show/hide grid
+* Border around grid to show boundaries
+* Edit the size of the grid(append/remove)
+* Export/Import Image
+* Export/Import Save file(Might do local save and browser save)
+  * AutoSave feature for recovery
+* Undo/Redo history
+* Full Screen button
+
+
+### Maybe read into for later
+* Information about layers, possibly useful for manipulating text, or just simply adding layers
+  * http://paperjs.org/tutorials/project-items/project-hierarchy/#active-layer
+
+
+### Cool features for the future
+* On smaller screens realign tool set
+  * https://www.pixilart.com/draw
+* API Gallery to store people's diagrams
 
 ### Possible but unlikely improvements
 * Get this working with webpack, https://webpack.js.org/guides/getting-started/
