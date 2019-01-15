@@ -20,7 +20,12 @@ class Triangle extends customShape {
     path.closed = true
 
     this.path = path
-    this.path.fillColor = 'white'
+
+    // If there is a fill specified
+    if (options.fill) {
+      this.path.fillColor = (options.fillColor) ? options.fillColor : 'blue'
+    }
+
     this.path.strokeColor = (options.strokeColor) ? options.strokeColor : 'blue'
     this.path.selected = true
     this.path.fullySelected = false

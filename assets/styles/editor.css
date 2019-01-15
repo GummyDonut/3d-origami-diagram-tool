@@ -2,7 +2,12 @@ html, body {
   height: 100%;
   margin: 0;
 }
-
+#main-container {
+  justify-content: space-between;
+}
+#canvas-container {
+  margin-top:0.5em
+}
 #tool-bar {
   width: 100%;
   height:12%;

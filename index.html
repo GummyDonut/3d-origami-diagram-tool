@@ -17,7 +17,7 @@
     <body>
         <!--reusable popover-->
         <span style="display:none" id="popover" class="cursor-box"></span>
-        <div class="pure-g"> 
+        <div id="main-container" class="pure-g"> 
           <div id="tool-bar" class="pure-u-1-6">
           </div>
           <div id="tool-window" style="min-width:150px;">
@@ -47,10 +47,9 @@
                 </button>
               </div>
             </div>
-
           </div>
           <!-- TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404-->
-          <div class="pure-u-15-24">
+          <div id="canvas-container" class="pure-u-15-24">
             <canvas id="origami-editor" resize></canvas>
           </div>
           <div id="tool-options" style="min-width:150px;" class="pure-u-1-6">

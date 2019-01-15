@@ -82,7 +82,9 @@ class singleTriangleTool extends Tool {
     if (gridSquare.triangle === null) {
       // The center should be the center of the square as well
       gridSquare.triangle = new Triangle(gridSquare.rectangle, {
-        'strokeColor': this.toolOption.strokeColor
+        'strokeColor': this.toolOption.strokeColor,
+        'fillColor': this.toolOption.fillColor,
+        'fill': this.toolOption.fill
       })
     } else {
       gridSquare.triangle.path.remove()
