@@ -1,5 +1,7 @@
 import grid from './components/grid.js'
 import tools from './components/tools.js'
+import GridSquare from './components/gridSquare.js'
+import toolBar from './components/toolBar.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
@@ -69,11 +71,12 @@ $(document).ready(() => {
       }
 
       // TODO create grid square class
-      canvasGrid[rowIndex][columnIndex] = {
-        'path': squarePath,
-        'rectangle': square,
-        'triangle': null
-      }
+      canvasGrid[rowIndex][columnIndex] = new GridSquare({
+        'squarePath': squarePath,
+        'square': square,
+        'row': rowIndex,
+        'column': columnIndex
+      })
     }
 
     // shift down, and reset left
@@ -84,4 +87,7 @@ $(document).ready(() => {
 
   // Draw the view now:
   paper.view.draw()
+
+  // init event-listeners for the toolbar
+  toolBar.init()
 })

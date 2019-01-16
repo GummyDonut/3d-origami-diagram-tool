@@ -2,6 +2,8 @@ import grid from '../grid.js'
 import Tool from '../tool.js'
 import Triangle from '../lib/triangle.js'
 import SingleTriangleOptions from '../toolOptions/singleTriangleOptions.js'
+import actionStack from '../actionStack.js'
+import AddTrianglesAction from '../actions/AddTrianglesAction.js'
 
 let toolOption = new SingleTriangleOptions()
 
@@ -59,7 +61,7 @@ class singleTriangleTool extends Tool {
       // IF laggy, possibly update this
       for (let rowIndex = 0; rowIndex < canvasGrid.length; rowIndex++) {
         for (let columnIndex = 0; columnIndex < canvasGrid[rowIndex].length; columnIndex++) {
-          let square = canvasGrid[rowIndex][columnIndex].rectangle
+          let square = canvasGrid[rowIndex][columnIndex].square.rectangle
           if (clickPoint.isInside(square)) {
             // add triangle or remove triangle based on whats inside the square
             this.clickedInsideSquare(canvasGrid[rowIndex][columnIndex])
@@ -81,14 +83,19 @@ class singleTriangleTool extends Tool {
   clickedInsideSquare (gridSquare) {
     if (gridSquare.triangle === null) {
       // The center should be the center of the square as well
-      gridSquare.triangle = new Triangle(gridSquare.rectangle, {
+      gridSquare.triangle = new Triangle(gridSquare.square.rectangle, {
         'strokeColor': this.toolOption.strokeColor,
         'fillColor': this.toolOption.fillColor,
         'fill': this.toolOption.fill
       })
+
+      // push action onto stack
+      actionStack.undoStack.push(new AddTrianglesAction([gridSquare]))
     } else {
       gridSquare.triangle.path.remove()
       gridSquare.triangle = null
+
+      // TODO make a removeTriangleAction
     }
   }
 
