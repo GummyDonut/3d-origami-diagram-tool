@@ -1,7 +1,7 @@
 import grid from './components/grid.js'
 import tools from './components/tools.js'
 import GridSquare from './components/gridSquare.js'
-import toolBar from './components/toolBar.js'
+import globalTools from './components/globalTools.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
@@ -89,5 +89,5 @@ $(document).ready(() => {
   paper.view.draw()
 
   // init event-listeners for the toolbar
-  toolBar.init()
+  globalTools.init()
 })

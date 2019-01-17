@@ -13,6 +13,8 @@ class AddTrianglesAction extends Action {
     // loop through paths and remove them from canvas
     this.gridSquares.forEach(gridSquare => {
       gridSquare.triangle.path.remove()
+
+      // update triangle
       gridSquare.triangle = null
     })
   }

@@ -4,6 +4,7 @@ import Triangle from '../lib/triangle.js'
 import SingleTriangleOptions from '../toolOptions/singleTriangleOptions.js'
 import actionStack from '../actionStack.js'
 import AddTrianglesAction from '../actions/AddTrianglesAction.js'
+import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
 
 let toolOption = new SingleTriangleOptions()
 
@@ -92,10 +93,16 @@ class singleTriangleTool extends Tool {
       // push action onto stack
       actionStack.undoStack.push(new AddTrianglesAction([gridSquare]))
     } else {
+      // If a triangle exist we will overwrite it
       gridSquare.triangle.path.remove()
-      gridSquare.triangle = null
-
-      // TODO make a removeTriangleAction
+      let oldTriangle = gridSquare.triangle
+      gridSquare.triangle = new Triangle(gridSquare.square.rectangle, {
+        'strokeColor': this.toolOption.strokeColor,
+        'fillColor': this.toolOption.fillColor,
+        'fill': this.toolOption.fill
+      })
+      // push action onto stack
+      actionStack.undoStack.push(new OverwriteTrianglesAction([gridSquare], [oldTriangle]))
     }
   }
 
