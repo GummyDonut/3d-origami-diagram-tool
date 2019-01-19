@@ -36,7 +36,6 @@ class MagnifyMinusTool extends Tool {
         $(document).on('keydown', { type: 'minus', magnify: this }, MagnifyLibrary.holdShift)
         $(document).on('keyup', { type: 'minus', magnify: this }, MagnifyLibrary.releaseShift)
 
-        $('#popover').show()
         // indicate that the minus tool is now active
         this.data.active = true
       } else {

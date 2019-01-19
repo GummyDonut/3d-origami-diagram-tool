@@ -42,6 +42,10 @@ export default {
     let visible = $('#popover').is(':visible')
     if (!visible) {
       $('#popover').show()
+
+      // update popover to magnify box
+      $('#popover').removeClass()
+      $('#popover').addClass('magnify-box')
     }
 
     $('#popover').css({

@@ -78,12 +78,18 @@ div.tool-row {
   position: absolute;
   float: left;
 }
-.cursor-box{
+.magnify-box{
   width:200px;
   height:200px;
   border: 1px solid black;
   pointer-events: none;
   z-index:100;
+}
+.eraser-box{
+  background-color: gray;
+  pointer-events: none;
+  z-index:100;
+  opacity: 0.8;
 }
 .pure-button {
   border:0.5px solid black;

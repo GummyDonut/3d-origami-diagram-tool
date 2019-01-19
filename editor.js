@@ -50,6 +50,10 @@ $(document).ready(() => {
   // loop through creating shifted grid element, with squares and store information
   let canvasGrid = grid.grid
 
+  // store the dimensions of grid at top level for easy-access
+  grid.squareWidth = columnWidth
+  grid.squareHeight = columnHeight
+
   // coordinate of drawing point
   let drawingX = 0
   let drawingY = 0

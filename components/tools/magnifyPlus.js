@@ -36,7 +36,6 @@ class MagnifyPlusTool extends Tool {
         $(document).on('keydown', { type: 'plus', magnify: this }, MagnifyLibrary.holdShift)
         $(document).on('keyup', { type: 'plus', magnify: this }, MagnifyLibrary.releaseShift)
 
-        $('#popover').show()
         // indicate that the plus tool is now active
         this.data.active = true
       } else {
@@ -53,7 +52,7 @@ class MagnifyPlusTool extends Tool {
 
     // note don't remove listeners for these if opposite is on
     if (paper.tool === null || (paper.tool.name !== 'magnifyMinusTool')) {
-    // remove box from cursor and additional event-listeners
+      // remove box from cursor and additional event-listeners
       $('#origami-editor').off('mousemove', MagnifyLibrary.popover)
       $('#origami-editor').off('mouseout', MagnifyLibrary.hidePopover)
       $(document).off('keydown', MagnifyLibrary.holdshift)
