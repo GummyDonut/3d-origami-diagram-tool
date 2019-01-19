@@ -1,17 +1,20 @@
+import actionStack from '../actionStack.js'
+
 class Action {
-  /**
-   * Store the path objects that we will need redo/undo the action
-   * @param {Array of Path} paths - Paperjs path objects, we will use to redraw or remove the objects
-   */
-  constructor () {
-    this.paths = []
-  }
   undo () {
-    console.log('No action specified')
+    // when we undo we need to push action onto redo stack
+    actionStack.pushToRedo(this)
   }
 
   redo () {
-    console.log('No redo specified')
+    // if there is no more redo actions disable button
+    if (actionStack.redoStack.length === 0) {
+      $('#redo-button').prop('disabled', true)
+    }
+
+    // when we redo we have to add back the action onto the stack
+    // without disabling the button
+    actionStack.undoStack.push(this)
   }
 }
 

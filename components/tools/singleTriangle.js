@@ -91,8 +91,12 @@ class singleTriangleTool extends Tool {
       })
 
       // push action onto stack
-      actionStack.undoStack.push(new AddTrianglesAction([gridSquare]))
+      actionStack.pushToUndo(new AddTrianglesAction([gridSquare]))
     } else {
+      // TODO use matches to compare the new object with old then don't recreate and return
+      // NOTE NULL FILLCOLOR IF EMPTY
+      // console.log(gridSquare.triangle.path.matches({ 'fillColor': this.toolOption.fillColor }))
+
       // If a triangle exist we will overwrite it
       gridSquare.triangle.path.remove()
       let oldTriangle = gridSquare.triangle
@@ -101,8 +105,9 @@ class singleTriangleTool extends Tool {
         'fillColor': this.toolOption.fillColor,
         'fill': this.toolOption.fill
       })
+
       // push action onto stack
-      actionStack.undoStack.push(new OverwriteTrianglesAction([gridSquare], [oldTriangle]))
+      actionStack.pushToUndo(new OverwriteTrianglesAction([gridSquare], [oldTriangle]))
     }
   }
 
