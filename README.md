@@ -20,19 +20,22 @@ Then cd into the folder of interest and run http-server
 
 ### Main Todo list
 * Create all the necessary tools
-  * Single Triangle tool
+  * ~~Single Triangle tool~~
   * Line tool
   * Eraser tool
   * Text tool
   * Square tool
   * Paint bucket tool
+  * Paint brush tool (Multi-line tool)
 * Show/hide grid
+* Grid dialog on start
 * Border around grid to show boundaries
 * Edit the size of the grid(append/remove)
 * Export/Import Image
 * Export/Import Save file(Might do local save and browser save)
   * AutoSave feature for recovery
-* Undo/Redo history
+* ~~Undo/Redo history~~
+  * Actions needed to be added per type
 * Full Screen button
 
 
