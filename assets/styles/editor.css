@@ -69,6 +69,10 @@ div.tool-row {
 #origami-editor.cursor-pan {
   cursor: url(../img/arrows-alt-solid.png), move
 }
+
+#origami-editor.cursor-eraser {
+  cursor: pointer;
+}
 /*Possibly move cursor origin*/
 /*https://stackoverflow.com/questions/19560878/css-change-custom-cursor-image-origin-hotspot-to-center*/
 #origami-editor.cursor-single-triangle {
@@ -79,8 +83,8 @@ div.tool-row {
   float: left;
 }
 .magnify-box{
-  width:200px;
-  height:200px;
+  width:200px !important;
+  height:200px !important;
   border: 1px solid black;
   pointer-events: none;
   z-index:100;

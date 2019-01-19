@@ -60,12 +60,14 @@ class singleTriangleTool extends Tool {
 
       // Loop through to check if we clicked in the possible area
       // IF laggy, possibly update this
+      // TODO UPDATE THIS TO ONLY SEARCH A PORTION OF GRID
       for (let rowIndex = 0; rowIndex < canvasGrid.length; rowIndex++) {
         for (let columnIndex = 0; columnIndex < canvasGrid[rowIndex].length; columnIndex++) {
           let square = canvasGrid[rowIndex][columnIndex].square.rectangle
           if (clickPoint.isInside(square)) {
             // add triangle or remove triangle based on whats inside the square
             this.clickedInsideSquare(canvasGrid[rowIndex][columnIndex])
+            return
           }
         }
       }

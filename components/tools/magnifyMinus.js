@@ -51,7 +51,7 @@ class MagnifyMinusTool extends Tool {
     $('#magnify-minus-tool').removeClass('pure-button-active')
 
     // remove box from cursor and additional event-listeners
-    if (paper.tool === null || (paper.tool && paper.tool.name !== 'magnifyPlusTool')) {
+    if (paper.tool && paper.tool.name !== 'magnifyPlusTool') {
       $('#origami-editor').off('mousemove', MagnifyLibrary.popover)
       $('#origami-editor').off('mouseout', MagnifyLibrary.hidePopover)
       $(document).off('keydown', MagnifyLibrary.holdshift)

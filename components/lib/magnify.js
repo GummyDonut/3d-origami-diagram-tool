@@ -1,6 +1,7 @@
 /**
  * Contains library functions for magnifying to be used by plus and minus
  */
+let popover = $('#popover')
 export default {
 
   /**
@@ -39,23 +40,23 @@ export default {
    */
   popover (event) {
     // check if popover is hidden
-    let visible = $('#popover').is(':visible')
+    let visible = popover.is(':visible')
     if (!visible) {
-      $('#popover').show()
+      popover.show()
 
       // update popover to magnify box
-      $('#popover').removeClass()
-      $('#popover').addClass('magnify-box')
+      popover.removeClass()
+      popover.addClass('magnify-box')
     }
 
-    $('#popover').css({
+    popover.css({
       left: event.pageX - 100,
       top: event.pageY - 100
     })
   },
 
   hidePopover (event) {
-    $('#popover').hide()
+    popover.hide()
   },
 
   /** CHANGE THE MAGNIFICATION FUNCTION */

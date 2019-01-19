@@ -30,8 +30,9 @@ $(document).ready(() => {
 
   // dimensions of grid (e.g. a 5x10 grid)
   // small note remember that the JS is cached,
+  // max we can work with consistently seems to be 100
   let rows = 36
-  let cols = 58
+  let cols = 50
 
   // get the width and height of the canvas
   let canvasWidth = $('#origami-editor').width()
