@@ -34,42 +34,28 @@ $(document).ready(() => {
   let rows = 36
   let cols = 50
 
-  // get the width and height of the canvas
-  let canvasWidth = $('#origami-editor').width()
-  let canvasHeight = $('#origami-editor').height()
-
-  let columnWidth = canvasWidth / cols
-  let columnHeight = canvasHeight / rows
-
-  // get the smaller value to make a square
-  if (columnWidth < columnHeight) {
-    columnHeight = columnWidth
-  } else {
-    columnWidth = columnHeight
-  }
-
   // loop through creating shifted grid element, with squares and store information
   let canvasGrid = grid.grid
 
   // store the dimensions of grid at top level for easy-access
-  grid.squareWidth = columnWidth
-  grid.squareHeight = columnHeight
+  grid.squareWidth = 14
+  grid.squareHeight = 14
 
   // coordinate of drawing point
   let drawingX = 0
   let drawingY = 0
   let offsetted = false // should we shift
-  let offset = columnWidth / 2
+  let offset = grid.squareWidth / 2
   for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
     for (let columnIndex = 0; columnIndex < cols; columnIndex++) {
       let xCoordinate = drawingX + ((offsetted) ? offset : 0)
-      let square = new paper.Rectangle(xCoordinate, drawingY, columnWidth, columnHeight)
+      let square = new paper.Rectangle(xCoordinate, drawingY, grid.squareWidth, grid.squareHeight)
       var squarePath = new paper.Path.Rectangle(square)
       squarePath.strokeColor = 'black'
       squarePath.fillColor = 'white'
 
       // shift right
-      drawingX += columnWidth
+      drawingX += grid.squareWidth
       // store the object
       if (canvasGrid[rowIndex] === undefined) {
         canvasGrid[rowIndex] = []
@@ -86,7 +72,7 @@ $(document).ready(() => {
 
     // shift down, and reset left
     drawingX = 0
-    drawingY += columnHeight
+    drawingY += grid.squareHeight
     offsetted = !offsetted
   }
 
