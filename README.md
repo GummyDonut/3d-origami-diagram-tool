@@ -3,9 +3,14 @@ Tool for drawing 3d origami diagrams
 https://3dorigamitools.netlify.com
 
 ###To quickly run dev server
-install http-server
-`npm install http-server -g`
-Then cd into the folder of interest and run http-server
+install http-server, package should be dev dependency
+`npm install`
+Then run the http-server
+`node node_modules/http-server/bin/http-server`
+or run the npm script
+`npm run dev`
+
+
 
 ### Dependencies
 * paperjs
