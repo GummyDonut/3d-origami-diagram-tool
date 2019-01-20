@@ -1,6 +1,9 @@
 
-import customShape from './customShape.js'
-class Triangle extends customShape {
+import CustomShape from './CustomShape.js'
+/**
+ * Custom class for triangle
+ */
+class Triangle extends CustomShape {
   /**
    * Create a triangle on the board
    * @param {Rectangle} rectangle - rectangle object representing the sqaure grid

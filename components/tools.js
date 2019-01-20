@@ -1,9 +1,9 @@
 
-import Pan from './tools/pan.js'
-import SingleTriangle from './tools/singleTriangle.js'
-import MagnifyMinus from './tools/magnifyMinus.js'
-import MagnifyPlus from './tools/magnifyPlus.js'
-import Eraser from './tools/eraser.js'
+import PanTool from './tools/PanTool.js'
+import TriangleTool from './tools/TriangleTool.js'
+import MagnifyMinusTool from './tools/MagnifyMinusTool.js'
+import MagnifyPlusTool from './tools/MagnifyPlusTool.js'
+import EraserTool from './tools/EraserTool.js'
 
 // Useful docs on tools
 // activating tools: https://stackoverflow.com/questions/49215584/toggling-multiple-tools-on-paper-js
@@ -46,5 +46,5 @@ export default {
    * Not really useful but here anyways, as we have paper.tool
    */
   'active': null,
-  'tools': [new MagnifyPlus(), new MagnifyMinus(), new Pan(), new SingleTriangle(), new Eraser()]
+  'tools': [new MagnifyPlusTool(), new MagnifyMinusTool(), new PanTool(), new TriangleTool(), new EraserTool()]
 }

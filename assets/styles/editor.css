@@ -75,8 +75,8 @@ div.tool-row {
 }
 /*Possibly move cursor origin*/
 /*https://stackoverflow.com/questions/19560878/css-change-custom-cursor-image-origin-hotspot-to-center*/
-#origami-editor.cursor-single-triangle {
-  cursor: url(../img/caret-up-solid.png) 8 0, pointer
+#origami-editor.cursor-triangle {
+  cursor: pointer
 }
 #popover {
   position: absolute;

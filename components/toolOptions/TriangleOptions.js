@@ -1,7 +1,7 @@
 import ToolOptions from '../toolOptions.js'
-class singleTriangleOptions extends ToolOptions {
+class TriangleOptions extends ToolOptions {
   constructor () {
-    super('singleTriangleOptions.html')
+    super('triangleOptions.html')
   }
 
   /**
@@ -67,4 +67,4 @@ class singleTriangleOptions extends ToolOptions {
   }
 }
 
-export default singleTriangleOptions
+export default TriangleOptions

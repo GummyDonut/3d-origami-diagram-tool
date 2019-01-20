@@ -1,17 +1,19 @@
-import grid from '../grid.js'
+
 import Tool from '../tool.js'
-import Triangle from '../lib/triangle.js'
-import SingleTriangleOptions from '../toolOptions/singleTriangleOptions.js'
+import Triangle from '../lib/Triangle.js'
+import TriangleOptions from '../toolOptions/TriangleOptions.js'
 import actionStack from '../actionStack.js'
 import AddTrianglesAction from '../actions/AddTrianglesAction.js'
 import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
+import PopoverCursor from '../lib/PopoverCursor.js'
 
-let toolOption = new SingleTriangleOptions()
+let toolOption = new TriangleOptions()
 
-class singleTriangleTool extends Tool {
+class TriangleTool extends Tool {
   constructor () {
-    super('#triangle-single-tool', 'singleTriangleTool')
+    super('#triangle-tool', 'TriangleTool')
     this.toolOption = toolOption
+    this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this))
   }
 
   /**
@@ -29,9 +31,12 @@ class singleTriangleTool extends Tool {
   buttonEventListener () {
     $(this.selector).on('click', () => {
       if (!this.data.active) {
-        super.changeToolIcon('cursor-single-triangle')
+        super.changeToolIcon('cursor-triangle')
 
         $(this.selector).addClass('pure-button-active')
+
+        $('#origami-editor').on('mousemove', this.popoverMove.popover)
+        $('#origami-editor').on('mouseout', this.popoverMove.hidePopover)
 
         // add options to tool options box
         this.toolOption.addToToolOptionBox()
@@ -53,25 +58,7 @@ class singleTriangleTool extends Tool {
     this.tool = new paper.Tool()
     this.tool.name = this.toolname
 
-    this.tool.onMouseDown = (event) => {
-      // create point so we can use library function
-      let clickPoint = new paper.Point(event.point.x, event.point.y)
-      let canvasGrid = grid.grid
-
-      // Loop through to check if we clicked in the possible area
-      // IF laggy, possibly update this
-      // TODO UPDATE THIS TO ONLY SEARCH A PORTION OF GRID
-      for (let rowIndex = 0; rowIndex < canvasGrid.length; rowIndex++) {
-        for (let columnIndex = 0; columnIndex < canvasGrid[rowIndex].length; columnIndex++) {
-          let square = canvasGrid[rowIndex][columnIndex].square.rectangle
-          if (clickPoint.isInside(square)) {
-            // add triangle or remove triangle based on whats inside the square
-            this.clickedInsideSquare(canvasGrid[rowIndex][columnIndex])
-            return
-          }
-        }
-      }
-    }
+    this.tool.onMouseDown = this.popoverMove.isWithinPopover.bind(this.popoverMove)
 
     // setting this to null makes it inactive on start
     // this is global active tool scope
@@ -115,11 +102,27 @@ class singleTriangleTool extends Tool {
 
   deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
+
+    $('#origami-editor').off('mousemove', this.popoverMove.popover)
+    $('#origami-editor').off('mouseout', this.popoverMove.hidePopover)
+    this.popoverMove.hidePopover()
+
     super.deActivateTool()
+  }
+
+  /**
+   * How we are modifying the gridsquares upon click
+   * @param {Array of GridSquare} gridSquares
+   */
+  popoverCursorAction (gridSquares) {
+    // loop through and update
+    gridSquares.forEach(gridSquare => {
+      this.clickedInsideSquare(gridSquare)
+    })
   }
 }
 
 /**
  * Tool for clicking the triangle
  */
-export default singleTriangleTool
+export default TriangleTool
