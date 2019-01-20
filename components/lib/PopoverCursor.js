@@ -59,21 +59,30 @@ class PopoverCursor {
       return
     }
 
-    // create point so we can use library function
-    // let clickPoint = new paper.Point(event.point.x, event.point.y)
     let boxWidth = grid.squareWidth * (this.cursorSize - 1)
     let boxHeight = grid.squareHeight * (this.cursorSize - 1)
-    let popoverX = event.point.x - (boxWidth / 2)
-    let popoverY = event.point.y - (boxHeight / 2)
-    let popoverRectangle = new paper.Rectangle(popoverX, popoverY, boxWidth, boxHeight)
+
+    let topLeft = {
+      'x': event.point.x - (boxWidth / 2),
+      'y': event.point.y - (boxHeight / 2)
+    }
+    let bottomRight = {
+      'x': event.point.x + (boxWidth / 2),
+      'y': event.point.y + (boxWidth / 2)
+    }
+
+    let topleftRowColumn = this._getRowColumn(topLeft.x, topLeft.y)
+    let bottomRightRowColumn = this._getRowColumn(bottomRight.x, bottomRight.y)
+
+    let popoverRectangle = new paper.Rectangle(topLeft.x, topLeft.y, boxWidth, boxHeight)
 
     let gridSquaresWithinPopover = []
 
     // Loop through to check if we clicked in the possible area
     // TODO IF laggy, possibly update this
     let canvasGrid = grid.grid
-    for (let rowIndex = 0; rowIndex < canvasGrid.length; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < canvasGrid[rowIndex].length; columnIndex++) {
+    for (let rowIndex = topleftRowColumn.row; rowIndex <= bottomRightRowColumn.row; rowIndex++) {
+      for (let columnIndex = topleftRowColumn.column; columnIndex <= bottomRightRowColumn.column; columnIndex++) {
         let square = canvasGrid[rowIndex][columnIndex].square.rectangle
         if (popoverRectangle.intersects(square)) {
           gridSquaresWithinPopover.push(canvasGrid[rowIndex][columnIndex])
@@ -94,16 +103,33 @@ class PopoverCursor {
    * @param {*} event
    */
   singleClickPopover (event) {
-    let x = event.point.x
-    let y = event.point.y
+    let rowColumn = this._getRowColumn(event.point.x, event.point.y)
+    this.popoverCursorAction([grid.grid[rowColumn.row][rowColumn.column]])
+  }
 
+  _getRowColumn (x, y) {
     let gridWidth = grid.squareWidth
     let gridHeight = grid.squareHeight
 
     let row = Math.floor(y / (gridWidth))
+    // validate row, can't go out of bounds
+    if (row < 0) {
+      row = 0
+    } else if (row > grid.grid.length) {
+      row = grid.grid.length
+    }
+
     let offset = this._isEven(row) ? 0 : -1 * (gridWidth / 2)
     let column = Math.floor((x + offset) / (gridHeight))
-    this.popoverCursorAction([grid.grid[row][column]])
+
+    // validate column
+    if (column < 0) {
+      column = 0
+    } else if (column > grid.grid[0].length) {
+      column = grid.grid[0].length
+    }
+
+    return { 'row': row, 'column': column }
   }
 
   _isEven (n) {
