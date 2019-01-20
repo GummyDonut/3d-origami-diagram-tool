@@ -18,8 +18,9 @@ class AddTrianglesAction extends Action {
   /**
    * Undo by removing the triangle that was added
    * Note store the triangle removed for redo
+   * @param {Boolean} grouped Indicates that this is part of a group
    */
-  undo () {
+  undo (grouped) {
     // loop through paths and remove them from canvas
     this.gridSquares.forEach(gridSquare => {
       gridSquare.triangle.path.remove()
@@ -31,13 +32,16 @@ class AddTrianglesAction extends Action {
       gridSquare.triangle = null
     })
 
-    super.undo()
+    if (!grouped) {
+      super.undo()
+    }
   }
 
   /**
    * Take stored triangle and add back in
+   * @param {Boolean} grouped Indicates that this is part of a group
    */
-  redo () {
+  redo (grouped) {
     // loop through gridSquare and re-add to canvas
     this.gridSquares.forEach(gridSquare => {
       let serial = utils.serialize(gridSquare.row, gridSquare.column)
@@ -53,7 +57,9 @@ class AddTrianglesAction extends Action {
       delete this.removedTriangles[serial]
     })
 
-    super.redo()
+    if (!grouped) {
+      super.redo()
+    }
   }
 }
 

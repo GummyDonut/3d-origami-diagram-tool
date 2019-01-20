@@ -21,8 +21,9 @@ class OverwriteTrianglesAction extends Action {
 
   /**
    * Undo the overwrite by removing the existing triangle and placing the old triangle back in
+   * @param {Boolean} grouped Indicates that this is part of a group
    */
-  undo () {
+  undo (grouped) {
     // loop through paths and remove them from canvas
     this.gridSquares.forEach((gridSquare, gridIndex) => {
       // store triangle for replacement, when we redo
@@ -38,14 +39,17 @@ class OverwriteTrianglesAction extends Action {
       gridSquare.triangle = oldTriangle
     })
 
-    super.undo()
+    if (!grouped) {
+      super.undo()
+    }
   }
 
   /**
    * Redo the overwrite by removing the existing triangle and adding back in the triangle
    * that was removed by the undo
+   * @param {Boolean} grouped Indicates that this is part of a group
    */
-  redo () {
+  redo (grouped) {
     this.gridSquares.forEach((gridSquare, gridIndex) => {
       gridSquare.triangle.path.remove()
       let replacementTriangle = this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)]
@@ -55,7 +59,9 @@ class OverwriteTrianglesAction extends Action {
       // once we redo remove replaced triangle
       delete this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)]
     })
-    super.redo()
+    if (!grouped) {
+      super.redo()
+    }
   }
 }
 

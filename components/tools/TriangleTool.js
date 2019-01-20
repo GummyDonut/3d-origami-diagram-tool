@@ -6,6 +6,7 @@ import actionStack from '../actionStack.js'
 import AddTrianglesAction from '../actions/AddTrianglesAction.js'
 import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
+import GroupActions from '../actions/GroupActions.js'
 
 class TriangleTool extends Tool {
   constructor () {
@@ -67,6 +68,7 @@ class TriangleTool extends Tool {
    * Either remove or update the triangle that will be in the grid
    * @param {Object} gridSquare - contains the rectangle, and path object we
    * will be using to add a triangle in.
+   * @returns {Object} represents what kind of action we need to push
    */
   clickedInsideSquare (gridSquare) {
     if (gridSquare.triangle === null) {
@@ -78,7 +80,7 @@ class TriangleTool extends Tool {
       })
 
       // push action onto stack
-      actionStack.pushToUndo(new AddTrianglesAction([gridSquare]))
+      return new AddTrianglesAction([gridSquare])
     } else {
       // TODO use matches to compare the new object with old then don't recreate and return
       // NOTE NULL FILLCOLOR IF EMPTY
@@ -94,7 +96,7 @@ class TriangleTool extends Tool {
       })
 
       // push action onto stack
-      actionStack.pushToUndo(new OverwriteTrianglesAction([gridSquare], [oldTriangle]))
+      return new OverwriteTrianglesAction([gridSquare], [oldTriangle])
     }
   }
 
@@ -113,10 +115,16 @@ class TriangleTool extends Tool {
    * @param {Array of GridSquare} gridSquares
    */
   popoverCursorAction (gridSquares) {
+    let changedSquares = []
+
     // loop through and update
     gridSquares.forEach(gridSquare => {
-      this.clickedInsideSquare(gridSquare)
+      changedSquares.push(this.clickedInsideSquare(gridSquare))
     })
+
+    if (changedSquares.length > 0) {
+      actionStack.pushToUndo(new GroupActions(changedSquares))
+    }
   }
 }
 
