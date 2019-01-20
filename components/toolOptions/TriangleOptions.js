@@ -1,7 +1,17 @@
 import ToolOptions from '../toolOptions.js'
 class TriangleOptions extends ToolOptions {
-  constructor () {
+  /**
+   * Constructor
+   * @param {PopoverCursor} popoverMove - WE use to update values
+   */
+  constructor (popoverMove) {
     super('triangleOptions.html')
+    // add initial value
+    this.strokeColor = '#0000ff'
+    this.fillColor = '#0000ff'
+    this.fill = false
+    this.toolSize = 1
+    this.popoverMove = popoverMove
   }
 
   /**
@@ -10,11 +20,7 @@ class TriangleOptions extends ToolOptions {
   addToToolOptionBox () {
     super.addToToolOptionBox().then(() => {
       this.optionsListeners()
-
-      // add initial value
-      this.strokeColor = '#0000ff'
-      this.fillColor = '#0000ff'
-      this.fill = false
+      this.initValue()
     })
   }
 
@@ -52,6 +58,21 @@ class TriangleOptions extends ToolOptions {
       }
     })
 
+    // Indicate the size of the popover box
+    $('#triangleToolSize').on('change', function (event) {
+      let pixelSize = parseInt(this.value)
+
+      // validate, possibly set a max
+      if (pixelSize < 1) {
+        pixelSize = 1
+        $(this).val(pixelSize)
+      }
+
+      // update cursor
+      self.toolSize = pixelSize
+      self.popoverMove.cursorSize = self.toolSize
+    })
+
     // update fill color
     $('#triangleFillColorPicker').ColorPicker({
       color: self.fillColor,
@@ -64,6 +85,14 @@ class TriangleOptions extends ToolOptions {
         $(el).ColorPickerHide()
       }
     })
+  }
+
+  /**
+   * Instantiate with initial values
+   */
+  initValue () {
+    $('#triangleFill').prop('checked', this.fill)
+    $('#triangleToolSize').val(this.toolSize)
   }
 }
 

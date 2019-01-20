@@ -7,13 +7,11 @@ import AddTrianglesAction from '../actions/AddTrianglesAction.js'
 import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
 
-let toolOption = new TriangleOptions()
-
 class TriangleTool extends Tool {
   constructor () {
     super('#triangle-tool', 'TriangleTool')
-    this.toolOption = toolOption
-    this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this))
+    this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
+    this.toolOption = new TriangleOptions(this.popoverMove)
   }
 
   /**
@@ -35,7 +33,7 @@ class TriangleTool extends Tool {
 
         $(this.selector).addClass('pure-button-active')
 
-        $('#origami-editor').on('mousemove', this.popoverMove.popover)
+        $('#origami-editor').on('mousemove', this.popoverMove.popover.bind(this.popoverMove))
         $('#origami-editor').on('mouseout', this.popoverMove.hidePopover)
 
         // add options to tool options box

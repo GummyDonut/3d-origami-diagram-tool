@@ -9,7 +9,7 @@ class eraserTool extends Tool {
   constructor () {
     super('#eraser-tool', 'eraserTool')
 
-    this.popoverMove = new PopoverCursor(this.popoverCursorAction)
+    this.popoverMove = new PopoverCursor(this.popoverCursorAction, 3)
   }
 
   /**
