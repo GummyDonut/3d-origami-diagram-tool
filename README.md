@@ -25,13 +25,14 @@ or run the npm script
 
 ### Main Todo list
 * Create all the necessary tools
-  * ~~Single Triangle tool~~
+  * ~~Single/Paintbrush(This has been combined into one)~~
+    * Add support for mousedragevent
+    * Only overwrite if triangles are different
   * Line tool
   * Eraser tool
   * Text tool
   * Square tool
   * Paint bucket tool
-  * Paint brush tool (Multi-line tool)
 * Show/hide grid
 * Grid dialog on start
 * Border around grid to show boundaries
@@ -42,11 +43,14 @@ or run the npm script
 * ~~Undo/Redo history~~
   * Actions needed to be added per type
 * Full Screen button
+* Mouse co-ordinate system, figure out which square you are on
+* label indicate size of grid
 
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers
   * http://paperjs.org/tutorials/project-items/project-hierarchy/#active-layer
+  * This may be useful for like having a seperate text layer or a seperate grid layer
 
 
 ### Cool features for the future
