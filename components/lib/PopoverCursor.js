@@ -94,23 +94,21 @@ class PopoverCursor {
    * @param {*} event
    */
   singleClickPopover (event) {
-    // create point so we can use library function
-    let clickPoint = new paper.Point(event.point.x, event.point.y)
-    let canvasGrid = grid.grid
+    let x = event.point.x
+    let y = event.point.y
 
-    // Loop through to check if we clicked in the possible area
-    // IF laggy, possibly update this
-    // TODO UPDATE THIS TO ONLY SEARCH A PORTION OF GRID
-    for (let rowIndex = 0; rowIndex < canvasGrid.length; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < canvasGrid[rowIndex].length; columnIndex++) {
-        let square = canvasGrid[rowIndex][columnIndex].square.rectangle
-        if (clickPoint.isInside(square)) {
-          // add triangle or remove triangle based on whats inside the square
-          this.popoverCursorAction([canvasGrid[rowIndex][columnIndex]])
-          return
-        }
-      }
-    }
+    let gridWidth = grid.squareWidth
+    let gridHeight = grid.squareHeight
+
+    let row = Math.floor(y / (gridWidth))
+    let offset = this._isEven(row) ? 0 : -1 * (gridWidth / 2)
+    let column = Math.floor((x + offset) / (gridHeight))
+    this.popoverCursorAction([grid.grid[row][column]])
+  }
+
+  _isEven (n) {
+    n = Number(n)
+    return n === 0 || !!(n && !(n % 2))
   }
 }
 
