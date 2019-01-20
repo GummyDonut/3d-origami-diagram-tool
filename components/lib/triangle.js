@@ -33,6 +33,20 @@ class Triangle extends CustomShape {
     this.path.selected = true
     this.path.fullySelected = false
   }
+
+  /**
+   * Function to check if triangle if similar to other
+   * @param {Object} options tooloptions contains the options we will comparing
+   */
+  matches (options) {
+    // if there is fill add
+    let fillColor = (options.fill) ? options.fillColor : null
+
+    return this.path.matches({
+      'strokeColor': options.strokeColor,
+      'fillColor': fillColor
+    })
+  }
 }
 
 export default Triangle

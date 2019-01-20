@@ -58,6 +58,7 @@ class TriangleTool extends Tool {
     this.tool.name = this.toolname
 
     this.tool.onMouseDown = this.popoverMove.isWithinPopover.bind(this.popoverMove)
+    this.tool.onMouseDrag = this.popoverMove.isWithinPopover.bind(this.popoverMove)
 
     // setting this to null makes it inactive on start
     // this is global active tool scope
@@ -82,9 +83,10 @@ class TriangleTool extends Tool {
       // push action onto stack
       return new AddTrianglesAction([gridSquare])
     } else {
-      // TODO use matches to compare the new object with old then don't recreate and return
-      // NOTE NULL FILLCOLOR IF EMPTY
-      // console.log(gridSquare.triangle.path.matches({ 'fillColor': this.toolOption.fillColor }))
+      // If the gridSquare triangle matches do not redraw
+      if (gridSquare.triangle.matches(this.toolOption)) {
+        return
+      }
 
       // If a triangle exist we will overwrite it
       gridSquare.triangle.path.remove()
@@ -119,7 +121,10 @@ class TriangleTool extends Tool {
 
     // loop through and update
     gridSquares.forEach(gridSquare => {
-      changedSquares.push(this.clickedInsideSquare(gridSquare))
+      let insideSquare = this.clickedInsideSquare(gridSquare)
+      if (insideSquare !== undefined) {
+        changedSquares.push(insideSquare)
+      }
     })
 
     if (changedSquares.length > 0) {
