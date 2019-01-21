@@ -82,7 +82,7 @@ div.tool-row {
   position: absolute;
   float: left;
 }
-.magnify-box{
+.magnify-box {
   width:200px !important;
   height:200px !important;
   border: 1px solid black;

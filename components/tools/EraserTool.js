@@ -10,6 +10,7 @@ class eraserTool extends Tool {
     super('#eraser-tool', 'eraserTool')
 
     this.popoverMove = new PopoverCursor(this.popoverCursorAction, 3)
+    this.popoverFunction = this.popoverMove.popover.bind(this.popoverMove)
   }
 
   /**
@@ -31,7 +32,7 @@ class eraserTool extends Tool {
 
         super.changeToolIcon('cursor-eraser')
         // bind box to cursor
-        $('#origami-editor').on('mousemove', this.popoverMove.popover)
+        $('#origami-editor').on('mousemove', this.popoverFunction)
         $('#origami-editor').on('mouseout', this.popoverMove.hidePopover)
 
         this.tool.activate()
@@ -61,7 +62,7 @@ class eraserTool extends Tool {
   deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
-    $('#origami-editor').off('mousemove', this.popoverMove.popover)
+    $('#origami-editor').off('mousemove', this.popoverFunction)
     $('#origami-editor').off('mouseout', this.popoverMove.hidePopover)
     this.popoverMove.hidePopover()
 

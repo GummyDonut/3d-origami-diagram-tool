@@ -13,6 +13,9 @@ class TriangleTool extends Tool {
     super('#triangle-tool', 'TriangleTool')
     this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
     this.toolOption = new TriangleOptions(this.popoverMove)
+
+    // need to store this way so I can unbind properly
+    this.popoverFunction = this.popoverMove.popover.bind(this.popoverMove)
   }
 
   /**
@@ -34,7 +37,7 @@ class TriangleTool extends Tool {
 
         $(this.selector).addClass('pure-button-active')
 
-        $('#origami-editor').on('mousemove', this.popoverMove.popover.bind(this.popoverMove))
+        $('#origami-editor').on('mousemove', this.popoverFunction)
         $('#origami-editor').on('mouseout', this.popoverMove.hidePopover)
 
         // add options to tool options box
@@ -105,7 +108,7 @@ class TriangleTool extends Tool {
   deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
-    $('#origami-editor').off('mousemove', this.popoverMove.popover)
+    $('#origami-editor').off('mousemove', this.popoverFunction)
     $('#origami-editor').off('mouseout', this.popoverMove.hidePopover)
     this.popoverMove.hidePopover()
 
