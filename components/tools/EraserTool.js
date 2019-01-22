@@ -1,6 +1,7 @@
 
 import Tool from '../tool.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
+import EraserOptions from '../toolOptions/EraserOptions.js'
 
 /**
  * Tool for removing triangles from canvas
@@ -9,8 +10,10 @@ class eraserTool extends Tool {
   constructor () {
     super('#eraser-tool', 'eraserTool')
 
-    this.popoverMove = new PopoverCursor(this.popoverCursorAction, 3)
+    this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
     this.popoverFunction = this.popoverMove.popover.bind(this.popoverMove)
+    this.hidePopoverFunction = this.popoverMove.hidePopover.bind(this)
+    this.toolOption = new EraserOptions(this.popoverMove)
   }
 
   /**
@@ -33,7 +36,10 @@ class eraserTool extends Tool {
         super.changeToolIcon('cursor-eraser')
         // bind box to cursor
         $('#origami-editor').on('mousemove', this.popoverFunction)
-        $('#origami-editor').on('mouseout', this.popoverMove.hidePopover)
+        $('#origami-editor').on('mouseout', this.hidePopoverFunction)
+
+        // add options
+        this.toolOption.addToToolOptionBox()
 
         this.tool.activate()
         this.data.active = true
@@ -53,6 +59,7 @@ class eraserTool extends Tool {
     this.tool.name = this.toolname
 
     this.tool.onMouseDown = this.popoverMove.isWithinPopover.bind(this.popoverMove)
+    this.tool.onMouseDrag = this.popoverMove.isWithinPopover.bind(this.popoverMove)
 
     // setting this to null makes it inactive on start
     // this is global active tool scope
@@ -63,8 +70,8 @@ class eraserTool extends Tool {
     $(this.selector).removeClass('pure-button-active')
 
     $('#origami-editor').off('mousemove', this.popoverFunction)
-    $('#origami-editor').off('mouseout', this.popoverMove.hidePopover)
-    this.popoverMove.hidePopover()
+    $('#origami-editor').off('mouseout', this.hidePopoverFunction)
+    this.hidePopoverFunction()
 
     super.deActivateTool()
   }
@@ -75,8 +82,27 @@ class eraserTool extends Tool {
   popoverCursorAction (gridSquares) {
     // loop through and update
     gridSquares.forEach(gridSquare => {
-      gridSquare.square.path.fillColor = 'red'
+      this.clickedInsideSquare(gridSquare)
     })
+  }
+
+  /**
+   * Action to run on the square we just clicked
+   * @param {Object} gridSquare - contains the rectangle, and path object we
+   * will be using to add a triangle in.
+   */
+  clickedInsideSquare (gridSquare) {
+    let triangle = gridSquare.triangle
+
+    // sanity check
+    if (triangle !== null) {
+      triangle.path.remove()
+      gridSquare.triangle = null
+    }
+  }
+
+  hidePopoverFunction () {
+    this.popoverMove.hidePopover()
   }
 }
 
