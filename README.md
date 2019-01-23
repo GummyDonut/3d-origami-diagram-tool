@@ -64,7 +64,7 @@ or run the npm script
   * Note that paperjs and jquery require unique aliases and setup for webpack https://stackoverflow.com/questions/30576192/paper-js-with-webpack
   https://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
 
-### Note the tool has only been tested on Google Chrome and Firefox
+### Note the tool has only been tested on latest versions of Google Chrome and Firefox
 
 ### Site for reference, what it plans to look like
 https://www.pixilart.com/draw
