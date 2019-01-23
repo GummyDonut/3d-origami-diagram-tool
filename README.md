@@ -38,6 +38,7 @@ or run the npm script
 * Border around grid to show boundaries
 * Edit the size of the grid(append/remove)
 * Export/Import Image
+  * Update the view size to bounds of grid and then toDataURL that
 * Export/Import Save file(Might do local save and browser save)
   * AutoSave feature for recovery
 * ~~Undo/Redo history~~

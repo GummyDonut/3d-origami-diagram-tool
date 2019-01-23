@@ -1,7 +1,10 @@
 
 import Tool from '../tool.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
+import actionStack from '../actionStack.js'
 import EraserOptions from '../toolOptions/EraserOptions.js'
+import RemoveTrianglesAction from '../actions/RemoveTrianglesAction.js'
+import GroupActions from '../actions/GroupActions.js'
 
 /**
  * Tool for removing triangles from canvas
@@ -80,10 +83,19 @@ class eraserTool extends Tool {
   * @param {Array of GridSquare} gridSquares
   */
   popoverCursorAction (gridSquares) {
+    let changedSquares = []
+
     // loop through and update
     gridSquares.forEach(gridSquare => {
-      this.clickedInsideSquare(gridSquare)
+      let insideSquare = this.clickedInsideSquare(gridSquare)
+      if (insideSquare !== undefined) {
+        changedSquares.push(insideSquare)
+      }
     })
+
+    if (changedSquares.length > 0) {
+      actionStack.pushToUndo(new GroupActions(changedSquares))
+    }
   }
 
   /**
@@ -98,11 +110,10 @@ class eraserTool extends Tool {
     if (triangle !== null) {
       triangle.path.remove()
       gridSquare.triangle = null
-    }
-  }
 
-  hidePopoverFunction () {
-    this.popoverMove.hidePopover()
+      // TODO add undo redo implementation
+      return new RemoveTrianglesAction([gridSquare], [triangle])
+    }
   }
 }
 
