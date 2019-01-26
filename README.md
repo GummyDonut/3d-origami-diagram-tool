@@ -33,7 +33,10 @@ or run the npm script
   * Text tool
   * Square tool
   * Paint bucket tool
-* Show/hide grid
+* ~~Show/hide grid~~
+* ~~Canvas Border~~
+* Grid options
+* Canvas Border options
 * Grid dialog on start
 * Border around grid to show boundaries
 * Edit the size of the grid(append/remove)

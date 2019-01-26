@@ -2,6 +2,7 @@ import grid from './components/grid.js'
 import tools from './components/tools.js'
 import GridSquare from './components/gridSquare.js'
 import globalTools from './components/globalTools.js'
+import canvasBorder from './components/canvasBorder.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
@@ -75,6 +76,15 @@ $(document).ready(() => {
     drawingY += grid.squareHeight
     offsetted = !offsetted
   }
+
+  // init the canvasBorder
+  let canvasX = canvasGrid[0][0].square.rectangle.x
+  let canvasY = canvasGrid[0][0].square.rectangle.y
+  let lastRow = canvasGrid[canvasGrid.length - 1]
+  let lastGridSquareRect = lastRow[lastRow.length - 1].square.rectangle
+  let canvasWidth = (lastGridSquareRect.x + lastGridSquareRect.width) - canvasX
+  let canvasHeight = (lastGridSquareRect.y + lastGridSquareRect.height) - canvasY
+  canvasBorder.init(canvasX, canvasY, canvasWidth, canvasHeight)
 
   // Draw the view now:
   paper.view.draw()
