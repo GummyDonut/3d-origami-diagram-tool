@@ -1,5 +1,9 @@
-
+/**
+ * Functions to initiate tools that exist on the page
+ * at all times
+ */
 import actionStack from './actionStack.js'
+import grid from './grid.js'
 export default {
 
   /**
@@ -36,6 +40,17 @@ export default {
         this.redoClick()
       }
     })
+
+    $('#showhide-grid-button').on('click', () => {
+      if (grid.visible) {
+        this.changeGridVisibility(false)
+      } else {
+        this.changeGridVisibility(true)
+      }
+
+      // toggle grid visibility
+      grid.visible = !grid.visible
+    })
   },
 
   /**
@@ -56,6 +71,21 @@ export default {
     if (lastAction !== undefined) {
       lastAction.redo()
     }
+  },
+
+  /**
+   * Change the grid visibility
+   * @param {Boolean} visibility - True if grid to make it visible false otherwise
+   */
+  changeGridVisibility (visibility) {
+    let canvasGrid = grid.grid
+
+    // loop through and make all squares invisible
+    canvasGrid.forEach(rowElement => {
+      rowElement.forEach(gridSquare => {
+        gridSquare.square.path.visible = visibility
+      })
+    })
   }
 
 }

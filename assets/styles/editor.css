@@ -25,6 +25,10 @@ html, body {
   position: absolute;
   background-color: cornflowerblue;
 }
+#tool-footer div{
+  padding-top:1em;
+  padding-left:0.5em;
+}
 #tool-window {
   height: 80%;
   display: inline-block;
