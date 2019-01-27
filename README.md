@@ -26,19 +26,20 @@ or run the npm script
 ### Main Todo list
 * Create all the necessary tools
   * ~~Single/Paintbrush(This has been combined into one)~~
-    * Add support for mousedragevent
-    * Only overwrite if triangles are different
+    * ~~Add support for mousedragevent~~
+    * ~~Only overwrite if triangles are different~~
   * Line tool
   * Eraser tool
   * Text tool
   * Square tool
   * Paint bucket tool
+  * Arrow Tool - for simply drawing errors
 * ~~Show/hide grid~~
 * ~~Canvas Border~~
 * Grid options
 * Canvas Border options
 * Grid dialog on start
-* Border around grid to show boundaries
+* ~~Border around grid to show boundaries~~
 * Edit the size of the grid(append/remove)
 * Export/Import Image
   * Update the view size to bounds of grid and then toDataURL that
@@ -49,6 +50,7 @@ or run the npm script
 * Full Screen button
 * Mouse co-ordinate system, figure out which square you are on
 * label indicate size of grid
+* Loading Screen if things look funny on start
 
 
 ### Maybe read into for later
