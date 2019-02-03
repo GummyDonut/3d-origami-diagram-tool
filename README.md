@@ -51,7 +51,12 @@ or run the npm script
 * Mouse co-ordinate system, figure out which square you are on
 * label indicate size of grid
 * Loading Screen if things look funny on start
-
+* Layering and layer manager
+  * Add a new layer
+  * Remove Layer
+  * Duplicate Layer
+  * Delete Layer
+  * Move layer up and down
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

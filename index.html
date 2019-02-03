@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
   <link rel="stylesheet" type="text/css" href="assets/styles/editor.css">
   <link rel="stylesheet" type="text/css" href="assets/styles/toolBar.css">
+  <link rel="stylesheet" type="text/css" href="assets/styles/layerManager.css">
 
   <!-- color picker assets -->
   <!-- https://www.eyecon.ro/colorpicker/#implement -->
@@ -24,8 +25,23 @@
     <!--reusable popover-->
     <span style="display:none" id="popover" class="magnify-box"></span>
     <div id="layer-manager" title="Layers">
-      <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized
-        and closed with the 'x' icon.</p>
+      <div class="tool-footer">
+        <button id="layer-manager-add" class="pure-button layer-button">
+          <i class="far fa-plus-square"></i>
+        </button>
+        <button id="layer-manager-move-up" class="pure-button layer-button">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+        <button id="layer-manager-move-down" class="pure-button layer-button">
+          <i class="fas fa-arrow-down"></i>
+        </button>
+        <button id="layer-manager-delete" class="pure-button layer-button">
+          <i class="far fa-trash-alt"></i>
+        </button>
+        <button id="layer-manager-duplicate" class="pure-button layer-button">
+          <i class="far fa-clone"></i>
+        </button>
+      </div>
     </div>
     <div id="main-container" class="pure-g">
       <!--TODO FIX STYLING FOR TOOL BAR-->

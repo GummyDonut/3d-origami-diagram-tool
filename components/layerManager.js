@@ -17,5 +17,11 @@ export default {
     $('#layer-manager').on('dialogclose', function (event) {
       $('#tool-bar-showlayers > i').hide()
     })
+
+    // access layers through here
+    // http://paperjs.org/reference/project/#layers
+    // http://paperjs.org/reference/layer/
+    // update name
+    console.log(paper.project)
   }
 }
