@@ -4,6 +4,7 @@ import GridSquare from './components/gridSquare.js'
 import globalTools from './components/globalTools.js'
 import canvasBorder from './components/canvasBorder.js'
 import layerManager from './components/layerManager.js'
+import toolBar from './components/toolBar.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
@@ -95,4 +96,7 @@ $(document).ready(() => {
 
   // init layer manager dialog
   layerManager.init()
+
+  // init toolbar
+  toolBar.init()
 })

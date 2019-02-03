@@ -13,5 +13,9 @@ export default {
       'width': 200,
       'height': 400
     })
+
+    $('#layer-manager').on('dialogclose', function (event) {
+      $('#tool-bar-showlayers > i').hide()
+    })
   }
 }
