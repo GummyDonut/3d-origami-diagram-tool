@@ -1,13 +1,21 @@
 #layer-manager {
   padding:0
 }
-#layer-manager div.tool-footer {
-  /* display: inline-flex; */
+#layer-manager div.layer-footer {
+  display: inline-flex;
   width: auto;
   height: auto;
   bottom: 0;
   position: absolute;
   background-color: cornflowerblue;
+}
+
+#layer-manager div.layer-container {
+  width:99%;
+  min-height:200px;
+  margin-top:0.25em;
+  background-color:#f5f5f5;
+  border:0.5px solid #0000003d;
 }
 
 button.layer-button {
