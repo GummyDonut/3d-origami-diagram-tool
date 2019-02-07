@@ -62,7 +62,8 @@ or run the npm script
 * Information about layers, possibly useful for manipulating text, or just simply adding layers
   * http://paperjs.org/tutorials/project-items/project-hierarchy/#active-layer
   * This may be useful for like having a seperate text layer or a seperate grid layer
-
+  * SMALL NOTE - paperjs abuses associative arrays and stores items in arrays both with the key and the index.
+    That how they get the name and index thing working
 
 ### Cool features for the future
 * On smaller screens realign tool set
