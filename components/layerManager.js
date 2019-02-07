@@ -1,3 +1,5 @@
+import addLayer from './layerManager/AddLayer.js'
+
 export default {
 
   /**
@@ -19,7 +21,19 @@ export default {
       $('#tool-bar-showlayers > i').hide()
     })
 
+    this.initEventListener()
+
     this.draw()
+  },
+
+  /**
+   * Init all the event-listeners on the layout manager
+   */
+  initEventListener () {
+    // Custom event listeners
+    $(addLayer.selector).on('draw', this.draw)
+
+    addLayer.init()
   },
 
   /**
@@ -34,7 +48,7 @@ export default {
     }
     // If there is only one layer and has no name set a default name
     if (layers.length === 1 && layers[0].name === null) {
-      layers[0].name = 'background'
+      layers[0].name = 'GRID'
     }
 
     // clear out content
