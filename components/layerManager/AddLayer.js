@@ -29,15 +29,13 @@ class AddLayer {
       let newLayer = new paper.Layer({
         name: tempName
       })
-      paper.project.addLayer(newLayer)
+      paper.project.insertLayer(0, newLayer)
 
       // make new Layer
       newLayer.activate()
 
-      // TODO REORDER TO TOP
-
       // trigger custom event to tell parent that we added a layer
-      $(this.selector).trigger('draw')
+      $(this.selector).trigger('draw', [0])
 
       console.log(paper.project)
     })

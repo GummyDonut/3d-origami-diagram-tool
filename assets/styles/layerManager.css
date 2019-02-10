@@ -29,10 +29,11 @@ div.layer-row {
   padding-bottom: 0.15em;
   padding-top: 0.17em;
   padding-left: 0.1em;
+  cursor: pointer;
 }
 
 div.layer-row.selected {
-  background-color: gray;
+  background-color: #80808085;
 }
 
 div.layer-row button.layer-row-button {

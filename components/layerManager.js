@@ -3,8 +3,8 @@ import addLayer from './layerManager/AddLayer.js'
 export default {
 
   // TODO make sure all the layer names are unique
-
   layerHTML: null,
+  selectedLayer: 0, // index indicating the selected layer
   /**
    * Function to start the layer manager
    */
@@ -43,16 +43,29 @@ export default {
    * Init all the event-listeners on the layout manager
    */
   initEventListener () {
+    // alias
+    var self = this
+
     // Custom event listeners
     $(addLayer.selector).on('draw', this.draw.bind(this))
 
+    // Clicking on the layer should update its selected
+    $('#layer-manager div.layer-container').on('click', 'div.layer-row', function () {
+      // remove selected from other rows and add to other row
+      $('#layer-manager div.layer-container div.layer-row').removeClass('selected')
+      $(this).addClass('selected')
+      self.selectedLayer = $(this).index()
+    })
+
+    // Tools for layer manager
     addLayer.init()
   },
 
   /**
    * Update the layer manager
+   * @param {Number} selectedLayer Number indicating which layer to show as selected
    */
-  draw () {
+  draw (event, selectedLayer) {
     // Get the layers
     let layers = paper.project.layers
 
@@ -71,13 +84,20 @@ export default {
 
     // loop through layers and add
     layers.forEach((layer) => {
-      // layer.name
-      // TODO CREATE COMPONENT HERE TO INSERT
       container.append(this.layerHTML)
       let newRow = container.find('div.layer-row:last-child')
       $(newRow).find('span.layer-name').text(layer.name)
       newRow.attr('id', layer.name)
     })
+
+    // If there was only one layer select it, anymore use options
+    if (layers.length === 1) {
+      $('#layer-manager div.layer-row').addClass('selected')
+      this.selectedLayer = 0
+    } else if (selectedLayer !== undefined) {
+      let selected = $('#layer-manager .layer-container div.layer-row')[selectedLayer]
+      $(selected).addClass('selected')
+    }
 
     // weird quirk updating the
     // http://paperjs.org/tutorials/project-items/project-hierarchy/#accessing-children-by-name

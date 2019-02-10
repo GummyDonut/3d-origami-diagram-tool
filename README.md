@@ -57,6 +57,7 @@ or run the npm script
   * Duplicate Layer
   * Delete Layer
   * Move layer up and down
+  * Rename Layer - By dialog
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers
