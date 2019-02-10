@@ -22,3 +22,28 @@ button.layer-button {
   min-width: 0;
   padding: 1px 6px;
 }
+
+div.layer-row {
+  border:0;
+  display: flex;
+  padding-bottom: 0.15em;
+  padding-top: 0.17em;
+  padding-left: 0.1em;
+}
+
+div.layer-row.selected {
+  background-color: gray;
+}
+
+div.layer-row button.layer-row-button {
+  min-width: 0;
+  padding: 8px 3px;
+  border:0.5px solid #808080c4;
+  border-radius: 0;
+}
+
+div.layer-row span.layer-name{
+  padding-top: 13px;
+  padding-left: 0.5em;
+  font-size: 9px;
+}

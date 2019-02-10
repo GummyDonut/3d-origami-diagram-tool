@@ -2,10 +2,23 @@ import addLayer from './layerManager/AddLayer.js'
 
 export default {
 
+  // TODO make sure all the layer names are unique
+
+  layerHTML: null,
   /**
    * Function to start the layer manager
    */
   init () {
+    // grab the html content to use over and over again
+    $.ajax({
+      type: 'GET',
+      url: 'components/layerManager/components/layer.html',
+      async: false,
+      success: (text) => {
+        this.layerHTML = text
+      }
+    })
+
     $('#layer-manager').dialog({
       'position': {
         'my': 'right top',
@@ -31,7 +44,7 @@ export default {
    */
   initEventListener () {
     // Custom event listeners
-    $(addLayer.selector).on('draw', this.draw)
+    $(addLayer.selector).on('draw', this.draw.bind(this))
 
     addLayer.init()
   },
@@ -58,8 +71,12 @@ export default {
 
     // loop through layers and add
     layers.forEach((layer) => {
+      // layer.name
       // TODO CREATE COMPONENT HERE TO INSERT
-      container.append(layer.name)
+      container.append(this.layerHTML)
+      let newRow = container.find('div.layer-row:last-child')
+      $(newRow).find('span.layer-name').text(layer.name)
+      newRow.attr('id', layer.name)
     })
 
     // weird quirk updating the

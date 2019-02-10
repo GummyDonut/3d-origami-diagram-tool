@@ -29,7 +29,7 @@ or run the npm script
     * ~~Add support for mousedragevent~~
     * ~~Only overwrite if triangles are different~~
   * Line tool
-  * Eraser tool
+  * ~~Eraser tool~~
   * Text tool
   * Square tool
   * Paint bucket tool
