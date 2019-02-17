@@ -1,5 +1,6 @@
 import addLayer from './layerManager/AddLayer.js'
 import deleteLayer from './layerManager/DeleteLayer.js'
+import MoveLayerUp from './layerManager/MoveLayerUp.js'
 
 export default {
 
@@ -48,8 +49,7 @@ export default {
     var self = this
 
     // Custom event listeners
-    $(addLayer.selector).on('draw', this.draw.bind(this))
-    $(deleteLayer.selector).on('draw', this.draw.bind(this))
+    $('#layer-manager').on('draw', this.draw.bind(this))
 
     // Clicking on the layer should update its selected
     $('#layer-manager div.layer-container').on('click', 'div.layer-row', function () {
@@ -62,6 +62,7 @@ export default {
     // Tools for layer manager
     addLayer.init()
     deleteLayer.init()
+    MoveLayerUp.init()
   },
 
   /**

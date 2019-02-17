@@ -33,11 +33,8 @@ class AddLayer {
       // TODO update with redo/undo actions
       paper.project.insertLayer(0, newLayer)
 
-      // make new Layer
-      newLayer.activate()
-
       // trigger custom event to tell parent that we added a layer
-      $(this.selector).trigger('draw', [0])
+      $('#layer-manager').trigger('draw', [0])
 
       console.log(paper.project)
     })
