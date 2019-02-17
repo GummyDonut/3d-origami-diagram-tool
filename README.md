@@ -52,12 +52,14 @@ or run the npm script
 * label indicate size of grid
 * Loading Screen if things look funny on start
 * Layering and layer manager
-  * Add a new layer
+  * ~~Add a new layer~~
   * Remove Layer
   * Duplicate Layer
   * Delete Layer
   * Move layer up and down
   * Rename Layer - By dialog
+  * Undo/Redo for layer action
+* Replace alert functions with custom dialog
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

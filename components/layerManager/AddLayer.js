@@ -29,6 +29,8 @@ class AddLayer {
       let newLayer = new paper.Layer({
         name: tempName
       })
+
+      // TODO update with redo/undo actions
       paper.project.insertLayer(0, newLayer)
 
       // make new Layer

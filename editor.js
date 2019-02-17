@@ -64,7 +64,7 @@ $(document).ready(() => {
         canvasGrid[rowIndex] = []
       }
 
-      // TODO create grid square class
+      // add to editor
       canvasGrid[rowIndex][columnIndex] = new GridSquare({
         'squarePath': squarePath,
         'square': square,

@@ -78,8 +78,6 @@ class PopoverCursor {
 
     let gridSquaresWithinPopover = []
 
-    // Loop through to check if we clicked in the possible area
-    // TODO IF laggy, possibly update this
     let canvasGrid = grid.grid
     for (let rowIndex = topleftRowColumn.row; rowIndex <= bottomRightRowColumn.row; rowIndex++) {
       for (let columnIndex = topleftRowColumn.column; columnIndex <= bottomRightRowColumn.column; columnIndex++) {

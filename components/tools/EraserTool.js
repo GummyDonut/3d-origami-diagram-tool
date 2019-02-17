@@ -111,7 +111,6 @@ class eraserTool extends Tool {
       triangle.path.remove()
       gridSquare.triangle = null
 
-      // TODO add undo redo implementation
       return new RemoveTrianglesAction([gridSquare], [triangle])
     }
   }
