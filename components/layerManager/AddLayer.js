@@ -12,17 +12,11 @@ class AddLayer {
 
   initEventListeners () {
     $(this.selector).on('click', () => {
-      // Get list of all layer names
-      let layers = paper.project.layers
-      let layerArray = []
-      layers.forEach((layer) => {
-        layerArray.push(layer)
-      })
-
+      const constName = 'layer'
       let tempName = 'layer'
       let count = 1
-      while (layerArray.indexOf(tempName) > -1) {
-        tempName = tempName + count
+      while (paper.project.layers[tempName] !== undefined) {
+        tempName = constName + count
         count++
       }
 
