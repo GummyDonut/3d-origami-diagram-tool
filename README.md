@@ -53,11 +53,11 @@ or run the npm script
 * Loading Screen if things look funny on start
 * Layering and layer manager
   * ~~Add a new layer~~
-  * Remove Layer
+  * ~~Remove Layer~~
   * Duplicate Layer
-  * Delete Layer
+  * ~~Delete Layer~~
   * Move layer up and down
-  * Rename Layer - By dialog
+  * ~~Rename Layer - By dialog~~
   * Undo/Redo for layer action
 * Replace alert functions with custom dialog
 

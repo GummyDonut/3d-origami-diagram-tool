@@ -48,3 +48,8 @@ div.layer-row span.layer-name{
   padding-left: 0.5em;
   font-size: 9px;
 }
+
+/*UI modal background */
+.ui-widget-overlay {
+  opacity: 0.5;
+}

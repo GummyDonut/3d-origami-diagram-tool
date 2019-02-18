@@ -20,7 +20,7 @@ class DeleteLayer {
 
       // Get the selected layer
       let selectedLayer = $('#layer-manager div.layer-container div.layer-row.selected')
-      if (selectedLayer && selectedLayer.length === 0) {
+      if (selectedLayer.length === 0) {
         alert('Please select a layer to delete')
       } else {
         let layerIndex = selectedLayer.index()
