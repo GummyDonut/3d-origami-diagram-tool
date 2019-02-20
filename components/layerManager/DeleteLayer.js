@@ -32,7 +32,7 @@ class DeleteLayer {
           layerToDelete.remove()
 
           // trigger custom event to tell parent that we added a layer
-          $('#layer-manager').trigger('draw', [layers.length - 1])
+          $('#layer-manager').trigger('draw', [0])
         } else {
           alert('You are not allowed to remove the GRID layer')
         }
