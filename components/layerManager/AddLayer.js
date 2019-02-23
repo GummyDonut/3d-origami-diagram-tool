@@ -1,3 +1,6 @@
+import actionStack from '../actionStack.js'
+import AddLayerAction from '../actions/AddLayerAction.js'
+
 /**
  * Function for adding a new layer
  */
@@ -24,8 +27,8 @@ class AddLayer {
         name: tempName
       })
 
-      // TODO update with redo/undo actions
       paper.project.insertLayer(0, newLayer)
+      actionStack.pushToUndo(new AddLayerAction(0, newLayer))
 
       // trigger custom event to tell parent that we added a layer
       $('#layer-manager').trigger('draw', [0])
