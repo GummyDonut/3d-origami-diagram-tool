@@ -14,7 +14,7 @@ class Action {
 
     // when we redo we have to add back the action onto the stack
     // without disabling the button
-    actionStack.undoStack.push(this)
+    actionStack.pushToUndo(this)
   }
 }
 

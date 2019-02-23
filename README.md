@@ -60,6 +60,7 @@ or run the npm script
   * ~~Rename Layer - By dialog~~
   * Undo/Redo for layer action
 * Replace alert functions with custom dialog
+* Fix Overwrite on multiple layers grid system.
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

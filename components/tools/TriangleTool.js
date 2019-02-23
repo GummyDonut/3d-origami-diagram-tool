@@ -132,7 +132,7 @@ class TriangleTool extends Tool {
     })
 
     if (changedSquares.length > 0) {
-      actionStack.pushToUndo(new GroupActions(changedSquares))
+      actionStack.pushToUndo(new GroupActions(changedSquares), 'new')
     }
   }
 }
