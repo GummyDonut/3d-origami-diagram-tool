@@ -1,6 +1,7 @@
 import addLayer from './layerManager/AddLayer.js'
 import deleteLayer from './layerManager/DeleteLayer.js'
 import MoveLayerUp from './layerManager/MoveLayerUp.js'
+import MoveLayerDown from './layerManager/MoveLayerDown.js'
 import EditLayer from './layerManager/EditLayer.js'
 import DuplicateLayer from './layerManager/DuplicateLayer.js'
 
@@ -65,6 +66,7 @@ export default {
     addLayer.init()
     deleteLayer.init()
     MoveLayerUp.init()
+    MoveLayerDown.init()
     EditLayer.init()
     DuplicateLayer.init()
   },
