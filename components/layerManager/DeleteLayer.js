@@ -1,3 +1,5 @@
+import actionStack from '../actionStack.js'
+import DeleteLayerAction from '../actions/DeleteLayerAction.js'
 /**
  * Function for removing a layer
  */
@@ -28,8 +30,8 @@ class DeleteLayer {
 
         // if the layer is the grid one do not remove
         if (layerToDelete.name !== 'GRID') {
-          // TODO update with redo/undo actions
           layerToDelete.remove()
+          actionStack.pushToUndo(new DeleteLayerAction(0, layerToDelete), 'new')
 
           // trigger custom event to tell parent that we added a layer
           $('#layer-manager').trigger('draw', [0])
