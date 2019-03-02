@@ -1,3 +1,5 @@
+import actionStack from '../actionStack.js'
+import DuplicateLayerAction from '../actions/DuplicateLayerAction.js'
 /**
  * Function for adding a new layer
  */
@@ -44,6 +46,7 @@ class DuplicateLayer {
 
         // TODO update with redo/undo actions
         paper.project.insertLayer(0, newLayer)
+        actionStack.pushToUndo(new DuplicateLayerAction(0, newLayer), 'new')
 
         // trigger custom event to tell parent that we added a layer
         $('#layer-manager').trigger('draw', [0])
