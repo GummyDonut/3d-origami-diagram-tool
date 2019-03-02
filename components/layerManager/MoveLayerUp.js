@@ -1,6 +1,6 @@
 import MoveLayer from './lib/MoveLayer.js'
 import actionStack from '../actionStack.js'
-import MoveUpAction from '../actions/MoveUpAction.js'
+import MoveLayerUpAction from '../actions/MoveLayerUpAction.js'
 class MoveLayerUp {
   constructor () {
     this.selector = '#layer-manager-move-up'
@@ -21,7 +21,7 @@ class MoveLayerUp {
         MoveLayer.moveLayer('up')
         let selectedIndex = selectedLayer.index() - 1
         $('#layer-manager').trigger('draw', [selectedIndex])
-        actionStack.pushToUndo(new MoveUpAction(selectedIndex, selectedLayer))
+        actionStack.pushToUndo(new MoveLayerUpAction(selectedIndex, selectedLayer))
       }
     })
   }
