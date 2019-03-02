@@ -1,8 +1,7 @@
 
 import Action from './Action.js'
-
-// TODO Create action object for adding layer
-class DeleteLayerAction extends Action {
+import MoveLayer from '../layerManager/lib/MoveLayer.js'
+class MoveUpAction extends Action {
   /**
    * Store the layer we are going to delete or readd back
    * @param {Number} index The position it was removed from
@@ -15,24 +14,30 @@ class DeleteLayerAction extends Action {
     this.layer = layer
   }
 
+  /**
+   * Move the layer down
+   */
   undo () {
-    paper.project.insertLayer(this.index, this.layer)
+    MoveLayer.insertAndShift(paper.project.layers, this.index, this.index + 1)
 
     // call redraw
-    $('#layer-manager').trigger('draw', [this.index])
+    $('#layer-manager').trigger('draw', [this.index + 1])
 
     // push back to undo stack
     super.undo()
   }
 
+  /**
+   * Move layer up
+   */
   redo () {
-    this.layer.remove()
+    MoveLayer.insertAndShift(paper.project.layers, this.index, this.index - 1)
 
     // call redraw
-    $('#layer-manager').trigger('draw', [0])
+    $('#layer-manager').trigger('draw', [this.index])
 
     // push action to redo stack
     super.redo()
   }
 }
-export default DeleteLayerAction
+export default MoveUpAction
