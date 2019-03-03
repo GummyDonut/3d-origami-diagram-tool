@@ -1,3 +1,6 @@
+import EditLayerAction from '../actions/EditLayerAction.js'
+import actionStack from '../actionStack.js'
+
 class EditLayer {
   constructor () {
     this.selector = '#layer-manager-edit'
@@ -49,7 +52,12 @@ class EditLayer {
       $('#edit-layer-ok').on('click', () => {
         let layerIndex = selectedLayer.index()
         let newName = $('#edit-layer-name').val()
-        paper.project.layers[layerIndex].name = newName
+        let editingLayer = paper.project.layers[layerIndex]
+        let oldName = editingLayer.name
+        editingLayer.name = newName
+
+        actionStack.pushToUndo(new EditLayerAction(0, editingLayer, { 'name': oldName }))
+
         $('#layer-edit').dialog('close')
 
         // call redraw action

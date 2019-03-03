@@ -54,11 +54,11 @@ or run the npm script
 * Layering and layer manager
   * ~~Add a new layer~~
   * ~~Remove Layer~~
-  * Duplicate Layer
+  * ~~Duplicate Layer~~
   * ~~Delete Layer~~
-  * Move layer up and down
+  * ~~Move layer up and down~~
   * ~~Rename Layer - By dialog~~
-  * Undo/Redo for layer action
+  * ~~Undo/Redo for layer action~~
 * Replace alert functions with custom dialog
 * Fix Overwrite on multiple layers grid system.
 
