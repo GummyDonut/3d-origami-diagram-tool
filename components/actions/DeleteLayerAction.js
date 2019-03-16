@@ -19,7 +19,7 @@ class DeleteLayerAction extends Action {
     paper.project.insertLayer(this.index, this.layer)
 
     // call redraw
-    $('#layer-manager').trigger('draw', [this.index])
+    $('#layer-manager').trigger('draw', [(paper.project.layers.length - 1) - this.index])
 
     // push back to undo stack
     super.undo()

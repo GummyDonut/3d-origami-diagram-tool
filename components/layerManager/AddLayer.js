@@ -27,8 +27,8 @@ class AddLayer {
         name: tempName
       })
 
-      paper.project.insertLayer(0, newLayer)
-      actionStack.pushToUndo(new AddLayerAction(0, newLayer), 'new')
+      paper.project.addLayer(newLayer)
+      actionStack.pushToUndo(new AddLayerAction(newLayer._index, newLayer), 'new')
 
       // trigger custom event to tell parent that we added a layer
       $('#layer-manager').trigger('draw', [0])

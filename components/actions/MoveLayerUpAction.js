@@ -18,7 +18,9 @@ class MoveUpAction extends Action {
    * Move the layer down
    */
   undo () {
-    MoveLayer.insertAndShift(paper.project.layers, this.index, this.index + 1)
+    let layers = paper.project.layers
+    let reversedIndex = (layers.length - 1) - this.index
+    MoveLayer.insertAndShift(layers, reversedIndex, reversedIndex - 1)
 
     // call redraw
     $('#layer-manager').trigger('draw', [this.index + 1])
@@ -31,7 +33,10 @@ class MoveUpAction extends Action {
    * Move layer up
    */
   redo () {
-    MoveLayer.insertAndShift(paper.project.layers, this.index, this.index - 1)
+    // recall the layers are displayed in reverse
+    let layers = paper.project.layers
+    let reversedIndex = (layers.length - 1) - this.index
+    MoveLayer.insertAndShift(paper.project.layers, reversedIndex - 1, reversedIndex)
 
     // call redraw
     $('#layer-manager').trigger('draw', [this.index])

@@ -1,6 +1,9 @@
 import EditLayerAction from '../actions/EditLayerAction.js'
 import actionStack from '../actionStack.js'
 
+// layer Utils
+import layerUtils from './lib/layerUtils.js'
+
 class EditLayer {
   constructor () {
     this.selector = '#layer-manager-edit'
@@ -30,46 +33,52 @@ class EditLayer {
       // Note you cannot edit the GRID Layer
       // Get the selected layer
       let selectedLayer = $('#layer-manager div.layer-container div.layer-row.selected')
+      this.layerIndex = selectedLayer.index()
       if (selectedLayer.length === 0) {
         alert('Please select a layer to edit')
-        return
       } else {
-        let layerIndex = selectedLayer.index()
-        let layerToEdit = paper.project.layers[layerIndex]
+        this.layerIndex = selectedLayer.index()
+        let layerToEdit = layerUtils.getLayer(this.layerIndex)
 
         // if the layer is the grid one do not remove
         if (layerToEdit.name !== 'GRID') {
           $('#edit-layer-name').val(layerToEdit.name)
         } else {
           alert('You cannot edit the GRID Layer')
-          return
         }
       }
 
-      /**
+      $('#layer-edit').dialog('open')
+    })
+
+    /**
        * Event listener f
        */
-      $('#edit-layer-ok').on('click', () => {
-        let layerIndex = selectedLayer.index()
-        let newName = $('#edit-layer-name').val()
-        let editingLayer = paper.project.layers[layerIndex]
-        let oldName = editingLayer.name
-        editingLayer.name = newName
+    $('#edit-layer-ok').on('click', () => {
+      let newName = $('#edit-layer-name').val()
 
-        actionStack.pushToUndo(new EditLayerAction(0, editingLayer, { 'name': oldName }))
+      // make sure name does not exist yet
+      let checkLayer = paper.project.layers[newName]
+      if (checkLayer !== undefined) {
+        alert('Name already exists... Please choose another name')
+        return
+      }
 
-        $('#layer-edit').dialog('close')
+      let editingLayer = layerUtils.getLayer(this.layerIndex)
+      let oldName = editingLayer.name
+      editingLayer.name = newName
 
-        // call redraw action
-        // trigger custom event to tell parent that we added a layer
-        $('#layer-manager').trigger('draw', [layerIndex])
-      })
+      actionStack.pushToUndo(new EditLayerAction(0, editingLayer, { 'name': oldName }))
 
-      $('#edit-layer-cancel').on('click', () => {
-        $('#layer-edit').dialog('close')
-      })
+      $('#layer-edit').dialog('close')
 
-      $('#layer-edit').dialog('open')
+      // call redraw action
+      // trigger custom event to tell parent that we added a layer
+      $('#layer-manager').trigger('draw', [this.layerIndex])
+    })
+
+    $('#edit-layer-cancel').on('click', () => {
+      $('#layer-edit').dialog('close')
     })
   }
 }

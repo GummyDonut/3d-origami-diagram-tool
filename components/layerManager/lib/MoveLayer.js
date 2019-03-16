@@ -18,14 +18,18 @@ export default {
       if (layerIndex - 1 < 0) {
         alert('Cannot move layer up')
       } else {
-        this.insertAndShift(layers, layerIndex, layerIndex - 1)
+        // recall the layers are displayed in reverse
+        let reversedIndex = (layers.length - 1) - layerIndex
+        this.insertAndShift(layers, reversedIndex, reversedIndex + 1)
       }
     } else if (direction === 'down') {
       // can't move up past top
       if (layerIndex + 1 >= layers.length) {
         alert('Cannot move layer down')
       } else {
-        this.insertAndShift(layers, layerIndex, layerIndex + 1)
+        // recall the layers are displayed in reverse
+        let reversedIndex = (layers.length - 1) - layerIndex
+        this.insertAndShift(layers, reversedIndex, reversedIndex - 1)
       }
     }
   },

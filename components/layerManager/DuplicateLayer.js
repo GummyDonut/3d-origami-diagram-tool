@@ -1,5 +1,9 @@
 import actionStack from '../actionStack.js'
 import DuplicateLayerAction from '../actions/DuplicateLayerAction.js'
+
+// layer Utils
+import layerUtils from './lib/layerUtils.js'
+
 /**
  * Function for adding a new layer
  */
@@ -20,8 +24,7 @@ class DuplicateLayer {
       if (selectedLayer.length !== 0) {
         let layerIndex = selectedLayer.index()
         // Get list of all layer names
-        let layers = paper.project.layers
-        let layerToDuplicate = layers[layerIndex]
+        let layerToDuplicate = layerUtils.getLayer(layerIndex)
 
         // do not allow duplication of GRID
         if (layerToDuplicate.name === 'GRID') {
@@ -45,8 +48,8 @@ class DuplicateLayer {
         newLayer.copyContent(layerToDuplicate)
 
         // TODO update with redo/undo actions
-        paper.project.insertLayer(0, newLayer)
-        actionStack.pushToUndo(new DuplicateLayerAction(0, newLayer), 'new')
+        paper.project.addLayer(newLayer)
+        actionStack.pushToUndo(new DuplicateLayerAction(newLayer._index, newLayer), 'new')
 
         // trigger custom event to tell parent that we added a layer
         $('#layer-manager').trigger('draw', [0])

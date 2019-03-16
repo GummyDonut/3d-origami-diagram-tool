@@ -5,6 +5,9 @@ import MoveLayerDown from './layerManager/MoveLayerDown.js'
 import EditLayer from './layerManager/EditLayer.js'
 import DuplicateLayer from './layerManager/DuplicateLayer.js'
 
+// Layer Utilities
+import layerUtils from './layerManager/lib/layerUtils.js'
+
 export default {
 
   // TODO make sure all the layer names are unique
@@ -60,6 +63,7 @@ export default {
       $('#layer-manager div.layer-container div.layer-row').removeClass('selected')
       $(this).addClass('selected')
       self.selectedLayer = $(this).index()
+      layerUtils.getLayer(self.selectedLayer).activate()
     })
 
     // Tools for layer manager
@@ -92,8 +96,8 @@ export default {
     let container = $('#layer-manager div.layer-container')
     container.empty()
 
-    // loop through layers and add
-    layers.forEach((layer) => {
+    // loop through layers in reverse, note the slice is a shallow copy
+    layers.slice().reverse().forEach((layer) => {
       container.append(this.layerHTML)
       let newRow = container.find('div.layer-row:last-child')
       $(newRow).find('span.layer-name').text(layer.name)
@@ -104,9 +108,11 @@ export default {
     if (layers.length === 1) {
       $('#layer-manager div.layer-row').addClass('selected')
       this.selectedLayer = 0
+      layerUtils.getLayer(0).activate()
     } else if (selectedLayer !== undefined) {
       let selected = $('#layer-manager .layer-container div.layer-row')[selectedLayer]
       $(selected).addClass('selected')
+      layerUtils.getLayer(selectedLayer).activate()
     }
 
     // weird quirk updating the
