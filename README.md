@@ -63,7 +63,7 @@ or run the npm script
 * Fix Overwrite on multiple layers grid system.
   * This is quite a large fix, now need to keep track of triangles on different layers
   * The gridsquare objects needs to be updated to have multiple triangle objects
-  * This also means I need to rewrite the layers to use a unique ID, instead of the name, names are now superficial
+  * ~~This also means I need to rewrite the layers to use a unique ID, instead of the name, names are now superficial~~
   * ~~Rewrite up and down _index is incorrect value~~ Ended up manually updating _index value
 
 ### Maybe read into for later

@@ -101,7 +101,7 @@ export default {
       container.append(this.layerHTML)
       let newRow = container.find('div.layer-row:last-child')
       $(newRow).find('span.layer-name').text(layer.name)
-      newRow.attr('id', layer.name)
+      newRow.attr('id', 'layer-' + layer._id)
     })
 
     // If there was only one layer select it, anymore use options
