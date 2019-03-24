@@ -40,8 +40,14 @@ export default {
    * @param {Number} from the array index we would like to move
    * @param {Number} to the array index we would like to move to
    */
-  insertAndShift (arr, from, to) {
-    let cutOut = arr.splice(from, 1)[0] // cut the element at index 'from'
-    arr.splice(to, 0, cutOut) // insert it at index 'to'
+  insertAndShift (layersArray, from, to) {
+    let cutOut = layersArray.splice(from, 1)[0] // cut the element at index 'from'
+    layersArray.splice(to, 0, cutOut) // insert it at index 'to'
+
+    // reindex layers, loop through and update paperjs readonly property
+    // because it doesn't update till a new layer element added
+    layersArray.forEach((layer, layerIndex) => {
+      layer._index = layerIndex
+    })
   }
 }
