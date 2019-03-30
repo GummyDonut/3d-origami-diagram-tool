@@ -59,6 +59,9 @@ class PopoverCursor {
       return
     }
 
+    // TODO Check if the click is within GRID
+    // IF not return
+
     let boxWidth = grid.squareWidth * (this.cursorSize - 1)
     let boxHeight = grid.squareHeight * (this.cursorSize - 1)
 
@@ -83,7 +86,9 @@ class PopoverCursor {
       for (let columnIndex = topleftRowColumn.column; columnIndex <= bottomRightRowColumn.column; columnIndex++) {
         let square = canvasGrid[rowIndex][columnIndex].square.rectangle
         if (popoverRectangle.intersects(square)) {
-          gridSquaresWithinPopover.push(canvasGrid[rowIndex][columnIndex])
+          if (canvasGrid[rowIndex][columnIndex] !== undefined) {
+            gridSquaresWithinPopover.push(canvasGrid[rowIndex][columnIndex])
+          }
         }
       }
     }
@@ -102,7 +107,9 @@ class PopoverCursor {
    */
   singleClickPopover (event) {
     let rowColumn = this._getRowColumn(event.point.x, event.point.y)
-    this.popoverCursorAction([grid.grid[rowColumn.row][rowColumn.column]])
+    if (grid.grid[rowColumn.row][rowColumn.column] !== undefined) {
+      this.popoverCursorAction([grid.grid[rowColumn.row][rowColumn.column]])
+    }
   }
 
   _getRowColumn (x, y) {

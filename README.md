@@ -63,8 +63,10 @@ or run the npm script
 * Fix Overwrite on multiple layers grid system.
   * This is quite a large fix, now need to keep track of triangles on different layers
   * The gridsquare objects needs to be updated to have multiple triangle objects
+    * Triangles field, array order indicating when they were added, with triangle containing layer now.
   * ~~This also means I need to rewrite the layers to use a unique ID, instead of the name, names are now superficial~~
   * ~~Rewrite up and down _index is incorrect value~~ Ended up manually updating _index value
+* Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

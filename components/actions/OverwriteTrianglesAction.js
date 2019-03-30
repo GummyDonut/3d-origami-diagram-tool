@@ -8,10 +8,11 @@ class OverwriteTrianglesAction extends Action {
    * we will redraw them
    * Note these arrays should be 1 to 1 in terms of order so that we can easily link
    */
-  constructor (gridSquares, oldTriangles) {
+  constructor (gridSquares, oldTriangles, layerID) {
     super()
     this.gridSquares = gridSquares
     this.oldTriangles = oldTriangles
+    this.layerID = layerID
 
     // triangles we are replacing
     this.replacedTriangle = {
@@ -26,17 +27,17 @@ class OverwriteTrianglesAction extends Action {
   undo (grouped) {
     // loop through paths and remove them from canvas
     this.gridSquares.forEach((gridSquare, gridIndex) => {
+      let triangle = gridSquare.triangles[this.layerID]
       // store triangle for replacement, when we redo
-      this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)] = gridSquare.triangle
+      this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column, this.layerID)] = triangle
 
       // actually overwrite triangle
-      gridSquare.triangle.path.remove()
-      let childIndex = paper.project.activeLayer.children.length
+      triangle.path.remove()
       let oldTriangle = this.oldTriangles[gridIndex]
-      paper.project.activeLayer.insertChild(childIndex, oldTriangle.path)
+      utils.reinsertTriangle(oldTriangle, this.layerID)
 
       // update triangle on grid
-      gridSquare.triangle = oldTriangle
+      gridSquare.triangles[this.layerID] = oldTriangle
     })
 
     if (!grouped) {
@@ -51,13 +52,14 @@ class OverwriteTrianglesAction extends Action {
    */
   redo (grouped) {
     this.gridSquares.forEach((gridSquare, gridIndex) => {
-      gridSquare.triangle.path.remove()
-      let replacementTriangle = this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)]
-      utils.reinsertTriangle(replacementTriangle)
-      gridSquare.triangle = replacementTriangle
+      let triangle = gridSquare.triangles[this.layerID]
+      triangle.path.remove()
+      let replacementTriangle = this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column, this.layerID)]
+      utils.reinsertTriangle(replacementTriangle, this.layerID)
+      gridSquare.triangles[this.layerID] = replacementTriangle
 
       // once we redo remove replaced triangle
-      delete this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)]
+      delete this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column, this.layerID)]
     })
     if (!grouped) {
       super.redo()

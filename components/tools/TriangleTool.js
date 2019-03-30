@@ -76,33 +76,39 @@ class TriangleTool extends Tool {
    * @returns {Object} represents what kind of action we need to push
    */
   clickedInsideSquare (gridSquare) {
-    if (gridSquare.triangle === null) {
+    // Get the triangle on the layer we are currently using
+    let activeLayer = paper.project.activeLayer
+
+    let triangle = gridSquare.triangles[activeLayer._id]
+
+    if (triangle === undefined || triangle == null) {
       // The center should be the center of the square as well
-      gridSquare.triangle = new Triangle(gridSquare.square.rectangle, {
+      // store the triangle
+      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
         'strokeColor': this.toolOption.strokeColor,
         'fillColor': this.toolOption.fillColor,
         'fill': this.toolOption.fill
       })
 
       // push action onto stack
-      return new AddTrianglesAction([gridSquare])
+      return new AddTrianglesAction([gridSquare], activeLayer._id)
     } else {
       // If the gridSquare triangle matches do not redraw
-      if (gridSquare.triangle.matches(this.toolOption)) {
+      if (triangle.matches(this.toolOption)) {
         return
       }
 
       // If a triangle exist we will overwrite it
-      gridSquare.triangle.path.remove()
-      let oldTriangle = gridSquare.triangle
-      gridSquare.triangle = new Triangle(gridSquare.square.rectangle, {
+      triangle.path.remove()
+      let oldTriangle = gridSquare.triangles[activeLayer._id]
+      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
         'strokeColor': this.toolOption.strokeColor,
         'fillColor': this.toolOption.fillColor,
         'fill': this.toolOption.fill
       })
 
       // push action onto stack
-      return new OverwriteTrianglesAction([gridSquare], [oldTriangle])
+      return new OverwriteTrianglesAction([gridSquare], [oldTriangle], activeLayer._id)
     }
   }
 

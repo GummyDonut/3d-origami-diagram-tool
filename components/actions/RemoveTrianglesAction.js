@@ -1,16 +1,17 @@
 import Action from './Action.js'
-import utils from '../lib/utilities.js'
 
 class RemoveTrianglesAction extends Action {
   /**
      * @param {Array of GridSquares} gridSquares - array of grids objects to loop through
      * @param {Array of Triangle} oldTriangles - array of grids triangles that we had removed
+     * @param {Number} layerID - the ID representing the triangle we removed it from
      * Note these arrays should be 1 to 1 in terms of order so that we can easily link
      */
-  constructor (gridSquares, oldTriangles) {
+  constructor (gridSquares, oldTriangles, layerID) {
     super()
     this.gridSquares = gridSquares
     this.oldTriangles = oldTriangles
+    this.layerID = layerID
 
     // triangles we are replacing
     this.replacedTriangle = {
@@ -24,17 +25,14 @@ class RemoveTrianglesAction extends Action {
   undo (grouped) {
     // loop through paths and remove them from canvas
     this.gridSquares.forEach((gridSquare, gridIndex) => {
-      // store triangle for replacement, when we redo
-      // this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)] = gridSquare.triangle
-
-      // actually overwrite triangle
-      // gridSquare.triangle.path.remove()
-      let childIndex = paper.project.activeLayer.children.length
       let oldTriangle = this.oldTriangles[gridIndex]
+
+      // adds it back onto canvas
+      let childIndex = paper.project.activeLayer.children.length
       paper.project.activeLayer.insertChild(childIndex, oldTriangle.path)
 
       // update triangle on grid
-      gridSquare.triangle = oldTriangle
+      gridSquare.triangles[this.layerID] = oldTriangle
     })
 
     if (!grouped) {
@@ -49,13 +47,8 @@ class RemoveTrianglesAction extends Action {
    */
   redo (grouped) {
     this.gridSquares.forEach((gridSquare, gridIndex) => {
-      gridSquare.triangle.path.remove()
-      // let replacementTriangle = this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)]
-      // utils.reinsertTriangle(replacementTriangle)
-      gridSquare.triangle = null
-
-      // // once we redo remove replaced triangle
-      // delete this.replacedTriangle[utils.serialize(gridSquare.row, gridSquare.column)]
+      gridSquare.triangles[this.layerID].path.remove()
+      gridSquare.triangles[this.layerID] = undefined
     })
     if (!grouped) {
       super.redo()

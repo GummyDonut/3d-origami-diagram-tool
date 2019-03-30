@@ -104,14 +104,16 @@ class eraserTool extends Tool {
    * will be using to add a triangle in.
    */
   clickedInsideSquare (gridSquare) {
-    let triangle = gridSquare.triangle
+    // Get the triangle based on the active layer we are on
+    let activeLayer = paper.project.activeLayer
+    let triangle = gridSquare.triangles[activeLayer._id]
 
     // sanity check
-    if (triangle !== null) {
+    if (triangle !== undefined && triangle !== null) {
       triangle.path.remove()
-      gridSquare.triangle = null
+      gridSquare.triangles[activeLayer._id] = undefined
 
-      return new RemoveTrianglesAction([gridSquare], [triangle])
+      return new RemoveTrianglesAction([gridSquare], [triangle], paper.project.activeLayer._id)
     }
   }
 }
