@@ -54,13 +54,9 @@ class panTool extends Tool {
    */
   changeCenter (event) {
     // get the different between two points, to get difference in motion
-    let delta = event.lastPoint.subtract(event.point)
-
-    // buffer to remove jaggedness
-    if ((delta.x > -3 && delta.x < 3) || (delta.y > -3 && delta.y < 3)) {
-      return
-    }
-
+    // use downpoint to simply find how far we moved
+    // using lastpoint lead to jaggedness in motion as it updated
+    let delta = event.downPoint.subtract(event.point)
     paper.view.center = paper.view.center.add(delta)
   }
 

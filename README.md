@@ -66,7 +66,7 @@ or run the npm script
     * ~~Triangles field, object indicating which layer it was added to~~
   * ~~This also means I need to rewrite the layers to use a unique ID, instead of the name, names are now superficial~~
   * ~~Rewrite up and down _index is incorrect value~~ Ended up manually updating _index value
-* Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks
+* ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers
