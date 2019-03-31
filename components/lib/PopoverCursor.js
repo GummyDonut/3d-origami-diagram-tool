@@ -59,9 +59,6 @@ class PopoverCursor {
       return
     }
 
-    // TODO Check if the click is within GRID
-    // IF not return
-
     let boxWidth = grid.squareWidth * (this.cursorSize - 1)
     let boxHeight = grid.squareHeight * (this.cursorSize - 1)
 
@@ -76,6 +73,10 @@ class PopoverCursor {
 
     let topleftRowColumn = this._getRowColumn(topLeft.x, topLeft.y)
     let bottomRightRowColumn = this._getRowColumn(bottomRight.x, bottomRight.y)
+
+    if (topleftRowColumn === null || bottomRightRowColumn === null) {
+      return null
+    }
 
     let popoverRectangle = new paper.Rectangle(topLeft.x, topLeft.y, boxWidth, boxHeight)
 
@@ -107,12 +108,21 @@ class PopoverCursor {
    */
   singleClickPopover (event) {
     let rowColumn = this._getRowColumn(event.point.x, event.point.y)
+    if (rowColumn === null) {
+      return
+    }
     if (grid.grid[rowColumn.row][rowColumn.column] !== undefined) {
       this.popoverCursorAction([grid.grid[rowColumn.row][rowColumn.column]])
     }
   }
 
   _getRowColumn (x, y) {
+    // TODO Check if the click is within GRID
+    // IF not return
+    if (x > grid.totalWidth || y > grid.totalHeight || x < 0 || y < 0) {
+      return null
+    }
+
     let gridWidth = grid.squareWidth
     let gridHeight = grid.squareHeight
 

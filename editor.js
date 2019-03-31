@@ -88,6 +88,10 @@ $(document).ready(() => {
   let canvasHeight = (lastGridSquareRect.y + lastGridSquareRect.height) - canvasY
   canvasBorder.init(canvasX, canvasY, canvasWidth, canvasHeight)
 
+  // store the total dimension
+  grid.totalWidth = canvasWidth
+  grid.totalHeight = canvasHeight
+
   // Draw the view now:
   paper.view.draw()
 
