@@ -1,4 +1,5 @@
 import grid from '../grid.js'
+import utils from './utilities.js'
 let popover = $('#popover')
 
 /**
@@ -71,8 +72,8 @@ class PopoverCursor {
       'y': event.point.y + (boxWidth / 2)
     }
 
-    let topleftRowColumn = this._getRowColumn(topLeft.x, topLeft.y)
-    let bottomRightRowColumn = this._getRowColumn(bottomRight.x, bottomRight.y)
+    let topleftRowColumn = utils.getRowColumn(topLeft.x, topLeft.y)
+    let bottomRightRowColumn = utils.getRowColumn(bottomRight.x, bottomRight.y)
 
     if (topleftRowColumn === null || bottomRightRowColumn === null) {
       return null
@@ -107,49 +108,13 @@ class PopoverCursor {
    * @param {*} event
    */
   singleClickPopover (event) {
-    let rowColumn = this._getRowColumn(event.point.x, event.point.y)
+    let rowColumn = utils.getRowColumn(event.point.x, event.point.y)
     if (rowColumn === null) {
       return
     }
     if (grid.grid[rowColumn.row][rowColumn.column] !== undefined) {
       this.popoverCursorAction([grid.grid[rowColumn.row][rowColumn.column]])
     }
-  }
-
-  _getRowColumn (x, y) {
-    // TODO Check if the click is within GRID
-    // IF not return
-    if (x > grid.totalWidth || y > grid.totalHeight || x < 0 || y < 0) {
-      return null
-    }
-
-    let gridWidth = grid.squareWidth
-    let gridHeight = grid.squareHeight
-
-    let row = Math.floor(y / (gridWidth))
-    // validate row, can't go out of bounds
-    if (row < 0) {
-      row = 0
-    } else if (row > grid.grid.length) {
-      row = grid.grid.length
-    }
-
-    let offset = this._isEven(row) ? 0 : -1 * (gridWidth / 2)
-    let column = Math.floor((x + offset) / (gridHeight))
-
-    // validate column
-    if (column < 0) {
-      column = 0
-    } else if (column > grid.grid[0].length) {
-      column = grid.grid[0].length
-    }
-
-    return { 'row': row, 'column': column }
-  }
-
-  _isEven (n) {
-    n = Number(n)
-    return n === 0 || !!(n && !(n % 2))
   }
 }
 

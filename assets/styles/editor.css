@@ -73,6 +73,9 @@ div.tool-row {
 #origami-editor.cursor-triangle {
   cursor: pointer
 }
+#origami-editor.cursor-libe {
+  cursor: pointer
+}
 #popover {
   position: absolute;
   float: left;
@@ -97,7 +100,7 @@ div.tool-row {
   background-color:#aa9e9e;
 }
 button.tool-button {
-  min-width: 49px
+  width: 49px
 }
 div.color-picker-box {
   position: relative;
