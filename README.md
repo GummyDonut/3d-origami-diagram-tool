@@ -33,7 +33,9 @@ or run the npm script
   * Text tool
   * Square tool
   * Paint bucket tool
+    * Simple tutorial : http://www.williammalone.com/articles/html5-canvas-javascript-paint-bucket-tool/
   * Arrow Tool - for simply drawing errors
+  * Move tool for moving layers, kinda meh on this one
 * ~~Show/hide grid~~
 * ~~Canvas Border~~
 * Grid options
