@@ -1,10 +1,7 @@
 
 import Tool from '../tool.js'
-import Triangle from '../lib/Triangle.js'
 import TriangleOptions from '../toolOptions/TriangleOptions.js'
 import actionStack from '../actionStack.js'
-import AddTrianglesAction from '../actions/AddTrianglesAction.js'
-import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
 import utilities from '../lib/utilities.js'
 import GroupActions from '../actions/GroupActions.js'
@@ -13,7 +10,9 @@ import grid from '../grid.js'
 class LineTool extends Tool {
   constructor () {
     super('#line-tool', 'lineTool')
-    this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
+
+    // no action on popover
+    this.popoverMove = new PopoverCursor(new function () { }(), 1)
     this.toolOption = new TriangleOptions(this.popoverMove)
 
     // need to store this way so I can unbind properly
@@ -106,6 +105,10 @@ class LineTool extends Tool {
     } else {
       this.lineInsideSquares(lineEndSquare, lineDownSquare)
     }
+
+    // once complete remove the line from the screen
+    this.line.remove()
+    this.line = null
   }
 
   /**
@@ -124,6 +127,8 @@ class LineTool extends Tool {
       endingColumnNumber = startSquare.column
     }
 
+    let changedSquares = []
+
     for (let rowIndex = startSquare.row; rowIndex <= endSquare.row; rowIndex++) {
       let gridRow = grid.grid[rowIndex]
       for (let columnIndex = startingColumnNumber; columnIndex <= endingColumnNumber; columnIndex++) {
@@ -131,56 +136,18 @@ class LineTool extends Tool {
 
         // check if the line is inside the rectangle
         if (this.line.intersects(gridSquare.square.path)) {
-          let bob = new Triangle(gridSquare.square.rectangle, {
-            'strokeColor': this.toolOption.strokeColor,
-            'fillColor': this.toolOption.fillColor,
-            'fill': this.toolOption.fill
-          })
+          // check if the triangle that is being added should be an overwrite or a normal add
+
+          let actions = utilities.insertTriangle(gridSquare, this.toolOption)
+          if (actions !== undefined) {
+            changedSquares.push(actions)
+          }
         }
       }
     }
-  }
 
-  /**
-   * Either remove or update the triangle that will be in the grid
-   * @param {Object} gridSquare - contains the rectangle, and path object we
-   * will be using to add a triangle in.
-   * @returns {Object} represents what kind of action we need to push
-   */
-  clickedInsideSquare (gridSquare) {
-    // Get the triangle on the layer we are currently using
-    let activeLayer = paper.project.activeLayer
-
-    let triangle = gridSquare.triangles[activeLayer._id]
-
-    if (triangle === undefined || triangle == null) {
-      // The center should be the center of the square as well
-      // store the triangle
-      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
-        'strokeColor': this.toolOption.strokeColor,
-        'fillColor': this.toolOption.fillColor,
-        'fill': this.toolOption.fill
-      })
-
-      // push action onto stack
-      return new AddTrianglesAction([gridSquare], activeLayer._id)
-    } else {
-      // If the gridSquare triangle matches do not redraw
-      if (triangle.matches(this.toolOption)) {
-        return
-      }
-
-      // If a triangle exist we will overwrite it
-      triangle.path.remove()
-      let oldTriangle = gridSquare.triangles[activeLayer._id]
-      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
-        'strokeColor': this.toolOption.strokeColor,
-        'fillColor': this.toolOption.fillColor,
-        'fill': this.toolOption.fill
-      })
-
-      // push action onto stack
-      return new OverwriteTrianglesAction([gridSquare], [oldTriangle], activeLayer._id)
+    if (changedSquares.length > 0) {
+      actionStack.pushToUndo(new GroupActions(changedSquares), 'new')
     }
   }
 
@@ -192,26 +159,6 @@ class LineTool extends Tool {
     this.hidePopoverFunction()
 
     super.deActivateTool()
-  }
-
-  /**
-   * How we are modifying the gridsquares upon click
-   * @param {Array of GridSquare} gridSquares
-   */
-  popoverCursorAction (gridSquares) {
-    let changedSquares = []
-
-    // loop through and update
-    gridSquares.forEach(gridSquare => {
-      let insideSquare = this.clickedInsideSquare(gridSquare)
-      if (insideSquare !== undefined) {
-        changedSquares.push(insideSquare)
-      }
-    })
-
-    if (changedSquares.length > 0) {
-      actionStack.pushToUndo(new GroupActions(changedSquares), 'new')
-    }
   }
 }
 

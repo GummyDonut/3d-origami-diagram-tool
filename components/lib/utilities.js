@@ -1,5 +1,9 @@
 
 import grid from '../grid.js'
+import Triangle from './Triangle.js'
+import AddTrianglesAction from '../actions/AddTrianglesAction.js'
+import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
+
 /**
  * Object containing function that are used regularly
  */
@@ -31,6 +35,11 @@ export default {
     }
   },
 
+  /**
+   * Based on the x and y coordinate return if the row and column on the grid
+   * @param {Number} x
+   * @param {Number} y
+   */
   getRowColumn (x, y) {
     // Check if the click is within GRID
     // IF not return
@@ -65,5 +74,47 @@ export default {
   _isEven (n) {
     n = Number(n)
     return n === 0 || !!(n && !(n % 2))
+  },
+
+  /**
+   * Insert the triangle into the gridSquare
+   * Note if a triangle already exists do an overwrite action
+   * if there is no triangle do an adding action
+   * @param {*} gridSquare
+   * @param {*} toolOption contains colors and size of triangle
+   */
+  insertTriangle (gridSquare, toolOption) {
+    // Get the triangle on the layer we are currently using
+    let activeLayer = paper.project.activeLayer
+
+    let triangle = gridSquare.triangles[activeLayer._id]
+    if (triangle === undefined || triangle == null) {
+      // adding action
+      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
+        'strokeColor': toolOption.strokeColor,
+        'fillColor': toolOption.fillColor,
+        'fill': toolOption.fill
+      })
+
+      return new AddTrianglesAction([gridSquare], activeLayer._id)
+    } else {
+      // overwrite action
+      // If the gridSquare triangle matches do not redraw
+      if (triangle.matches(toolOption)) {
+        return
+      }
+
+      // If a triangle exist we will overwrite it
+      triangle.path.remove()
+      let oldTriangle = gridSquare.triangles[activeLayer._id]
+      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
+        'strokeColor': toolOption.strokeColor,
+        'fillColor': toolOption.fillColor,
+        'fill': toolOption.fill
+      })
+
+      // push action onto stack
+      return new OverwriteTrianglesAction([gridSquare], [oldTriangle], activeLayer._id)
+    }
   }
 }
