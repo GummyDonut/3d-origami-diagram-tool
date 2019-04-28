@@ -46,7 +46,7 @@ class LineTool extends Tool {
         $('#origami-editor').on('mouseout', this.hidePopoverFunction)
 
         // // add options to tool options box
-        // this.toolOption.addToToolOptionBox()
+        this.toolOption.addToToolOptionBox()
 
         // reactive tool
         this.tool.activate()
@@ -97,6 +97,13 @@ class LineTool extends Tool {
     // Get the chance
     let lineDownSquare = utilities.getRowColumn(event.downPoint.x, event.downPoint.y)
     let lineEndSquare = utilities.getRowColumn(event.point.x, event.point.y)
+
+    // if there is no squares to start from screw it and don't draw
+    if (lineDownSquare === null || lineEndSquare === null) {
+      this.line.remove()
+      this.line = null
+      return
+    }
 
     // between the two squares the one with the lower column value represents
     // the square we will start looping from
