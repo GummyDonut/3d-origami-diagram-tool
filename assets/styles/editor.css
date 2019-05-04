@@ -4,6 +4,7 @@ html, body {
 }
 #main-container {
   justify-content: space-between;
+  height:100%;
 }
 #canvas-container {
   margin-top:0.5em
