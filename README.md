@@ -32,6 +32,7 @@ or run the npm script
   * ~~Eraser tool~~
   * Text tool
   * Square tool
+    * Use stroke bounds and line tool to create this, discovered by accident
   * Paint bucket tool
     * Simple tutorial : http://www.williammalone.com/articles/html5-canvas-javascript-paint-bucket-tool/
   * Arrow Tool - for simply drawing errors
