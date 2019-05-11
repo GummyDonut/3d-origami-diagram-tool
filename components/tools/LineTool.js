@@ -1,6 +1,6 @@
 
 import Tool from '../tool.js'
-import TriangleOptions from '../toolOptions/TriangleOptions.js'
+import LineOptions from '../toolOptions/LineOptions.js'
 import actionStack from '../actionStack.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
 import utilities from '../lib/utilities.js'
@@ -13,7 +13,7 @@ class LineTool extends Tool {
 
     // no action on popover
     this.popoverMove = new PopoverCursor(new function () { }(), 1)
-    this.toolOption = new TriangleOptions(this.popoverMove)
+    this.toolOption = new LineOptions(this.popoverMove)
 
     // need to store this way so I can unbind properly
     this.popoverFunction = this.popoverMove.popover.bind(this.popoverMove)
@@ -21,6 +21,9 @@ class LineTool extends Tool {
 
     // path that represents the current line we are drawing
     this.line = null
+
+    // set of stroke lines, as strokeWidth is not included in intersections
+    this.strokeLines = []
   }
 
   /**
@@ -91,6 +94,7 @@ class LineTool extends Tool {
     this.line.strokeColor = 'black'
     this.line.add(event.downPoint)
     this.line.add(event.point)
+    this.line.strokeWidth = this.toolOption.toolSize
   }
 
   onMouseUp (event) {
@@ -105,6 +109,8 @@ class LineTool extends Tool {
       return
     }
 
+    this.createLineStrokes(event)
+
     // between the two squares the one with the lower column value represents
     // the square we will start looping from
     if (lineDownSquare.row < lineEndSquare.row) {
@@ -114,8 +120,70 @@ class LineTool extends Tool {
     }
 
     // once complete remove the line from the screen
-    this.line.remove()
-    this.line = null
+    // this.line.remove()
+    // this.line = null
+  }
+
+  /**
+   * Create a set of lines to represent a change in stroke width
+   * Use this group of lines to determine if the squares intersect
+   */
+  createLineStrokes (event) {
+    // TODO KEEP Track so we can remove them later
+
+    // create the clone on the right and left side
+    let lineCloneBottomRight = this.line.clone()
+    let lineCloneBottomLeft = this.line.clone()
+    let lineCloneTopRight = this.line.clone()
+    let lineCloneTopLeft = this.line.clone()
+
+    // debugging purposes
+    lineCloneBottomRight.strokeColor = 'red'
+    lineCloneBottomLeft.strokeColor = 'orange'
+    lineCloneTopRight.strokeColor = 'blue'
+    lineCloneTopLeft.strokeColor = 'purple'
+
+    // perpendicular
+    lineCloneBottomRight.rotate(90, event.downPoint)
+    lineCloneBottomLeft.rotate(-90, event.downPoint)
+
+    // rotate 180 so point zero remains attached to main ling
+    lineCloneTopLeft.rotate(180)
+    lineCloneTopLeft.rotate(90, event.point)
+    lineCloneTopRight.rotate(180)
+    lineCloneTopRight.rotate(-90, event.point)
+
+    this.shorten(lineCloneBottomRight)
+    this.shorten(lineCloneBottomLeft)
+    this.shorten(lineCloneTopRight)
+    this.shorten(lineCloneTopLeft)
+
+    // create parallel line set
+    let tempClone = this.line.clone()
+    tempClone.segments[0].point = lineCloneBottomRight.segments[1].point
+    tempClone.segments[1].point = lineCloneTopRight.segments[1].point
+    tempClone.strokeColor = 'green'
+
+    let tempClone2 = this.line.clone()
+    tempClone2.segments[0].point = lineCloneBottomLeft.segments[1].point
+    tempClone2.segments[1].point = lineCloneTopLeft.segments[1].point
+    tempClone2.strokeColor = 'green'
+
+    // // update start and end points
+    // this.lineClone.segments[0].point = this.lineClone.segments[0].point.add(this.toolOption.toolSize * grid.squareWidth)
+    // this.lineClone.segments[1].point = this.lineClone.segments[1].point.add(this.toolOption.toolSize * grid.squareWidth)
+
+    // // this.lineClone.position = event.downPoint.add(this.toolOption.toolSize * grid.squareWidth)
+  }
+
+  shorten (lineClone) {
+    // https://stackoverflow.com/questions/34529248/in-paperjs-is-it-possible-to-set-the-length-of-a-straight-line-path-explicitly
+    let vector = lineClone.segments[0].point.subtract(lineClone.segments[1].point)
+    let p0 = lineClone.segments[0].point
+    let p1 = p0.subtract(vector.multiply(this.toolOption.toolSize / (grid.squareWidth)))
+
+    // update our current line segment to use this
+    lineClone.segments[1].point = p1
   }
 
   /**

@@ -1,10 +1,7 @@
 
 import Tool from '../tool.js'
-import Triangle from '../lib/Triangle.js'
 import TriangleOptions from '../toolOptions/TriangleOptions.js'
 import actionStack from '../actionStack.js'
-import AddTrianglesAction from '../actions/AddTrianglesAction.js'
-import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
 import PopoverCursor from '../lib/PopoverCursor.js'
 import GroupActions from '../actions/GroupActions.js'
 import utilities from '../lib/utilities.js'
@@ -69,49 +66,6 @@ class TriangleTool extends Tool {
     // this is global active tool scope
     paper.tool = null
   }
-
-  // /**
-  //  * Either remove or update the triangle that will be in the grid
-  //  * @param {Object} gridSquare - contains the rectangle, and path object we
-  //  * will be using to add a triangle in.
-  //  * @returns {Object} represents what kind of action we need to push
-  //  */
-  // clickedInsideSquare (gridSquare) {
-  //   // Get the triangle on the layer we are currently using
-  //   let activeLayer = paper.project.activeLayer
-
-  //   let triangle = gridSquare.triangles[activeLayer._id]
-
-  //   if (triangle === undefined || triangle == null) {
-  //     // The center should be the center of the square as well
-  //     // store the triangle
-  //     gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
-  //       'strokeColor': this.toolOption.strokeColor,
-  //       'fillColor': this.toolOption.fillColor,
-  //       'fill': this.toolOption.fill
-  //     })
-
-  //     // push action onto stack
-  //     return new AddTrianglesAction([gridSquare], activeLayer._id)
-  //   } else {
-  //     // If the gridSquare triangle matches do not redraw
-  //     if (triangle.matches(this.toolOption)) {
-  //       return
-  //     }
-
-  //     // If a triangle exist we will overwrite it
-  //     triangle.path.remove()
-  //     let oldTriangle = gridSquare.triangles[activeLayer._id]
-  //     gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
-  //       'strokeColor': this.toolOption.strokeColor,
-  //       'fillColor': this.toolOption.fillColor,
-  //       'fill': this.toolOption.fill
-  //     })
-
-  //     // push action onto stack
-  //     return new OverwriteTrianglesAction([gridSquare], [oldTriangle], activeLayer._id)
-  //   }
-  // }
 
   deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
