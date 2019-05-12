@@ -94,7 +94,7 @@ class LineTool extends Tool {
     this.line.strokeColor = 'black'
     this.line.add(event.downPoint)
     this.line.add(event.point)
-    this.line.strokeWidth = this.toolOption.toolSize
+    this.line.strokeWidth = (this.toolOption.toolSize * grid.squareWidth)
   }
 
   onMouseUp (event) {
@@ -109,19 +109,69 @@ class LineTool extends Tool {
       return
     }
 
-    this.createLineStrokes(event)
+    // must be more than one square to draw
+    if (lineDownSquare.column === lineEndSquare.column && lineDownSquare.row === lineEndSquare.row) {
+      this.line.remove()
+      this.line = null
+      return
+    }
+
+    let boundLines = this.createLineStrokes(event)
+
+    // get the bounds of the stroke
+    let strokeBounds = this.getBoundOfStroke(boundLines)
+    let boundDownSquare = utilities.getRowColumn(strokeBounds.leftBound.x, strokeBounds.leftBound.y)
+    let boundEndSquare = utilities.getRowColumn(strokeBounds.rightBound.x, strokeBounds.rightBound.y)
 
     // between the two squares the one with the lower column value represents
     // the square we will start looping from
-    if (lineDownSquare.row < lineEndSquare.row) {
-      this.lineInsideSquares(lineDownSquare, lineEndSquare)
+    if (boundDownSquare.row < boundEndSquare.row) {
+      this.lineInsideSquares(boundDownSquare, boundEndSquare)
     } else {
-      this.lineInsideSquares(lineEndSquare, lineDownSquare)
+      this.lineInsideSquares(boundEndSquare, boundDownSquare)
     }
 
     // once complete remove the line from the screen
-    // this.line.remove()
-    // this.line = null
+    this.line.remove()
+    this.line = null
+
+    // remove all stroke line
+    // for (let strokeIndex in this.strokeLines) {
+    //   let strokeLine = this.strokeLines[strokeIndex]
+    //   strokeLine.remove()
+    // }
+
+    this.strokeLines = []
+  }
+
+  /**
+   * Get the bounds of the stroke
+   * @param {*} boundLines
+   */
+  getBoundOfStroke (boundLines) {
+    let smallestX = Number.MAX_SAFE_INTEGER
+    let largestX = 0
+
+    let smallestPoint = null
+    let largestPoint = null
+
+    for (let boundsProp in boundLines) {
+      let boundLine = boundLines[boundsProp]
+      if (boundLine.segments[1].point.x > largestX) {
+        largestX = boundLine.segments[1].point.x
+        largestPoint = boundLine.segments[1].point
+      }
+
+      if (boundLine.segments[1].point.x < smallestX) {
+        smallestX = boundLine.segments[1].point.x
+        smallestPoint = boundLine.segments[1].point
+      }
+    }
+
+    return {
+      leftBound: smallestPoint,
+      rightBound: largestPoint
+    }
   }
 
   /**
@@ -136,6 +186,13 @@ class LineTool extends Tool {
     let lineCloneBottomLeft = this.line.clone()
     let lineCloneTopRight = this.line.clone()
     let lineCloneTopLeft = this.line.clone()
+
+    // update to stroke width 1 for debugging purposes as strokewidth
+    // cant be calculated in intersects
+    lineCloneBottomRight.strokeWidth = 1
+    lineCloneBottomLeft.strokeWidth = 1
+    lineCloneTopRight.strokeWidth = 1
+    lineCloneTopLeft.strokeWidth = 1
 
     // debugging purposes
     lineCloneBottomRight.strokeColor = 'red'
@@ -158,32 +215,63 @@ class LineTool extends Tool {
     this.shorten(lineCloneTopRight)
     this.shorten(lineCloneTopLeft)
 
-    // create parallel line set
-    let tempClone = this.line.clone()
-    tempClone.segments[0].point = lineCloneBottomRight.segments[1].point
-    tempClone.segments[1].point = lineCloneTopRight.segments[1].point
-    tempClone.strokeColor = 'green'
+    // This function updates the strokeLines field
+    this.drawStrokeSet(lineCloneTopRight, lineCloneBottomRight)
+    this.drawStrokeSet(lineCloneTopLeft, lineCloneBottomLeft)
 
-    let tempClone2 = this.line.clone()
-    tempClone2.segments[0].point = lineCloneBottomLeft.segments[1].point
-    tempClone2.segments[1].point = lineCloneTopLeft.segments[1].point
-    tempClone2.strokeColor = 'green'
-
-    // // update start and end points
-    // this.lineClone.segments[0].point = this.lineClone.segments[0].point.add(this.toolOption.toolSize * grid.squareWidth)
-    // this.lineClone.segments[1].point = this.lineClone.segments[1].point.add(this.toolOption.toolSize * grid.squareWidth)
-
-    // // this.lineClone.position = event.downPoint.add(this.toolOption.toolSize * grid.squareWidth)
+    // return so that we can use to get bounds
+    return {
+      'bottomRight': lineCloneBottomRight,
+      'bottomLeft': lineCloneBottomLeft,
+      'topRight': lineCloneTopRight,
+      'topLeft': lineCloneTopLeft
+    }
   }
 
   shorten (lineClone) {
     // https://stackoverflow.com/questions/34529248/in-paperjs-is-it-possible-to-set-the-length-of-a-straight-line-path-explicitly
     let vector = lineClone.segments[0].point.subtract(lineClone.segments[1].point)
     let p0 = lineClone.segments[0].point
-    let p1 = p0.subtract(vector.multiply(this.toolOption.toolSize / (grid.squareWidth)))
+    let p1 = p0.subtract(vector.multiply(this.toolOption.toolSize / (grid.squareWidth * 4)))
+    // let p1 = vector.subtract(vector.length - this.toolOption.toolSize / (grid.squareWidth * 2))
 
     // update our current line segment to use this
     lineClone.segments[1].point = p1
+  }
+
+  /**
+   * Using the bottom and top set draw lines used to represent our stroke
+   * @param topLine Path object representing our top part of stroke
+   * @param bottomLine Path object representing the bottom part of stroke
+   */
+  drawStrokeSet (topLine, bottomLine) {
+    // how much we are moving by
+    // Note we keep two different offsets because they can be different to the 100000th of a meter
+    // Which causes problems with using getPointAt function
+    let offsetTop = topLine.length
+    let offsetBottom = bottomLine.length
+
+    // stop when we reached passed the left most side of line
+    while (offsetTop > 0 && offsetBottom > 0) {
+      // create parallel line set
+      let tempClone = this.line.clone()
+      tempClone.strokeWidth = 1
+      tempClone.segments[0].point = bottomLine.getPointAt(offsetBottom)
+      tempClone.segments[1].point = topLine.getPointAt(offsetTop)
+
+      console.log(tempClone.segments[0].point)
+      console.log(tempClone.segments[1].point)
+      tempClone.strokeColor = 'green'
+      offsetTop = offsetTop - (grid.squareWidth)
+      offsetBottom = offsetBottom - (grid.squareWidth)
+
+      this.strokeLines.push(tempClone)
+    }
+
+    // at the very end push the main line we have as part of the stroke as well
+    let tempClone = this.line.clone()
+    tempClone.strokeWidth = 1
+    this.strokeLines.push(tempClone)
   }
 
   /**
@@ -209,13 +297,17 @@ class LineTool extends Tool {
       for (let columnIndex = startingColumnNumber; columnIndex <= endingColumnNumber; columnIndex++) {
         let gridSquare = gridRow[columnIndex]
 
-        // check if the line is inside the rectangle
-        if (this.line.intersects(gridSquare.square.path)) {
-          // check if the triangle that is being added should be an overwrite or a normal add
-
-          let actions = utilities.insertTriangle(gridSquare, this.toolOption)
-          if (actions !== undefined) {
-            changedSquares.push(actions)
+        // loop through lines checking if stroke lines intersect
+        for (let strokeIndex = 0; strokeIndex < this.strokeLines.length; strokeIndex++) {
+          let strokeLine = this.strokeLines[strokeIndex]
+          // check if the line is inside the rectangle
+          if (strokeLine.intersects(gridSquare.square.path)) {
+            // check if the triangle that is being added should be an overwrite or a normal add
+            let actions = utilities.insertTriangle(gridSquare, this.toolOption)
+            if (actions !== undefined) {
+              changedSquares.push(actions)
+            }
+            break
           }
         }
       }
