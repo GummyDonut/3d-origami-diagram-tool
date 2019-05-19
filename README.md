@@ -34,7 +34,8 @@ or run the npm script
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
   * Paint bucket tool
-    * Simple tutorial : http://www.williammalone.com/articles/html5-canvas-javascript-paint-bucket-tool/
+    * ~~Simple tutorial : http://www.williammalone.com/articles/html5-canvas-javascript-paint-bucket-tool/~~ Overly complicated
+    * https://www.hackerearth.com/practice/algorithms/graphs/flood-fill-algorithm/tutorial/
   * Arrow Tool - for simply drawing errors
   * Move tool for moving layers, kinda meh on this one
 * ~~Show/hide grid~~
