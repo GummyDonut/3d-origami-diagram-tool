@@ -40,6 +40,10 @@ $(document).ready(() => {
   // loop through creating shifted grid element, with squares and store information
   let canvasGrid = grid.grid
 
+  // store the number of rows and columns in the grid object
+  grid.rowsCount = rows
+  grid.columnsCount = cols
+
   // store the dimensions of grid at top level for easy-access
   grid.squareWidth = 14
   grid.squareHeight = 14

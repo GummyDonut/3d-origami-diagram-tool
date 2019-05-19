@@ -52,7 +52,7 @@ div.tool-row {
   background-color: white;
   display: inline-block;
   border:1px solid black;
-  cursor: pointer;
+  cursor: normal;
 }
 #origami-editor.cursor-magnify-plus {
   cursor: url(../img/search-plus-solid.png), zoom-in
@@ -74,7 +74,7 @@ div.tool-row {
 #origami-editor.cursor-triangle {
   cursor: pointer
 }
-#origami-editor.cursor-libe {
+#origami-editor.cursor-pointer {
   cursor: pointer
 }
 #popover {

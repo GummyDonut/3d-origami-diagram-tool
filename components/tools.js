@@ -5,6 +5,7 @@ import MagnifyMinusTool from './tools/MagnifyMinusTool.js'
 import MagnifyPlusTool from './tools/MagnifyPlusTool.js'
 import EraserTool from './tools/EraserTool.js'
 import LineTool from './tools/LineTool.js'
+import BucketTool from './tools/BucketTool.js'
 
 // Useful docs on tools
 // activating tools: https://stackoverflow.com/questions/49215584/toggling-multiple-tools-on-paper-js
@@ -48,5 +49,5 @@ export default {
    */
   'active': null,
   'tools': [new MagnifyPlusTool(), new MagnifyMinusTool(), new PanTool(),
-    new TriangleTool(), new EraserTool(), new LineTool()]
+    new TriangleTool(), new EraserTool(), new LineTool(), new BucketTool()]
 }

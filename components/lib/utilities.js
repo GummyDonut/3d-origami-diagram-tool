@@ -37,6 +37,7 @@ export default {
 
   /**
    * Based on the x and y coordinate return if the row and column on the grid
+   * return null if it could not find anything
    * @param {Number} x
    * @param {Number} y
    */
@@ -82,10 +83,19 @@ export default {
    * if there is no triangle do an adding action
    * @param {*} gridSquare
    * @param {*} toolOption contains colors and size of triangle
+   * @param {*} paramOptions contains our function options
+   * {
+   *  "noOverwrite": default handled as false, if true we don't allow for overwriting of triangles
+   * }
    */
-  insertTriangle (gridSquare, toolOption) {
+  insertTriangle (gridSquare, toolOption, paramOptions) {
     // Get the triangle on the layer we are currently using
     let activeLayer = paper.project.activeLayer
+
+    // specify defaults
+    let options = {
+      'noOverwrite': (paramOptions && paramOptions.noOverwrite) ? paramOptions.noOverwrite : false
+    }
 
     let triangle = gridSquare.triangles[activeLayer._id]
     if (triangle === undefined || triangle == null) {
@@ -97,7 +107,7 @@ export default {
       })
 
       return new AddTrianglesAction([gridSquare], activeLayer._id)
-    } else {
+    } else if (!options.noOverwrite) {
       // overwrite action
       // If the gridSquare triangle matches do not redraw
       if (triangle.matches(toolOption)) {
