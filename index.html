@@ -64,7 +64,22 @@
       <div id="tool-bar-container" class="pure-u-1">
         <nav id="tool-bar">
           <ul>
-            <li><a href="#">File</a></li>
+            <li>
+              <a href="#">File</a>
+              <ul>
+                <li>
+                  <a href="#">Export as...<i class="fas fa-caret-right"></i></a>
+                  <ul>
+                    <li>
+                      <a id="tool-bar-export-svg" href="#">SVG
+                      </a>
+                      <a id="tool-bar-export-png" href="#">PNG
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
             <li><a href="#">View</a>
               <ul>
                 <li>
@@ -151,7 +166,7 @@
         </div>
       </div>
     </div>
-
+    <canvas id="exportCanvas" style="display: none"></canvas>
     <!-- Note the canvas attribute links to the DOM element-->
     <script type="module" src="editor.js"></script>
   </body>
