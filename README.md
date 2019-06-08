@@ -70,6 +70,8 @@ or run the npm script
     * ~~Triangles field, object indicating which layer it was added to~~
   * ~~This also means I need to rewrite the layers to use a unique ID, instead of the name, names are now superficial~~
   * ~~Rewrite up and down _index is incorrect value~~ Ended up manually updating _index value
+
+### Bug list
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
 * Small bug popover no longer matches size of grid when zoomed in. Need to update it by the zoom factor
 * Small bug with drawing lines, need to account for zoom factor
