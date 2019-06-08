@@ -63,39 +63,49 @@ class BucketTool extends Tool {
     if (squareDown == null) {
       return
     }
-    this.fillSurroundingArea(squareDown.row, squareDown.column)
+
+    // keep track of squares added
+    let changedSquares = []
+
+    this.fillSurroundingArea(squareDown.row, squareDown.column, changedSquares)
+
+    // add actions to undo stack so we can undo and redo.
+    if (changedSquares.length > 0) {
+      actionStack.pushToUndo(new GroupActions(changedSquares), 'new')
+    }
   }
 
   /**
    * Fill in the surrounding clicked row and columnd
    * @param {Number} row - the row we clicked on
    * @param {Number} column - the column we clicked on
+   * @param {Array of actions} changedSquares - keep track of our changed actions
    */
-  fillSurroundingArea (row, column) {
+  fillSurroundingArea (row, column, changedSquares) {
     // determine if needs to be shifted
     let shifted = (row % 2 === 0) ? -1 : 0
 
     // center square, base case
-    let filled = this.fillSquare(row, column)
+    let filled = this.fillSquare(row, column, changedSquares)
 
     if (filled) {
       // top left square
-      this.fillSurroundingArea(row - 1, column + shifted)
+      this.fillSurroundingArea(row - 1, column + shifted, changedSquares)
 
       // top right square
-      this.fillSurroundingArea(row - 1, column + 1 + shifted)
+      this.fillSurroundingArea(row - 1, column + 1 + shifted, changedSquares)
 
       // left square
-      this.fillSurroundingArea(row, column - 1)
+      this.fillSurroundingArea(row, column - 1, changedSquares)
 
       // right square
-      this.fillSurroundingArea(row, column + 1)
+      this.fillSurroundingArea(row, column + 1, changedSquares)
 
       // bottom left square
-      this.fillSurroundingArea(row + 1, column + shifted)
+      this.fillSurroundingArea(row + 1, column + shifted, changedSquares)
 
       // bottom right square
-      this.fillSurroundingArea(row + 1, column + 1 + shifted)
+      this.fillSurroundingArea(row + 1, column + 1 + shifted, changedSquares)
     }
 
     return filled
@@ -108,7 +118,7 @@ class BucketTool extends Tool {
    * @param {number} column represent the column index
    * @returns boolean if we filled or not
    */
-  fillSquare (row, column) {
+  fillSquare (row, column, changedSquares) {
     // sanity check
     if (row == null || column === null) {
       return false
@@ -140,9 +150,11 @@ class BucketTool extends Tool {
       return false
     }
 
-    utilities.insertTriangle(gridSquare, this.toolOption, {
+    let triangleAction = utilities.insertTriangle(gridSquare, this.toolOption, {
       'noOverwrite': true
     })
+
+    changedSquares.push(triangleAction)
 
     return true
   }
