@@ -32,6 +32,9 @@ class BucketTool extends Tool {
 
         $(this.selector).addClass('pure-button-active')
 
+        // add options to tool options box
+        this.toolOption.addToToolOptionBox()
+
         // reactive tool
         this.tool.activate()
         this.data.active = true

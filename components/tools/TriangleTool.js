@@ -10,7 +10,9 @@ class TriangleTool extends Tool {
   constructor () {
     super('#triangle-tool', 'TriangleTool')
     this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
-    this.toolOption = new TriangleOptions(this.popoverMove)
+    this.toolOption = new TriangleOptions({
+      popoverMove: this.popoverMove
+    })
 
     // need to store this way so I can unbind properly
     this.popoverFunction = this.popoverMove.popover.bind(this.popoverMove)

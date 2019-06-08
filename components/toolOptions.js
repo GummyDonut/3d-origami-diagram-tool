@@ -15,7 +15,7 @@ class toolOptions {
   addToToolOptionBox () {
     return new Promise((resolve, reject) => {
       try {
-      // remove all content within
+        // remove all content within
         $(containerSelector).empty()
 
         // append new tool options content

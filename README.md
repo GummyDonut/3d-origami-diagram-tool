@@ -33,7 +33,7 @@ or run the npm script
   * Text tool
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
-  * Paint bucket tool
+  * ~~Paint bucket tool~~
     * ~~Simple tutorial : http://www.williammalone.com/articles/html5-canvas-javascript-paint-bucket-tool/~~ Overly complicated
     * https://www.hackerearth.com/practice/algorithms/graphs/flood-fill-algorithm/tutorial/
   * Arrow Tool - for simply drawing errors
@@ -73,6 +73,7 @@ or run the npm script
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
 * Small bug popover no longer matches size of grid when zoomed in. Need to update it by the zoom factor
 * Small bug with drawing lines, need to account for zoom factor
+* Small bug fix needed keep old options after closing and reopening a tool
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

@@ -2,23 +2,39 @@ import ToolOptions from '../toolOptions.js'
 class TriangleOptions extends ToolOptions {
   /**
    * Constructor
-   * @param {PopoverCursor} popoverMove - WE use to update values
+   * @param {Object} options options for enabling and disabling certain options
+   *  popoverMove - object representing box on cursor for triangle tool
    */
-  constructor (popoverMove) {
+  constructor (options) {
+    if (!options) {
+      console.error('No options defined, for triangleOptions. Developer please fix')
+    }
+
     super('triangleOptions.html')
     // add initial value
     this.strokeColor = '#0000ff'
     this.fillColor = '#0000ff'
     this.fill = false
     this.toolSize = 1
-    this.popoverMove = popoverMove
+
+    if (options.popoverMove) {
+      this.popoverMove = options.popoverMove
+    }
   }
 
   /**
    * Run on start and add HTML to tool box options
    */
   addToToolOptionBox () {
+    // alias
+    var self = this
+
     super.addToToolOptionBox().then(() => {
+      // hide toolsize of popoverMove is not used
+      if (self.popoverMove === undefined) {
+        $('#triangleToolSize').closest('tr').hide()
+      }
+
       this.optionsListeners()
       this.initValue()
     })
@@ -58,20 +74,22 @@ class TriangleOptions extends ToolOptions {
       }
     })
 
-    // Indicate the size of the popover box
-    $('#triangleToolSize').on('change', function (event) {
-      let pixelSize = parseInt(this.value)
+    // Indicate the size of the popover box, only available if the options is allowed
+    if (self.popoverMove !== undefined) {
+      $('#triangleToolSize').on('change', function (event) {
+        let pixelSize = parseInt(this.value)
 
-      // validate, possibly set a max
-      if (pixelSize < 1) {
-        pixelSize = 1
-        $(this).val(pixelSize)
-      }
+        // validate, possibly set a max
+        if (pixelSize < 1) {
+          pixelSize = 1
+          $(this).val(pixelSize)
+        }
 
-      // update cursor
-      self.toolSize = pixelSize
-      self.popoverMove.cursorSize = self.toolSize
-    })
+        // update cursor
+        self.toolSize = pixelSize
+        self.popoverMove.cursorSize = self.toolSize
+      })
+    }
 
     // update fill color
     $('#triangleFillColorPicker').ColorPicker({
