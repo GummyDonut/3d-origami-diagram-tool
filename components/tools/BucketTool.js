@@ -63,17 +63,42 @@ class BucketTool extends Tool {
     if (squareDown == null) {
       return
     }
+    this.fillSurroundingArea(squareDown.row, squareDown.column)
+  }
 
+  /**
+   * Fill in the surrounding clicked row and columnd
+   * @param {Number} row - the row we clicked on
+   * @param {Number} column - the column we clicked on
+   */
+  fillSurroundingArea (row, column) {
     // determine if needs to be shifted
-    let shifted = (squareDown.row % 2 === 0) ? -1 : 0
+    let shifted = (row % 2 === 0) ? -1 : 0
 
-    // top left square
-    this.fillSquare(squareDown.row - 1, squareDown.column + shifted)
-    // top right square
-    // left square
-    // right square
-    // bottom left square
-    // bottom right square
+    // center square, base case
+    let filled = this.fillSquare(row, column)
+
+    if (filled) {
+      // top left square
+      this.fillSurroundingArea(row - 1, column + shifted)
+
+      // top right square
+      this.fillSurroundingArea(row - 1, column + 1 + shifted)
+
+      // left square
+      this.fillSurroundingArea(row, column - 1)
+
+      // right square
+      this.fillSurroundingArea(row, column + 1)
+
+      // bottom left square
+      this.fillSurroundingArea(row + 1, column + shifted)
+
+      // bottom right square
+      this.fillSurroundingArea(row + 1, column + 1 + shifted)
+    }
+
+    return filled
   }
 
   /**
@@ -81,33 +106,45 @@ class BucketTool extends Tool {
    * there do not fill in, if it did fill in recursively call the surrounding squares
    * @param {number} row represents the row index
    * @param {number} column represent the column index
+   * @returns boolean if we filled or not
    */
   fillSquare (row, column) {
     // sanity check
-
     if (row == null || column === null) {
-      return
+      return false
     }
     // check if out of bounds
     if (row < 0 || column < 0) {
-      return
+      return false
     }
 
     // check if out of bounds
     if (row > grid.rowsCount || column > grid.columnsCount) {
-      return
+      return false
+    }
+
+    // sanity check
+    if (grid.grid[row] === undefined) {
+      return false
     }
 
     let gridSquare = grid.grid[row][column]
 
     // check if row is defined
     if (gridSquare == null) {
-      return
+      return false
+    }
+
+    // check if triangle exists on this layer
+    if (gridSquare.triangles[paper.project.activeLayer._id]) {
+      return false
     }
 
     utilities.insertTriangle(gridSquare, this.toolOption, {
       'noOverwrite': true
     })
+
+    return true
   }
 
   deActivateTool () {
