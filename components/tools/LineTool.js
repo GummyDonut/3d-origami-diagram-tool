@@ -135,11 +135,16 @@ class LineTool extends Tool {
     this.line.remove()
     this.line = null
 
-    // remove all stroke line
-    // for (let strokeIndex in this.strokeLines) {
-    //   let strokeLine = this.strokeLines[strokeIndex]
-    //   strokeLine.remove()
-    // }
+    // remove lines visually from canvas
+    this.strokeLines.forEach((strokeLine) => {
+      strokeLine.remove()
+    })
+
+    // remove bound lines as well
+    const boundLinesValues = Object.values(boundLines)
+    boundLinesValues.forEach((boundLine) => {
+      boundLine.remove()
+    })
 
     this.strokeLines = []
   }
@@ -259,8 +264,6 @@ class LineTool extends Tool {
       tempClone.segments[0].point = bottomLine.getPointAt(offsetBottom)
       tempClone.segments[1].point = topLine.getPointAt(offsetTop)
 
-      console.log(tempClone.segments[0].point)
-      console.log(tempClone.segments[1].point)
       tempClone.strokeColor = 'green'
       offsetTop = offsetTop - (grid.squareWidth)
       offsetBottom = offsetBottom - (grid.squareWidth)
