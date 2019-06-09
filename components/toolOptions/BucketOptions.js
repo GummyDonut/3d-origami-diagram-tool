@@ -1,4 +1,4 @@
-// import ToolOptions from '../toolOptions.js'
+
 import TriangleOptions from './TriangleOptions.js'
 class BucketOptions extends TriangleOptions {
   /**
@@ -7,12 +7,9 @@ class BucketOptions extends TriangleOptions {
   constructor () {
     // uses the same settings as triangle options
     // except no popovermove as this is a bucket
-    super({})
-    // add initial value
-    this.strokeColor = '#0000ff'
-    this.fillColor = '#0000ff'
-    this.fill = false
-    this.toolSize = 1
+    super({
+      'optionsTitle': 'Bucket Options'
+    })
   }
 }
 

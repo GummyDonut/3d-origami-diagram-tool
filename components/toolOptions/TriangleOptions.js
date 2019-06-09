@@ -11,6 +11,9 @@ class TriangleOptions extends ToolOptions {
     }
 
     super('triangleOptions.html')
+
+    this.optionsTitle = options.optionsTitle
+
     // add initial value
     this.strokeColor = '#0000ff'
     this.fillColor = '#0000ff'
@@ -109,8 +112,22 @@ class TriangleOptions extends ToolOptions {
    * Instantiate with initial values
    */
   initValue () {
+    // update title of options
+    if (this.optionsTitle) {
+      $('#tool-options-container h4.optionsTitle').text(this.optionsTitle)
+    }
+
     $('#triangleFill').prop('checked', this.fill)
-    $('#triangleToolSize').val(this.toolSize)
+    $('#triangleFill').trigger('change')
+
+    // only update if available
+    if (this.popoverMove) {
+      $('#triangleToolSize').val(this.toolSize)
+    }
+
+    // set default loading color
+    $('#triangleStrokeColorPicker div').css('background-color', this.strokeColor)
+    $('#triangleFillColorPicker div').css('background-color', this.fillColor)
   }
 }
 
