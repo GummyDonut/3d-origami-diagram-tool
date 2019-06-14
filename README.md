@@ -30,6 +30,8 @@ or run the npm script
     * ~~Only overwrite if triangles are different~~
   * ~~Line tool~~
   * ~~Eraser tool~~
+  * ~~Magnify tool~~
+    * Reset to zoom factor of one
   * Text tool
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
@@ -40,6 +42,7 @@ or run the npm script
   * Move tool for moving layers, kinda meh on this one
 * ~~Show/hide grid~~
 * ~~Canvas Border~~
+* Button to clear everything out on grid
 * Grid options
 * Canvas Border options
 * Grid dialog on start
@@ -75,7 +78,7 @@ or run the npm script
     
 ### Bug list
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
-* Small bug popover no longer matches size of grid when zoomed in. Need to update it by the zoom factor
+* ~~Small bug popover no longer matches size of grid when zoomed in. Need to update it by the zoom factor~~
 * Small bug with drawing lines, need to account for zoom factor
 * ~~Small bug fix needed keep old options after closing and reopening a tool~~
 

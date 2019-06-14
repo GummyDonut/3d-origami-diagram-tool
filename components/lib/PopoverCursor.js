@@ -35,13 +35,14 @@ class PopoverCursor {
       popover.addClass('eraser-box')
 
       // Get the width of the gridSquare, from first square
-      popover.css('height', boxHeight + 'px')
-      popover.css('width', boxWidth + 'px')
+      // increase popover by zoom factor
+      popover.css('height', boxHeight * paper.view.zoom + 'px')
+      popover.css('width', boxWidth * paper.view.zoom + 'px')
     }
 
     popover.css({
-      left: event.pageX - (boxWidth / 2),
-      top: event.pageY - (boxHeight / 2)
+      left: event.pageX - (boxWidth * paper.view.zoom / 2),
+      top: event.pageY - (boxHeight * paper.view.zoom / 2)
     })
   }
 
