@@ -1,5 +1,5 @@
 
-import CustomShape from './CustomShape.js'
+import CustomShape from './customShape.js'
 /**
  * Custom class for triangle
  */

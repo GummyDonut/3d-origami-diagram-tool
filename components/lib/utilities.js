@@ -1,6 +1,6 @@
 
 import grid from '../grid.js'
-import Triangle from './Triangle.js'
+import Triangle from './triangle.js'
 import AddTrianglesAction from '../actions/AddTrianglesAction.js'
 import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
 
