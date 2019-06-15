@@ -67,14 +67,16 @@ or run the npm script
   * ~~Rename Layer - By dialog~~
   * ~~Undo/Redo for layer action~~
 * Replace alert functions with custom dialog
-* Fix Overwrite on multiple layers grid system.
-  * This is quite a large fix, now need to keep track of triangles on different layers
+* ~~Fix Overwrite on multiple layers grid system.~~
+  * ~~This is quite a large fix, now need to keep track of triangles on different layers~~
   * ~~The gridsquare objects needs to be updated to have multiple triangle objects~~
     * ~~Triangles field, object indicating which layer it was added to~~
   * ~~This also means I need to rewrite the layers to use a unique ID, instead of the name, names are now superficial~~
   * ~~Rewrite up and down _index is incorrect value~~ Ended up manually updating _index value
 * ~~Color picker https://www.eyecon.ro/colorpicker/~~
   * TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404
+* Dark THEME IT UP so this application looks sleeker
+* Loading screen on start so it's not as ugly
     
 ### Bug list
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
