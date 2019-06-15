@@ -123,6 +123,7 @@ class LineTool extends Tool {
     let boundDownSquare = utilities.getRowColumn(strokeBounds.leftBound.x, strokeBounds.leftBound.y)
     let boundEndSquare = utilities.getRowColumn(strokeBounds.rightBound.x, strokeBounds.rightBound.y)
 
+
     // between the two squares the one with the lower column value represents
     // the square we will start looping from
     if (boundDownSquare.row < boundEndSquare.row) {
@@ -136,15 +137,15 @@ class LineTool extends Tool {
     this.line = null
 
     // remove lines visually from canvas
-    this.strokeLines.forEach((strokeLine) => {
-      strokeLine.remove()
-    })
+    // this.strokeLines.forEach((strokeLine) => {
+    //   strokeLine.remove()
+    // })
 
     // remove bound lines as well
-    const boundLinesValues = Object.values(boundLines)
-    boundLinesValues.forEach((boundLine) => {
-      boundLine.remove()
-    })
+    // const boundLinesValues = Object.values(boundLines)
+    // boundLinesValues.forEach((boundLine) => {
+    //   boundLine.remove()
+    // })
 
     this.strokeLines = []
   }
@@ -184,13 +185,14 @@ class LineTool extends Tool {
    * Use this group of lines to determine if the squares intersect
    */
   createLineStrokes (event) {
-    // TODO KEEP Track so we can remove them later
 
     // create the clone on the right and left side
     let lineCloneBottomRight = this.line.clone()
     let lineCloneBottomLeft = this.line.clone()
     let lineCloneTopRight = this.line.clone()
     let lineCloneTopLeft = this.line.clone()
+
+
 
     // update to stroke width 1 for debugging purposes as strokewidth
     // cant be calculated in intersects
@@ -237,8 +239,7 @@ class LineTool extends Tool {
     // https://stackoverflow.com/questions/34529248/in-paperjs-is-it-possible-to-set-the-length-of-a-straight-line-path-explicitly
     let vector = lineClone.segments[0].point.subtract(lineClone.segments[1].point)
     let p0 = lineClone.segments[0].point
-    let p1 = p0.subtract(vector.multiply(this.toolOption.toolSize / (grid.squareWidth * 4)))
-    // let p1 = vector.subtract(vector.length - this.toolOption.toolSize / (grid.squareWidth * 2))
+    let p1 = p0.subtract(vector.multiply((this.toolOption.toolSize * paper.view.zoom) / (grid.squareWidth * 4)))
 
     // update our current line segment to use this
     lineClone.segments[1].point = p1
