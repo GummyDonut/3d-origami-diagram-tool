@@ -81,7 +81,8 @@ or run the npm script
 * ~~Small bug popover no longer matches size of grid when zoomed in. Need to update it by the zoom factor~~
 * ~~Small bug with drawing lines, need to account for zoom factor~~
 * ~~Small bug fix needed keep old options after closing and reopening a tool~~
-* Bug with bounds of stroke on diagonal lines with widths greater than 4
+* ~~Bug with bounds of stroke on diagonal lines with widths greater than 4~~
+
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

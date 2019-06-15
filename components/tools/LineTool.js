@@ -120,8 +120,8 @@ class LineTool extends Tool {
 
     // get the bounds of the stroke
     let strokeBounds = this.getBoundOfStroke(boundLines)
-    let boundDownSquare = utilities.getRowColumn(strokeBounds.leftBound.x, strokeBounds.leftBound.y)
-    let boundEndSquare = utilities.getRowColumn(strokeBounds.rightBound.x, strokeBounds.rightBound.y)
+    let boundDownSquare = utilities.getRowColumn(strokeBounds.topLeftBound.x, strokeBounds.topLeftBound.y)
+    let boundEndSquare = utilities.getRowColumn(strokeBounds.bottomRightBound.x, strokeBounds.bottomRightBound.y)
 
 
     // between the two squares the one with the lower column value represents
@@ -137,15 +137,15 @@ class LineTool extends Tool {
     this.line = null
 
     // remove lines visually from canvas
-    // this.strokeLines.forEach((strokeLine) => {
-    //   strokeLine.remove()
-    // })
+    this.strokeLines.forEach((strokeLine) => {
+      strokeLine.remove()
+    })
 
     // remove bound lines as well
-    // const boundLinesValues = Object.values(boundLines)
-    // boundLinesValues.forEach((boundLine) => {
-    //   boundLine.remove()
-    // })
+    const boundLinesValues = Object.values(boundLines)
+    boundLinesValues.forEach((boundLine) => {
+      boundLine.remove()
+    })
 
     this.strokeLines = []
   }
@@ -155,28 +155,37 @@ class LineTool extends Tool {
    * @param {*} boundLines
    */
   getBoundOfStroke (boundLines) {
+
+    // initialize as opposite for comparison
     let smallestX = Number.MAX_SAFE_INTEGER
     let largestX = 0
+    let smallestY = Number.MAX_SAFE_INTEGER
+    let largestY = 0
 
-    let smallestPoint = null
-    let largestPoint = null
-
+    // we need to loop through and top left bound, smallest x and y
+    // and the bottom right bound largest x and y
     for (let boundsProp in boundLines) {
       let boundLine = boundLines[boundsProp]
       if (boundLine.segments[1].point.x > largestX) {
         largestX = boundLine.segments[1].point.x
-        largestPoint = boundLine.segments[1].point
+      }
+
+      if (boundLine.segments[1].point.y > largestY) {
+        largestY = boundLine.segments[1].point.y
       }
 
       if (boundLine.segments[1].point.x < smallestX) {
         smallestX = boundLine.segments[1].point.x
-        smallestPoint = boundLine.segments[1].point
+      }
+
+      if (boundLine.segments[1].point.y < smallestY) {
+        smallestY = boundLine.segments[1].point.y
       }
     }
 
     return {
-      leftBound: smallestPoint,
-      rightBound: largestPoint
+      topLeftBound: new paper.Point(smallestX, smallestY),
+      bottomRightBound: new paper.Point(largestX, largestY)
     }
   }
 
