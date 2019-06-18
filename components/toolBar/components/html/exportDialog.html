@@ -1,0 +1,35 @@
+<div id="export-as-dialog" title="Export Diagram As...">
+  <p>Export the diagram you made</p>
+  <table class="pure-table pure-table-bordered">
+    <tbody>
+      <tr class="pure-table-odd">
+        <td>
+          Save as
+        </td>
+        <td>
+          <select id="export-as-select">
+            <option value="png" selected>
+              PNG
+            </option>
+            <option value="svg">
+              SVG
+            </option>
+            <option value="custom">
+              Custom
+            </option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="export-dialog-footer">
+    <a id="export-dialog-button" class="pure-button" href="#">Export</a>
+  </div>
+</div>
+<style>
+  .export-dialog-footer {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+  }
+</style>
