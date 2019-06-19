@@ -84,6 +84,7 @@ or run the npm script
 * ~~Small bug with drawing lines, need to account for zoom factor~~
 * ~~Small bug fix needed keep old options after closing and reopening a tool~~
 * ~~Bug with bounds of stroke on diagonal lines with widths greater than 4~~
+* Small bug large tool size eraser can't erase edge
 
 
 ### Maybe read into for later

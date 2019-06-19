@@ -126,5 +126,14 @@ export default {
       // push action onto stack
       return new OverwriteTrianglesAction([gridSquare], [oldTriangle], activeLayer._id)
     }
+  },
+
+  /**
+   * Function for waiting a few milliseconds
+   * @param {Number} time number of milliseconds
+   * @returns promise
+   */
+  sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time))
   }
 }
