@@ -33,8 +33,8 @@ export default {
     loadInHTML.then(() => {
       // instantiate the dialog
       $(this.selector).dialog({
-        minWidth: 300,
-        minHeight: 200
+        minWidth: 400,
+        minHeight: 300
       })
 
       // load in listener for dialog button
@@ -58,14 +58,29 @@ export default {
    */
   export () {
     let exportAs = $('#export-as-select').val()
+    let fileName = $('#export-file-name').val()
+
+    // validate the options
+    let valid = this.validate({
+      fileName: fileName
+    })
+
+    // if options invalid don't export
+    if (!valid) {
+      return
+    }
 
     // what type of file to export
     switch (exportAs) {
       case 'png':
-        this.exportAsPNG()
+        this.exportAsPNG({
+          fileName: fileName
+        })
         break
       case 'svg':
-        this.exportAsSVG()
+        this.exportAsSVG({
+          fileName: fileName
+        })
         break
       default:
         alert('Could not export file type, ' + exportAs + 'is not supported')
@@ -86,43 +101,64 @@ export default {
   },
 
   /**
-   * Export image as svg
-   * @param {*} event JQuery click event
+   * Function to call to validate, if problem alert
+   * @param {Object} options
    */
-  exportAsSVG (event) {
+  validate (options) {
+    if (!options.fileName) {
+      alert('No file name provided please add')
+      return false
+    }
+
+    if (options.fileName.trim() === '') {
+      alert('No file name provided please add')
+      return false
+    }
+
+    return true
+  },
+
+  /**
+   * Export image as svg
+   * @param {object} options json containing file options
+   * such as filename
+   */
+  exportAsSVG (options) {
     // open loading dialog
     loadingDialog.openDialog()
 
-    let options = {
+    let svgOptions = {
       bounds: 'content', asString: true
     }
 
     // set a small time to wait for so loading dialog can appear properly
     // give the DOM sometime to actually loadin in conten
     util.sleep(500).then(() => {
-      var url = 'data:image/svg+xml;utf8,' + encodeURIComponent(paper.project.exportSVG(options))
+      var url = 'data:image/svg+xml;utf8,' + encodeURIComponent(paper.project.exportSVG(svgOptions))
       var link = document.createElement('a')
       loadingDialog.closeDialog()
-      link.download = 'paperjs_example.svg'
+      link.download = options.fileName + '.svg'
       link.href = url
       link.click()
     })
   },
 
   /**
-   * @param {*} event
+   * Export as PNG
+   * @param {object} options json containing file options
+   * such as filename
    */
-  exportAsPNG (event) {
+  exportAsPNG (options) {
     // open loading dialog
     loadingDialog.openDialog()
 
-    let options = {
+    let svgOptions = {
       bounds: 'content', asString: true
     }
 
     // set a small time to wait for so loading dialog can appear properly
     util.sleep(500).then(() => {
-      var url = 'data:image/svg+xml;utf8,' + encodeURIComponent(paper.project.exportSVG(options))
+      var url = 'data:image/svg+xml;utf8,' + encodeURIComponent(paper.project.exportSVG(svgOptions))
       var canvas = document.getElementById('exportCanvas')
 
       if (canvas.getContext) {
@@ -143,7 +179,7 @@ export default {
           // domURL.revokeObjectURL(url);
           // callback(this);
           var link = document.createElement('a')
-          link.download = 'filename.png'
+          link.download = options.fileName + '.png'
           link.href = paper.view.element.toDataURL()
           link.click()
         }

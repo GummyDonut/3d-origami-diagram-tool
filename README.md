@@ -67,6 +67,7 @@ or run the npm script
   * ~~Rename Layer - By dialog~~
   * ~~Undo/Redo for layer action~~
 * Replace alert functions with custom dialog
+* Add toast item as well
 * ~~Fix Overwrite on multiple layers grid system.~~
   * ~~This is quite a large fix, now need to keep track of triangles on different layers~~
   * ~~The gridsquare objects needs to be updated to have multiple triangle objects~~
