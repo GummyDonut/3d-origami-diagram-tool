@@ -9,7 +9,10 @@ export default {
 
   selector: '#export-as-dialog',
   html: 'exportDialog.html',
-
+  loadingDialogOptions: {
+    title: 'Exporting',
+    slot: 'Exporting file, please be patient.'
+  },
   /**
    * Wrapper function for instantiating the dialog on start
    * @returns promise when loading is complete
@@ -125,7 +128,7 @@ export default {
    */
   exportAsSVG (options) {
     // open loading dialog
-    loadingDialog.openDialog()
+    loadingDialog.openDialog(this.loadingDialogOptions)
 
     let svgOptions = {
       bounds: 'content', asString: true
@@ -150,7 +153,7 @@ export default {
    */
   exportAsPNG (options) {
     // open loading dialog
-    loadingDialog.openDialog()
+    loadingDialog.openDialog(this.loadingDialogOptions)
 
     let svgOptions = {
       bounds: 'content', asString: true

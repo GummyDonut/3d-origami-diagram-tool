@@ -21,8 +21,8 @@ export default {
         $.get('/components/common/html/' + this.html, (htmlContent) => {
           $('#main-container').append(htmlContent)
           $(this.selector).dialog({
-            width: 200,
-            height: 300,
+            width: 300,
+            height: 150,
             modal: true,
             resizable: false,
             draggable: false,
@@ -35,6 +35,7 @@ export default {
 
           // close on start
           this.closeDialog()
+
           resolve()
         })
       } catch (e) {
@@ -42,9 +43,34 @@ export default {
       }
     })
   },
-  openDialog () {
+
+  /**
+   * Open dialog with specified options
+   * @param {Object} options contains options
+   * on how we should render our dialog when opening
+   * We have our options here as we reuse the loading dialog
+   * for multiple purposes.
+   */
+  openDialog (options) {
     $(this.selector).dialog('open')
+    if (options.title) {
+      $(this.selector).dialog('option', 'title', options.title)
+    }
+
+    if (options.width) {
+      $(this.selector).dialog('option', 'width', options.width)
+    }
+
+    if (options.height) {
+      $(this.selector).dialog('option', 'height', options.height)
+    }
+
+    // update the slot with new html
+    if (options.slot) {
+      $(this.selector + ' div.slot').html(options.slot)
+    }
   },
+
   /**
    * Update the loading dialog content
    * @param {JQUERY HTML} html html content that is accepted by $.html function
