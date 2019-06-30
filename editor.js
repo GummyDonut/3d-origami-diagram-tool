@@ -9,6 +9,24 @@ import loadingDialog from './components/common/js/LoadingDialog.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
+  // At the start determine the window size
+  let windowQuery = $(window)
+  if (windowQuery.width() < 900) {
+    // remove everything but the dialog, prevent the user from using the app and keep it clean
+    $('body').children().not('#blocking-dialog').remove()
+
+    $('#blocking-dialog div.slot').text('Window size too small not optimal for use, please reload with larger screen.')
+    $('#blocking-dialog').dialog({
+      modal: true,
+      closeOnEscape: false,
+      open: function (event, ui) {
+        $('#blocking-dialog').parent().find('.ui-dialog-titlebar-close').hide()
+      }
+    })
+
+    return
+  }
+
   let editorSelect = $('#origami-editor')
   let parent = editorSelect.parent()
 
