@@ -4,6 +4,7 @@ import MoveLayerUp from './layerManager/MoveLayerUp.js'
 import MoveLayerDown from './layerManager/MoveLayerDown.js'
 import EditLayer from './layerManager/EditLayer.js'
 import DuplicateLayer from './layerManager/DuplicateLayer.js'
+import constants from './lib/constants.js'
 
 // Layer Utilities
 import layerUtils from './layerManager/lib/layerUtils.js'
@@ -13,6 +14,7 @@ export default {
   // TODO make sure all the layer names are unique
   layerHTML: null,
   selectedLayer: 0, // index indicating the selected layer
+  selector: '#layer-manager',
   /**
    * Function to start the layer manager
    */
@@ -27,7 +29,7 @@ export default {
       }
     })
 
-    $('#layer-manager').dialog({
+    $(this.selector).dialog({
       'position': {
         'my': 'right top',
         'at': 'left top',
@@ -38,8 +40,18 @@ export default {
       'minHeight': 260
     })
 
-    $('#layer-manager').on('dialogclose', function (event) {
+    $(this.selector).on('dialogclose', function (event) {
       $('#tool-bar-showlayers > i').hide()
+    })
+
+    // keep to the right until reaches min width
+    $(window).resize(() => {
+      let windowWidth = $(window).width()
+
+      // if less than 900 move to the left
+      if (windowWidth < constants.MINWINDOWWIDTH) {
+        $(this.selector).dialog('option', 'position', { my: 'right bottom', at: 'right bottom', of: window })
+      }
     })
 
     this.initEventListener()
@@ -55,12 +67,12 @@ export default {
     var self = this
 
     // Custom event listeners
-    $('#layer-manager').on('draw', this.draw.bind(this))
+    $(this.selector).on('draw', this.draw.bind(this))
 
     // Clicking on the layer should update its selected
-    $('#layer-manager div.layer-container').on('click', 'div.layer-row', function () {
+    $(this.selector + ' div.layer-container').on('click', 'div.layer-row', function () {
       // remove selected from other rows and add to other row
-      $('#layer-manager div.layer-container div.layer-row').removeClass('selected')
+      $(this.selector + ' div.layer-container div.layer-row').removeClass('selected')
       $(this).addClass('selected')
       self.selectedLayer = $(this).index()
       layerUtils.getLayer(self.selectedLayer).activate()
@@ -93,7 +105,7 @@ export default {
 
     // clear out content
     // attempt to possibly keep all event-listeners
-    let container = $('#layer-manager div.layer-container')
+    let container = $(this.selector + ' div.layer-container')
     container.empty()
 
     // loop through layers in reverse, note the slice is a shallow copy
@@ -106,17 +118,13 @@ export default {
 
     // If there was only one layer select it, anymore use options
     if (layers.length === 1) {
-      $('#layer-manager div.layer-row').addClass('selected')
+      $(this.selector + ' div.layer-row').addClass('selected')
       this.selectedLayer = 0
       layerUtils.getLayer(0).activate()
     } else if (selectedLayer !== undefined) {
-      let selected = $('#layer-manager .layer-container div.layer-row')[selectedLayer]
+      let selected = $(this.selector + ' .layer-container div.layer-row')[selectedLayer]
       $(selected).addClass('selected')
       layerUtils.getLayer(selectedLayer).activate()
     }
-
-    // weird quirk updating the
-    // http://paperjs.org/tutorials/project-items/project-hierarchy/#accessing-children-by-name
-    console.log(paper.project)
   }
 }

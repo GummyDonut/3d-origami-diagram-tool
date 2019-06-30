@@ -29,7 +29,7 @@ export default {
             closeOnEscape: false,
             // prevent closing of loading dialog manually
             open: function (event, ui) {
-              $('.ui-dialog-titlebar-close', ui.dialog | ui).hide()
+              $(this.selector).parent().find('.ui-dialog-titlebar-close').hide()
             }
           })
 

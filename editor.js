@@ -6,12 +6,13 @@ import canvasBorder from './components/canvasBorder.js'
 import layerManager from './components/layerManager.js'
 import toolBar from './components/toolBar.js'
 import loadingDialog from './components/common/js/LoadingDialog.js'
+import constants from './components/lib/constants.js'
 
 // Note that the paper object is a global object
 $(document).ready(() => {
   // At the start determine the window size
   let windowQuery = $(window)
-  if (windowQuery.width() < 900) {
+  if (windowQuery.width() < constants.MINWINDOWWIDTH) {
     // remove everything but the dialog, prevent the user from using the app and keep it clean
     $('body').children().not('#blocking-dialog').remove()
 
@@ -22,6 +23,11 @@ $(document).ready(() => {
       open: function (event, ui) {
         $('#blocking-dialog').parent().find('.ui-dialog-titlebar-close').hide()
       }
+    })
+
+    // keep center after resize
+    $(window).resize(function () {
+      $('#blocking-dialog').dialog('option', 'position', { my: 'center', at: 'center', of: window })
     })
 
     return

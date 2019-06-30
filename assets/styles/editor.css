@@ -131,3 +131,15 @@ div.loading-spinner {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/*Media window 
+  If the window is 900px or smaller, perform new css
+  Currently the most optimal size is 900
+*/
+@media only screen and (max-width: 900px) {
+  #tool-window {
+    display:none;
+  }
+  #tool-options {
+    display: none;
+  }
+}
