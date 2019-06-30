@@ -1,6 +1,7 @@
 html, body {
   height: 100%;
   margin: 0;
+  background-color:#1d1d1d;
 }
 #main-container {
   justify-content: space-between;
@@ -15,7 +16,8 @@ html, body {
   height: 9.5%;
   bottom: 0;
   position: absolute;
-  background-color: cornflowerblue;
+  background-color: #464545;
+  border-top:1px solid black;
 }
 #tool-footer div{
   padding-top:1em;
@@ -24,7 +26,7 @@ html, body {
 #tool-window {
   height: 80%;
   display: inline-block;
-  background-color: aqua;
+  background-color: #464545;
   padding:0.5em;
 }
 div.tool-row {
@@ -33,7 +35,7 @@ div.tool-row {
 #tool-options {
   float: right;
   height: 80%;
-  background-color: aqua;
+  background-color: #464545;
   padding:0.5em;
   position: relative;
 }
@@ -49,7 +51,7 @@ div.tool-row {
   position: absolute;
   margin-left:auto;
   margin-right:auto;
-  background-color: white;
+  background-color: #e8e8e8;
   display: inline-block;
   border:1px solid black;
   cursor: normal;

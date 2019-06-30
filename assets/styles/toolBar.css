@@ -2,7 +2,8 @@
 #tool-bar-container {
   width: 100%;
   height: 8%;
-  background-color:blueviolet;
+  background-color:#464545;
+  border-bottom:1px solid black;
   position: relative;
 }
 
@@ -20,7 +21,7 @@
 
 #tool-bar ul a {
 	display:block;
-	color:#333;
+	color:white;
 	text-decoration:none;
 	font-weight:700;
 	font-size:12px;
@@ -30,10 +31,15 @@
 }
 
 #tool-bar ul li {
-	position:relative;
+  position:relative;
+  background-color:#464545;
 	float:left;
 	margin:0;
 	padding:0
+}
+
+#tool-bar ul li ul li {
+  background-color:#676666;
 }
 
 #tool-bar ul li.current-menu-item {
@@ -41,7 +47,7 @@
 }
 
 #tool-bar ul li:hover {
-	background:#f6f6f6
+	background:#777777
 }
 
 #tool-bar ul ul {
