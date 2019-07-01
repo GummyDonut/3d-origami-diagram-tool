@@ -28,7 +28,7 @@ export default {
             draggable: false,
             closeOnEscape: false,
             // prevent closing of loading dialog manually
-            open: function (event, ui) {
+            open: (event, ui) => {
               $(this.selector).parent().find('.ui-dialog-titlebar-close').hide()
             }
           })

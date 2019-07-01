@@ -40,6 +40,9 @@ export default {
       'minHeight': 260
     })
 
+    // close on start
+    $(this.selector).dialog('close')
+
     $(this.selector).on('dialogclose', function (event) {
       $('#tool-bar-showlayers > i').hide()
     })
@@ -72,7 +75,7 @@ export default {
     // Clicking on the layer should update its selected
     $(this.selector + ' div.layer-container').on('click', 'div.layer-row', function () {
       // remove selected from other rows and add to other row
-      $(this.selector + ' div.layer-container div.layer-row').removeClass('selected')
+      $(self.selector + ' div.layer-container div.layer-row').removeClass('selected')
       $(this).addClass('selected')
       self.selectedLayer = $(this).index()
       layerUtils.getLayer(self.selectedLayer).activate()
