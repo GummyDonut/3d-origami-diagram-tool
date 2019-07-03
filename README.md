@@ -86,6 +86,7 @@ or run the npm script
 * ~~Small bug fix needed keep old options after closing and reopening a tool~~
 * ~~Bug with bounds of stroke on diagonal lines with widths greater than 4~~
 * Small bug large tool size eraser can't erase edge
+* Small bug Move layer up to utmost top try to move up again, selection disappears
 
 
 ### Maybe read into for later

@@ -33,6 +33,31 @@ table select {
 .pure-table-bordered td {
   border: 1px solid #9e9e9e;
 }
+.icon-button {
+  color:rgb(235, 235, 235);
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+.icon-button:hover {
+  background-color:rgb(180, 180, 180); 
+}
+
+.icon-button.tiny-icon-button {
+  width: 25px;
+  height: 25px;
+}
+.icon-button.tiny-icon-button i{
+  font-size: 18px;
+  vertical-align: middle;
+}
+
 
 /**
 * General changes end

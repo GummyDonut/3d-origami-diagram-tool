@@ -7,7 +7,6 @@
   height: auto;
   bottom: 0;
   position: absolute;
-  background-color: cornflowerblue;
 }
 
 #layer-manager div.layer-container {
@@ -52,6 +51,10 @@ div.layer-row span.layer-name{
   padding-top: 13px;
   padding-left: 0.5em;
   font-size: 9px;
+}
+
+.icon-button.tiny-icon-button.footer-layer-icon {
+  width: 33px;
 }
 
 /*UI modal background */
