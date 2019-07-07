@@ -76,6 +76,7 @@ or run the npm script
   * ~~Rewrite up and down _index is incorrect value~~ Ended up manually updating _index value
 * ~~Color picker https://www.eyecon.ro/colorpicker/~~
   * TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404
+  * Update styling of options
 * Dark THEME IT UP so this application looks sleeker
 * Loading screen on start so it's not as ugly
     
@@ -87,6 +88,7 @@ or run the npm script
 * ~~Bug with bounds of stroke on diagonal lines with widths greater than 4~~
 * Small bug large tool size eraser can't erase edge
 * Small bug Move layer up to utmost top try to move up again, selection disappears
+* Small bug magnify options not saving on switch
 
 
 ### Maybe read into for later

@@ -14,7 +14,7 @@ table thead {
   background-color:#969494 !important;
   color:white !important;
 }
-table.pure-table td {
+table.pure-table:not(.pure-table-horizontal) td {
   border: 1px solid #9e9e9e;
 }
 table.pure-table-bordered {
@@ -33,6 +33,14 @@ table select {
 .pure-table-bordered td {
   border: 1px solid #9e9e9e;
 }
+
+table.tool-options-table td{
+  padding: .5em 1em;
+}
+h4.optionsTitle {
+  margin-bottom:0;
+}
+
 .icon-button {
   color:rgb(235, 235, 235);
   display: -webkit-box;
@@ -43,12 +51,25 @@ table select {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.5s ease;
+}
+/**
+* Small animation for icon pressing
+*/
+.icon-button:active {
+  box-shadow: 0 3px #666;
+  transform: translateY(2px);
 }
 .icon-button:hover {
   background-color:rgb(180, 180, 180); 
 }
+.icon-button.large-icon-button {
+  width: 50px;
+  height: 50px;
+}
 
+.icon-button.large-icon-button i{
+  font-size: 32px;
+}
 .icon-button.tiny-icon-button {
   width: 25px;
   height: 25px;
@@ -57,6 +78,8 @@ table select {
   font-size: 18px;
   vertical-align: middle;
 }
+
+
 
 
 /**
@@ -89,6 +112,8 @@ table select {
   display: inline-block;
   background-color: #464545;
   padding:0.5em;
+  padding-right:0;
+  min-width:112px;
 }
 div.tool-row {
   margin-top:0.25em;
@@ -103,7 +128,9 @@ div.tool-row {
 #tool-options-container h4 {
   color:white;
 }
-
+.tool-button {
+  padding-right: 5px;
+}
 #global-tools {
   position: absolute;
   bottom:0;
@@ -165,10 +192,7 @@ div.tool-row {
   border:0.5px solid black;
 }
 .pure-button-active {
-  background-color:#aa9e9e;
-}
-button.tool-button {
-  width: 49px
+  background-color:#418ad4;
 }
 div.color-picker-box {
   position: relative;

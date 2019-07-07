@@ -107,51 +107,59 @@
           </ul>
         </nav>
       </div>
-      <div id="tool-window" class="pure-u-3-24" style="min-width:150px;">
+      <div id="tool-window" class="pure-u-2-24">
+
         <div class="pure-g tool-row">
-          <div class="pure-u-1-3">
-            <a id="magnify-plus-tool" tool-name="magnifyPlusTool" class="pure-button tool-button">
-              <i class="fas fa-search-plus"></i>
+          <div>
+            <a id="pan-tool" tool-name="panTool" class="icon-button large-icon-button tool-button">
+              <i class="fas fa-arrows-alt"></i>
             </a>
           </div>
-          <div class="pure-u-1-3">
-            <button id="magnify-minus-tool" tool-name="magnifyMinusTool" class="pure-button tool-button">
-              <i class="fas fa-search-minus"></i>
-            </button>
-          </div>
-          <div class="pure-u-1-3">
-            <button id="pan-tool" tool-name="panTool" class="pure-button tool-button">
-              <i class="fas fa-arrows-alt"></i>
-            </button>
+          <div>
+            <a id="triangle-tool" style="color:#ffff9c" tool-name="TriangleTool"
+              class="icon-button large-icon-button tool-button">
+              <i class="fas fa-caret-up"></i>
+            </a>
           </div>
         </div>
         <!--TODO TOOLTIP FOR BUTTONS-->
         <!-- https://medium.freecodecamp.org/a-step-by-step-guide-to-making-pure-css-tooltips-3d5a3e237346 -->
         <div class="pure-g tool-row">
-          <div class="pure-u-1-3">
-            <button id="triangle-tool" tool-name="TriangleTool" class="pure-button tool-button">
-              <i class="fas fa-caret-up"></i>
-            </button>
-          </div>
-          <div class="pure-u-1-3">
-            <button id="eraser-tool" tool-name="eraserTool" class="pure-button tool-button">
-              <i class="fas fa-eraser"></i>
-            </button>
-          </div>
-          <div class="pure-u-1-3">
-            <button id="line-tool" tool-name="lineTool" class="pure-button tool-button">
+          <div>
+            <a id="line-tool" style="color:#ffd49c" tool-name="lineTool"
+              class="icon-button large-icon-button tool-button">
               <i class="fas fa-slash"></i>
-            </button>
+            </a>
+          </div>
+          <div>
+            <a id="eraser-tool" style="color:rgb(250, 219, 224);" tool-name="eraserTool"
+              class="icon-button large-icon-button tool-button">
+              <i class="fas fa-eraser"></i>
+            </a>
           </div>
         </div>
         <div class="pure-g tool-row">
-          <div class="pure-u-1-3">
-            <button id="bucket-tool" tool-name="bucketTool" class="pure-button tool-button">
+          <div>
+            <a id="magnify-plus-tool" tool-name="magnifyPlusTool" class="icon-button large-icon-button tool-button">
+              <i class="fas fa-search-plus"></i>
+            </a>
+          </div>
+          <div>
+            <a id="magnify-minus-tool" tool-name="magnifyMinusTool" class="icon-button large-icon-button tool-button">
+              <i class="fas fa-search-minus"></i>
+            </a>
+          </div>
+        </div>
+        <div class="pure-g tool-row">
+          <div>
+            <a id="bucket-tool" style="color:rgb(161, 161, 255);" tool-name="bucketTool"
+              class="icon-button large-icon-button tool-button">
               <i class="fas fa-fill"></i>
-            </button>
+            </a>
           </div>
         </div>
       </div>
+
       <!-- TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404-->
       <div id="canvas-container" class="pure-u-15-24">
         <canvas id="origami-editor" resize></canvas>

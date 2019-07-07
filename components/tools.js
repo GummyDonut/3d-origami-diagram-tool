@@ -26,7 +26,7 @@ export default {
     // event-listener for all buttons run reset of other tools when
     // clicking other tools
     // note cannot use event.target.id, does not work if I click on the icon
-    $('button.tool-button').on('click', function (event) {
+    $('.tool-button').on('click', function (event) {
       let toolButton = $(this)
       if (toolButton) {
         // loop through deactivating other tools, besides the one clicked

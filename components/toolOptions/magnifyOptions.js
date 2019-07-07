@@ -3,7 +3,7 @@ import ToolOptions from '../toolOptions.js'
 const toolSelection = '#scale_amount'
 class MagnifyToolOptions extends ToolOptions {
   constructor () {
-    super('magnifyOptions.html')
+    super({ html: 'magnifyOptions.html' })
     this.factor = 5 // number between 1 and 100
   }
 

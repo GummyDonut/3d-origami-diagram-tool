@@ -3,10 +3,11 @@ class toolOptions {
   /**
    * @param {String} html - contains html file location
    */
-  constructor (html) {
+  constructor (options) {
     // Note that the components are loaded all under the components folder of toolOptions
     // So this is the name of the file
-    this.html = html
+    this.html = options.html
+    this.optionsTitle = options.optionsTitle
   }
   /**
   * Add the html content
@@ -20,6 +21,7 @@ class toolOptions {
 
         // append new tool options content
         $(containerSelector).load('/components/toolOptions/components/' + this.html, () => {
+          this.init()
           resolve()
         })
       } catch (e) {
@@ -34,6 +36,13 @@ class toolOptions {
   removeToolOptionsContent () {
     // remove all content within
     $(containerSelector).empty()
+  }
+
+  init () {
+    // update title of options
+    if (this.optionsTitle) {
+      $('#tool-options-container h4.optionsTitle').text(this.optionsTitle)
+    }
   }
 }
 

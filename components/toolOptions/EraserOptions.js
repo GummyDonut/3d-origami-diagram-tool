@@ -1,7 +1,7 @@
 import ToolOptions from '../toolOptions.js'
 class EraserOptions extends ToolOptions {
   constructor (popoverMove) {
-    super('eraserOptions.html')
+    super({ html: 'eraserOptions.html' })
     this.toolSize = 1 // number between 1 and 100
     this.popoverMove = popoverMove
   }
