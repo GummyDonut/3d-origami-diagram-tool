@@ -3,21 +3,15 @@
   "version": "1.0.0",
   "description": "Online tool for creating 3d origami diagrams",
   "main": "index.html",
-  "dependencies": {
-    "jquery": "^3.3.1",
-    "jquery-ui": "^1.12.1",
-    "paper": "^0.12.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.6.3",
     "eslint": "^5.12.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.15.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "http-server": "^0.11.1",
-    "purecss": "^1.0.0"
+    "http-server": "^0.11.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lantern77/3d-origami-diagram-tool.git"
+    "url": "git+https://github.com/gummydonut/3d-origami-diagram-tool.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lantern77/3d-origami-diagram-tool/issues"
+    "url": "https://github.com/gummydonut/3d-origami-diagram-tool/issues"
   },
-  "homepage": "https://github.com/lantern77/3d-origami-diagram-tool#readme"
+  "homepage": "https://github.com/gummydonut/3d-origami-diagram-tool#readme"
 }
