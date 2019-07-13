@@ -1,0 +1,183 @@
+<html>
+
+<head>
+  <!-- WEBPACK EXPOSER DOES NOT work with does not work with webpack 4 https://github.com/webpack-contrib/expose-loader/issues/77-->
+  <!-- In the future I hope they fix this as color picker doesn't work without this-->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+
+  <!-- color picker assets loading manually as no npm instance for this project and modifying it-->
+  <!-- https://www.eyecon.ro/colorpicker/#implement -->
+  <link rel="stylesheet" media="screen" type="text/css" href="assets/lib/colorpicker/css/colorpicker.css" />
+  <script type="text/javascript" src="assets/lib/colorpicker/js/colorpicker.js"></script>
+
+  <head>
+
+  <body>
+    <!--reusable popover-->
+    <span style="display:none" id="popover" class="magnify-box"></span>
+    <div id="layer-edit">
+      <label for="remember">
+        Name: <input style="width: 70%;" id="edit-layer-name" type="text">
+      </label>
+      <div style="margin-top:1em;">
+        <button id="edit-layer-cancel" style="float: right">Cancel</button>
+        <button id="edit-layer-ok" style="float: right">OK</button>
+      </div>
+    </div>
+    <!-- SET OF DIALOGS-->
+
+    <!-- Blocking dialog, this prevents people from using app at specific sizes -->
+    <!-- This should only appear when user is invalid size on start-->
+    <div id="blocking-dialog" style="display:none;">
+      <div class="slot">
+      </div>
+    </div>
+
+    <!-- Layer manager dialog-->
+    <div id="layer-manager" title="Layers">
+      <div class="layer-container">
+      </div>
+      <div class="layer-footer">
+        <div id="layer-manager-add" class="icon-button tiny-icon-button footer-layer-icon">
+          <i class="far fa-plus-square"></i>
+        </div>
+        <div id="layer-manager-move-up" class="icon-button tiny-icon-button footer-layer-icon">
+          <i class="fas fa-arrow-up"></i>
+        </div>
+        <div id="layer-manager-move-down" class="icon-button tiny-icon-button footer-layer-icon">
+          <i class="fas fa-arrow-down"></i>
+        </div>
+        <div id="layer-manager-delete" class="icon-button tiny-icon-button footer-layer-icon">
+          <i class="far fa-trash-alt"></i>
+        </div>
+        <div id="layer-manager-duplicate" class="icon-button tiny-icon-button footer-layer-icon">
+          <i class="far fa-clone"></i>
+        </div>
+        <div id="layer-manager-edit" class="icon-button tiny-icon-button footer-layer-icon">
+          <i class="far fa-edit"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-container" class="pure-g">
+      <!--TODO FIX STYLING FOR TOOL BAR-->
+      <div id="tool-bar-container" class="pure-u-1">
+        <nav id="tool-bar">
+          <ul>
+            <li>
+              <a href="#">File</a>
+              <ul>
+                <li>
+                  <a id="tool-bar-export-as" href="#">Export as...</a>
+                  <!--<ul>
+                    <li>
+                      <a id="tool-bar-export-svg" href="#">SVG
+                      </a>
+                      <a id="tool-bar-export-png" href="#">PNG
+                      </a>
+                    </li>
+                  </ul>-->
+                </li>
+              </ul>
+            </li>
+            <li><a href="#">View</a>
+              <ul>
+                <li>
+                  <a href="#">Tools <i class="fas fa-caret-right"></i></a>
+                  <ul>
+                    <li>
+                      <a id="tool-bar-showlayers" href="#">Show Layers <i class="fas fa-check"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div id="tool-window" class="pure-u-2-24">
+
+        <div class="pure-g tool-row">
+          <div>
+            <a id="pan-tool" tool-name="panTool" class="icon-button large-icon-button tool-button">
+              <i class="fas fa-arrows-alt"></i>
+            </a>
+          </div>
+          <div>
+            <a id="triangle-tool" style="color:#ffff9c" tool-name="TriangleTool"
+              class="icon-button large-icon-button tool-button">
+              <i class="fas fa-caret-up"></i>
+            </a>
+          </div>
+        </div>
+        <!--TODO TOOLTIP FOR BUTTONS-->
+        <!-- https://medium.freecodecamp.org/a-step-by-step-guide-to-making-pure-css-tooltips-3d5a3e237346 -->
+        <div class="pure-g tool-row">
+          <div>
+            <a id="line-tool" style="color:#ffd49c" tool-name="lineTool"
+              class="icon-button large-icon-button tool-button">
+              <i class="fas fa-slash"></i>
+            </a>
+          </div>
+          <div>
+            <a id="eraser-tool" style="color:rgb(250, 219, 224);" tool-name="eraserTool"
+              class="icon-button large-icon-button tool-button">
+              <i class="fas fa-eraser"></i>
+            </a>
+          </div>
+        </div>
+        <div class="pure-g tool-row">
+          <div>
+            <a id="magnify-plus-tool" tool-name="magnifyPlusTool" class="icon-button large-icon-button tool-button">
+              <i class="fas fa-search-plus"></i>
+            </a>
+          </div>
+          <div>
+            <a id="magnify-minus-tool" tool-name="magnifyMinusTool" class="icon-button large-icon-button tool-button">
+              <i class="fas fa-search-minus"></i>
+            </a>
+          </div>
+        </div>
+        <div class="pure-g tool-row">
+          <div>
+            <a id="bucket-tool" style="color:rgb(161, 161, 255);" tool-name="bucketTool"
+              class="icon-button large-icon-button tool-button">
+              <i class="fas fa-fill"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404-->
+      <div id="canvas-container" class="pure-u-15-24">
+        <canvas id="origami-editor" resize></canvas>
+      </div>
+      <div id="tool-options" style="min-width:150px;" class="pure-u-1-6">
+        <div id="tool-options-container">
+        </div>
+        <div id="global-tools">
+          <hr>
+          <button id="undo-button" class="pure-button" disabled>
+            <i class="fas fa-undo"></i>
+          </button>
+          <button id="redo-button" class="pure-button" disabled>
+            <i class="fas fa-redo"></i>
+          </button>
+        </div>
+      </div>
+      <div id="tool-footer">
+        <div>
+          <button id="showhide-grid-button" class="pure-button">
+            <span style="font-size:9px">Show/Hide Grid</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <canvas id="exportCanvas" style="display: none"></canvas>
+  </body>
+
+</html>

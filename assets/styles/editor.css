@@ -67,14 +67,14 @@ h4.optionsTitle {
   height: 50px;
 }
 
-.icon-button.large-icon-button i{
+.icon-button.large-icon-button i, .icon-button.large-icon-button svg{
   font-size: 32px;
 }
 .icon-button.tiny-icon-button {
   width: 25px;
   height: 25px;
 }
-.icon-button.tiny-icon-button i{
+.icon-button.tiny-icon-button i,.icon-button.tiny-icon-button svg{
   font-size: 18px;
   vertical-align: middle;
 }

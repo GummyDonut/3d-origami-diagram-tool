@@ -2,29 +2,49 @@
   "name": "3d-origami-diagram-tool",
   "version": "1.0.0",
   "description": "Online tool for creating 3d origami diagrams",
-  "main": "index.html",
-  "dependencies": {},
+  "author": "GummyDonut",
+  "license": "MIT",
+  "homepage": "https://github.com/GummyDonut/3d-origami-diagram-tool",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
+    "build": "webpack -p --progress --mode production --config webpack.config.build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GummyDonut/3d-origami-diagram-tool.git"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "expose-loader": "^0.7.5",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "paper": "^0.12.3",
+    "purecss": "^1.0.1"
+  },
   "devDependencies": {
+    "@babel/core": "7.5.4",
+    "@babel/preset-env": "7.5.4",
+    "babel-loader": "8.0.6",
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
+    "clean-webpack-plugin": "3.0.0",
+    "html-loader": "^0.5.5",
+    "cross-env": "5.2.0",
+    "css-loader": "3.0.0",
+    "file-loader": "4.0.0",
+    "html-webpack-plugin": "3.2.0",
+    "node-sass": "4.12.0",
+    "sass-loader": "7.1.0",
+    "style-loader": "0.23.1",
+    "url-loader": "2.0.1",
+    "webpack": "4.35.3",
+    "webpack-cli": "3.3.5",
+    "webpack-dev-server": "3.7.2",
+    "webpack-merge": "4.2.1",
     "eslint": "^5.12.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.15.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "http-server": "^0.11.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node node_modules/http-server/bin/http-server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gummydonut/3d-origami-diagram-tool.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gummydonut/3d-origami-diagram-tool/issues"
-  },
-  "homepage": "https://github.com/gummydonut/3d-origami-diagram-tool#readme"
+    "eslint-plugin-standard": "^4.0.0"
+  }
 }
