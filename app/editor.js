@@ -1,3 +1,4 @@
+import 'lib/colorpicker/js/colorpicker.js'
 import grid from './components/grid.js'
 import tools from './components/tools.js'
 import GridSquare from './components/gridSquare.js'
@@ -16,6 +17,7 @@ import 'styles/editor.css'
 import 'styles/toolBar.css'
 import 'styles/dialog.css'
 import 'styles/layerManager.css'
+import 'lib/colorpicker/css/colorpicker.css'
 
 import 'purecss/build/pure-min.css'
 import '@fortawesome/fontawesome-free/js/fontawesome'
