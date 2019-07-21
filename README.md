@@ -89,6 +89,7 @@ or run the npm script
 * Small bug large tool size eraser can't erase edge
 * Small bug Move layer up to utmost top try to move up again, selection disappears
 * Small bug magnify options not saving on switch
+* Bucket tool clicking on existing triangle does not overwrite
 
 
 ### Maybe read into for later
