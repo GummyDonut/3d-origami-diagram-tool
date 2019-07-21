@@ -26,7 +26,7 @@ import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 
 // Note that the paper object is a global object
-$(document).ready(() => {
+window.onload = () => {
   // At the start determine the window size
   let windowQuery = $(window)
   if (windowQuery.width() < constants.MINWINDOWWIDTH) {
@@ -62,6 +62,7 @@ $(document).ready(() => {
 
   // TODO resize event resize canvas
   // canvas width must be defined in pixels
+
   canvas.style.width = parent.width()
 
   // disable right-click options on canvas
@@ -152,4 +153,4 @@ $(document).ready(() => {
 
   // init the loading dialog
   loadingDialog.initDialog()
-})
+}
