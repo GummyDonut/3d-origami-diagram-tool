@@ -27,6 +27,10 @@ import '@fortawesome/fontawesome-free/js/brands'
 
 // Note that the paper object is a global object
 window.onload = () => {
+  // hide loading and show app
+  $('#main-loading').hide()
+  $('#main-app').show()
+
   // At the start determine the window size
   let windowQuery = $(window)
   if (windowQuery.width() < constants.MINWINDOWWIDTH) {
