@@ -79,6 +79,7 @@ or run the npm script
   * Update styling of options
 * Dark THEME IT UP so this application looks sleeker
 * Loading screen on start so it's not as ugly
+* Allow for the choice of different triangles
     
 ### Bug list
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
