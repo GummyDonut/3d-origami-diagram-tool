@@ -32,6 +32,9 @@ class Triangle extends CustomShape {
     this.path.strokeColor = (options.strokeColor) ? options.strokeColor : 'blue'
     this.path.selected = true
     this.path.fullySelected = false
+
+    // store options
+    this.options = options
   }
 
   /**

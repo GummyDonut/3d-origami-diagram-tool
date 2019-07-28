@@ -8,15 +8,16 @@ import GroupActions from '../actions/GroupActions.js'
 import utilities from '../lib/utilities.js'
 
 class BucketTool extends Tool {
-  constructor() {
+  constructor () {
     super('#bucket-tool', 'bucketTool')
     this.toolOption = new BucketOptions()
+    this.clickedDownTriangle = null // the triangle we clicked down on we will only fill triangles of these type
   }
 
   /**
    * Initialize the tool
    */
-  init() {
+  init () {
     // initialize event-listeners for button
     this.buttonEventListener()
     this.toolListeners()
@@ -25,9 +26,8 @@ class BucketTool extends Tool {
   /**
    * Event-listener for button within toolbox
    */
-  buttonEventListener() {
+  buttonEventListener () {
     $(this.selector).on('click', (event) => {
-
       super.buttonEventListener(event)
 
       if (!this.data.active) {
@@ -41,9 +41,7 @@ class BucketTool extends Tool {
         // reactive tool
         this.tool.activate()
         this.data.active = true
-      }
-
-      else {
+      } else {
         this.deActivateTool()
       }
     })
@@ -52,7 +50,7 @@ class BucketTool extends Tool {
   /**
    * Event-listener for canvas
    */
-  toolListeners() {
+  toolListeners () {
     // Create new custom paper tool
     this.tool = new paper.Tool()
     this.tool.name = this.toolname
@@ -65,12 +63,19 @@ class BucketTool extends Tool {
   /**
    * Function for when we click on the origami editor
    */
-  onMouseDown(event) {
+  onMouseDown (event) {
     let squareDown = utilities.getRowColumn(event.point.x, event.point.y)
 
     if (squareDown == null) {
       return
     }
+
+    // Get the content of square clicked down, we will match on this
+    let gridSquare = grid.grid[squareDown.row][squareDown.column]
+    if (gridSquare === null) {
+      return
+    }
+    this.clickedDownTriangle = gridSquare.triangles[paper.project.activeLayer._id]
 
     // keep track of squares added
     let changedSquares = []
@@ -89,7 +94,7 @@ class BucketTool extends Tool {
    * @param {Number} column - the column we clicked on
    * @param {Array of actions} changedSquares - keep track of our changed actions
    */
-  fillSurroundingArea(row, column, changedSquares) {
+  fillSurroundingArea (row, column, changedSquares) {
     // determine if needs to be shifted
     let shifted = (row % 2 === 0) ? -1 : 0
 
@@ -126,7 +131,7 @@ class BucketTool extends Tool {
    * @param {number} column represent the column index
    * @returns boolean if we filled or not
    */
-  fillSquare(row, column, changedSquares) {
+  fillSquare (row, column, changedSquares) {
     // sanity check
     if (row == null || column === null) {
       return false
@@ -153,21 +158,47 @@ class BucketTool extends Tool {
       return false
     }
 
-    // check if triangle exists on this layer
-    if (gridSquare.triangles[paper.project.activeLayer._id]) {
+    let triangleAction = null
+
+    // we need to check if content matches
+    let currentTriangle = gridSquare.triangles[paper.project.activeLayer._id]
+
+    // if both types are undefined
+    if ((currentTriangle === undefined || currentTriangle === null) && (this.clickedDownTriangle === null || this.clickedDownTriangle === undefined)) {
+      triangleAction = utilities.insertTriangle(gridSquare, this.toolOption, {
+        'noOverwrite': true
+      })
+    } else if (currentTriangle && currentTriangle.matches(this.toolOption)) {
+      // if the tooloptions at the start is the same as the current triangle do not overwrite
+      // as it is unnecessary to redraw on
+      return false
+    } else if (this.checkIfTrianglesMatch(currentTriangle)) {
+      // check if the current triangle matches the clickdown triangle at the start
+      // if so draw on it
+      triangleAction = utilities.insertTriangle(gridSquare, this.toolOption, {
+        'noOverwrite': false
+      })
+    } else {
       return false
     }
 
-    let triangleAction = utilities.insertTriangle(gridSquare, this.toolOption, {
-      'noOverwrite': true
-    })
-
-    changedSquares.push(triangleAction)
+    if (triangleAction != null) {
+      changedSquares.push(triangleAction)
+    }
 
     return true
   }
 
-  deActivateTool() {
+  // check if the current triangle matches
+  checkIfTrianglesMatch (currentTriangle) {
+    if (currentTriangle === undefined || currentTriangle === null || this.clickedDownTriangle === undefined || this.clickedDownTriangle === null) {
+      return false
+    }
+
+    return this.clickedDownTriangle.matches(currentTriangle.options)
+  }
+
+  deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
     super.deActivateTool()
