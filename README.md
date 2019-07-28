@@ -2,17 +2,23 @@
 Tool for drawing 3d origami diagrams
 https://3dorigamitools.netlify.com
 
-###To quickly run dev server
-install http-server, package should be dev dependency
+## Table of Contents
+**[Development](#development)**<br>
+**[Dependencies](#dependencies)**<br>
+**[Main Todo List](#main-todo-list)**<br>
+**[Bugs List](#bug-list)**<br>
+**[Further Reading](#further-reading)**<br>
+**[Features Wishlist](#features-wishlist)**<br>
+**[Possible Improvements](#possible-improvements)**<br>
+**[Inspired Site](#inspired-site)**
+
+## Development
+Install development dependencies and normal dependencies
 `npm install`
-Then run the http-server
-`node node_modules/http-server/bin/http-server`
-or run the npm script
+Then run the development server by running npm script
 `npm run dev`
 
-
-
-### Dependencies
+## Dependencies
 * paperjs
 * jquery
 
@@ -23,7 +29,7 @@ or run the npm script
 * Use Math functions instead of operators on Point and Size.
 * Draw the view at the end, since that is now only automatically handled when a view.onFrame handler is installed.
 
-### Main Todo list
+## Main Todo list
 * Create all the necessary tools
   * ~~Single/Paintbrush(This has been combined into one)~~
     * ~~Add support for mousedragevent~~
@@ -89,8 +95,8 @@ or run the npm script
 * Dark THEME IT UP so this application looks sleeker
 * Loading screen on start so it's not as ugly
 * Allow for the choice of different triangles
-    
-### Bug list
+
+## Bug list
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
 * ~~Small bug popover no longer matches size of grid when zoomed in. Need to update it by the zoom factor~~
 * ~~Small bug with drawing lines, need to account for zoom factor~~
@@ -103,24 +109,24 @@ or run the npm script
 * ~~Click and drag lines on the edge of canvas results in undefined exception and debug lines still show~~
 * ~~Update styling for dialogs, currently fudged up~~
 
-### Maybe read into for later
+## Further reading
 * Information about layers, possibly useful for manipulating text, or just simply adding layers
   * http://paperjs.org/tutorials/project-items/project-hierarchy/#active-layer
   * This may be useful for like having a seperate text layer or a seperate grid layer
   * SMALL NOTE - paperjs abuses associative arrays and stores items in arrays both with the key and the index.
     That how they get the name and index thing working
 
-### Cool features for the future
-* On smaller screens realign tool set
-  * https://www.pixilart.com/draw
+## Features Wishlist
+* ~~On smaller screens realign tool set~~
+  * ~~https://www.pixilart.com/draw~~
 * API Gallery to store people's diagrams
 
-### Possible but unlikely improvements
-* Get this working with webpack, https://webpack.js.org/guides/getting-started/
-  * Note that paperjs and jquery require unique aliases and setup for webpack https://stackoverflow.com/questions/30576192/paper-js-with-webpack
-  https://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
+## Possible Improvements
+* ~~Get this working with webpack, https://webpack.js.org/guides/getting-started/~~
+  * ~~Note that paperjs and jquery require unique aliases and setup for webpack https://stackoverflow.com/questions/30576192/paper-js-with-webpack~~
+ ~~https://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack~~
 
 ### Note the tool has only been tested on latest versions of Google Chrome and Firefox
 
-### Site for reference, what it plans to look like
+## Inspired Site
 https://www.pixilart.com/draw
