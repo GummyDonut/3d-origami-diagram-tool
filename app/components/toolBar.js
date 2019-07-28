@@ -1,5 +1,5 @@
 import showLayers from './toolBar/showLayers.js'
-import exportBar from './toolBar/exportBar.js'
+import fileBar from './toolBar/fileBar.js'
 export default {
 
   /**
@@ -10,7 +10,7 @@ export default {
     showLayers.initValues()
 
     // initialize event-listeners
-    exportBar.init()
+    fileBar.init()
 
     // init all event-listeners
     this.initEventListeners()

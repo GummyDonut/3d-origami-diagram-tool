@@ -53,7 +53,7 @@ window.onload = () => {
   }
 
   // setup the grid
-  grid.resetGrid()
+  grid.initGrid()
 
   // setup tool event listeners
   tools.init()

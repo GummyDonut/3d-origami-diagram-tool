@@ -21,7 +21,10 @@ module.exports = {
       dirNode,
       dirApp,
       dirAssets
-    ]
+    ],
+    alias: {
+      '@': dirApp
+    }
   },
   plugins: [
     new webpack.DefinePlugin({

@@ -1,5 +1,18 @@
 import GridSquare from './gridSquare.js'
 import canvasBorder from './canvasBorder.js'
+
+let DEFAULTVALUES = {
+  grid: [],
+  squareHeight: 14,
+  squareWidth: 14,
+  totalHeight: 0,
+  totalWidth: 0,
+  rowsCount: 0,
+  columnsCount: 0,
+  visible: true,
+  initialized: false // at start is the grid already initialized, changes behaviour of reset
+}
+
 export default {
 
   // Two level array representing the grid system
@@ -20,8 +33,22 @@ export default {
    * Function for reset Grid to its basic state, clearing everything
    * Note the behaviour different when reseting vs initializing.
    * In reseting we don't add eventlisteners
+   * @param {Object} options represents options for initializing or when reseting
+   * reset - boolean
    */
-  resetGrid () {
+  initGrid (options) {
+    // specify defaults if options is null
+    if (!options) {
+      options = {
+        reset: false
+      }
+    }
+
+    // if we reset we need to clear the content
+    if (options.reset) {
+      paper.project.clear()
+    }
+
     let editorSelect = $('#origami-editor')
     let parent = editorSelect.parent()
 
@@ -49,23 +76,30 @@ export default {
     // max we can work with consistently seems to be 100.
     // determine the number of squares to fit inside the grid.
     // We also subtract one to provide a bit of a buffer on the edges
-    let rows = Math.floor(parent.height() / this.squareHeight) - 1
-    let cols = Math.floor(parent.width() / this.squareWidth) - 1
+    if (!options.dimensions) {
+      // define defaults for dimensions
+      options.dimensions = {}
+      options.dimensions.rows = Math.floor(parent.height() / this.squareHeight) - 1
+      options.dimensions.cols = Math.floor(parent.width() / this.squareWidth) - 1
+    }
 
     // loop through creating shifted grid element, with squares and store information
+    if (options.reset) {
+      this.grid = DEFAULTVALUES.grid
+    }
     let canvasGrid = this.grid
 
     // store the number of rows and columns in the grid object
-    this.rowsCount = rows
-    this.columnsCount = cols
+    this.rowsCount = options.dimensions.rows
+    this.columnsCount = options.dimensions.cols
 
     // coordinate of drawing point
     let drawingX = 0
     let drawingY = 0
     let offsetted = false // should we shift
     let offset = this.squareWidth / 2
-    for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
-      for (let columnIndex = 0; columnIndex < cols; columnIndex++) {
+    for (let rowIndex = 0; rowIndex < this.rowsCount; rowIndex++) {
+      for (let columnIndex = 0; columnIndex < this.columnsCount; columnIndex++) {
         let xCoordinate = drawingX + ((offsetted) ? offset : 0)
         let square = new paper.Rectangle(xCoordinate, drawingY, this.squareWidth, this.squareHeight)
         var squarePath = new paper.Path.Rectangle(square)

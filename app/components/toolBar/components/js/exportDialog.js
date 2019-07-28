@@ -1,50 +1,23 @@
 
 /**
  * Singleton representing our dialog
- *
  */
 import loadingDialog from '../../../common/js/LoadingDialog.js'
 import exportDialogHTML from '../html/exportDialog.html'
+import EditorDialog from './EditorDialog.js'
 import util from '../../../lib/utilities.js'
-export default {
-
-  selector: '#export-as-dialog',
-  html: 'exportDialog.html',
-  loadingDialogOptions: {
-    title: 'Exporting',
-    slot: 'Exporting file, please be patient.'
-  },
-  /**
-   * Wrapper function for instantiating the dialog on start
-   * @returns promise when loading is complete
-   */
-  initDialog (callback) {
-    let loadInHTML = new Promise((resolve, reject) => {
-      try {
-        // remove all content within
-        $(this.selector).remove()
-
-        // append new tool options content
-        $('#main-container').append(exportDialogHTML)
-        resolve()
-      } catch (e) {
-        reject(e)
-      }
+class ExportDialog extends EditorDialog {
+  constructor () {
+    super('#export-as-dialog', {
+      html: 'exportDialog.html',
+      component: exportDialogHTML
     })
 
-    loadInHTML.then(() => {
-      // instantiate the dialog
-      $(this.selector).dialog({
-        minWidth: 400,
-        minHeight: 300
-      })
-
-      // load in listener for dialog button
-      this.loadEventListeners()
-    })
-
-    return loadInHTML
-  },
+    this.loadingDialogOptions = {
+      title: 'Exporting',
+      slot: 'Exporting file, please be patient.'
+    }
+  }
 
   /**
    * Load in event-listeners for the dialog
@@ -53,7 +26,7 @@ export default {
     $('#export-dialog-button').on('click', () => {
       this.export()
     })
-  },
+  }
 
   /**
    * Function for exporting the file
@@ -87,20 +60,20 @@ export default {
       default:
         alert('Could not export file type, ' + exportAs + 'is not supported')
     }
-  },
+  }
 
   /**
    * Wrapper function for opening the dialog
    */
   openDialog () {
     $(this.selector).dialog('open')
-  },
+  }
   /**
    * Wrapper function for closing the dialog
    */
   closeDialog () {
     $(this.selector).dialog('close')
-  },
+  }
 
   /**
    * Function to call to validate, if problem alert
@@ -118,7 +91,7 @@ export default {
     }
 
     return true
-  },
+  }
 
   /**
    * Export image as svg
@@ -143,7 +116,7 @@ export default {
       link.href = url
       link.click()
     })
-  },
+  }
 
   /**
    * Export as PNG
@@ -168,7 +141,7 @@ export default {
         var context = canvas.getContext('2d')
 
         // Setup new image object
-        var image = new Image()
+        var image = new Image() // eslint-disable-line no-undef
 
         image.onload = function () {
           loadingDialog.closeDialog()
@@ -194,3 +167,6 @@ export default {
     })
   }
 }
+
+let exportDialog = new ExportDialog()
+export default exportDialog
