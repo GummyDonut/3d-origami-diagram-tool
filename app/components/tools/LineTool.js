@@ -8,7 +8,7 @@ import GroupActions from '../actions/GroupActions.js'
 import grid from '../grid.js'
 
 class LineTool extends Tool {
-  constructor() {
+  constructor () {
     super('#line-tool', 'lineTool')
 
     // no action on popover
@@ -29,7 +29,7 @@ class LineTool extends Tool {
   /**
    * Initialize the tool
    */
-  init() {
+  init () {
     // initialize event-listeners for button
     this.buttonEventListener()
     this.toolListeners()
@@ -38,7 +38,7 @@ class LineTool extends Tool {
   /**
    * Event-listener for button within toolbox
    */
-  buttonEventListener() {
+  buttonEventListener () {
     $(this.selector).on('click', (event) => {
       event.stopPropagation()
 
@@ -56,9 +56,7 @@ class LineTool extends Tool {
         // reactive tool
         this.tool.activate()
         this.data.active = true
-      }
-
-      else {
+      } else {
         this.deActivateTool()
       }
     })
@@ -67,7 +65,7 @@ class LineTool extends Tool {
   /**
    * Event-listener for canvas
    */
-  toolListeners() {
+  toolListeners () {
     // Create new custom paper tool
     this.tool = new paper.Tool()
 
@@ -86,7 +84,7 @@ class LineTool extends Tool {
   /**
    * On down click we need to add a point for
    */
-  lineDrag(event) {
+  lineDrag (event) {
     // remove if it exists, so that one line is only
     // visible at a time
     if (this.line != null) {
@@ -101,7 +99,7 @@ class LineTool extends Tool {
     this.line.strokeWidth = (this.toolOption.toolSize * grid.squareWidth)
   }
 
-  onMouseUp(event) {
+  onMouseUp (event) {
     // Get the chance
     let lineDownSquare = utilities.getRowColumn(event.downPoint.x, event.downPoint.y)
     let lineEndSquare = utilities.getRowColumn(event.point.x, event.point.y)
@@ -127,13 +125,15 @@ class LineTool extends Tool {
     let boundDownSquare = utilities.getRowColumn(strokeBounds.topLeftBound.x, strokeBounds.topLeftBound.y)
     let boundEndSquare = utilities.getRowColumn(strokeBounds.bottomRightBound.x, strokeBounds.bottomRightBound.y)
 
-
-    // between the two squares the one with the lower column value represents
-    // the square we will start looping from
-    if (boundDownSquare.row < boundEndSquare.row) {
-      this.lineInsideSquares(boundDownSquare, boundEndSquare)
-    } else {
-      this.lineInsideSquares(boundEndSquare, boundDownSquare)
+    // null check
+    if (boundDownSquare !== null && boundEndSquare !== null) {
+      // between the two squares the one with the lower column value represents
+      // the square we will start looping from
+      if (boundDownSquare.row < boundEndSquare.row) {
+        this.lineInsideSquares(boundDownSquare, boundEndSquare)
+      } else {
+        this.lineInsideSquares(boundEndSquare, boundDownSquare)
+      }
     }
 
     // once complete remove the line from the screen
@@ -158,8 +158,7 @@ class LineTool extends Tool {
    * Get the bounds of the stroke
    * @param {*} boundLines
    */
-  getBoundOfStroke(boundLines) {
-
+  getBoundOfStroke (boundLines) {
     // initialize as opposite for comparison
     let smallestX = Number.MAX_SAFE_INTEGER
     let largestX = 0
@@ -197,15 +196,12 @@ class LineTool extends Tool {
    * Create a set of lines to represent a change in stroke width
    * Use this group of lines to determine if the squares intersect
    */
-  createLineStrokes(event) {
-
+  createLineStrokes (event) {
     // create the clone on the right and left side
     let lineCloneBottomRight = this.line.clone()
     let lineCloneBottomLeft = this.line.clone()
     let lineCloneTopRight = this.line.clone()
     let lineCloneTopLeft = this.line.clone()
-
-
 
     // update to stroke width 1 for debugging purposes as strokewidth
     // cant be calculated in intersects
@@ -248,7 +244,7 @@ class LineTool extends Tool {
     }
   }
 
-  shorten(lineClone) {
+  shorten (lineClone) {
     // https://stackoverflow.com/questions/34529248/in-paperjs-is-it-possible-to-set-the-length-of-a-straight-line-path-explicitly
     let vector = lineClone.segments[0].point.subtract(lineClone.segments[1].point)
     let p0 = lineClone.segments[0].point
@@ -263,7 +259,7 @@ class LineTool extends Tool {
    * @param topLine Path object representing our top part of stroke
    * @param bottomLine Path object representing the bottom part of stroke
    */
-  drawStrokeSet(topLine, bottomLine) {
+  drawStrokeSet (topLine, bottomLine) {
     // how much we are moving by
     // Note we keep two different offsets because they can be different to the 100000th of a meter
     // Which causes problems with using getPointAt function
@@ -295,7 +291,7 @@ class LineTool extends Tool {
    * From the startSquare loop through and check if the line is inside the square
    * all the way till the endSquare. If the line is inside the square add a triangle
    */
-  lineInsideSquares(startSquare, endSquare) {
+  lineInsideSquares (startSquare, endSquare) {
     // Get the point to start from horizontally
     let startingColumnNumber
     let endingColumnNumber
@@ -335,7 +331,7 @@ class LineTool extends Tool {
     }
   }
 
-  deActivateTool() {
+  deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
     $('#origami-editor').off('mousemove', this.popoverFunction)

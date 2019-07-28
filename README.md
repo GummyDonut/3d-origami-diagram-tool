@@ -32,6 +32,8 @@ or run the npm script
   * ~~Eraser tool~~
   * ~~Magnify tool~~
     * Reset to zoom factor of one
+    * Double click icon zoom in center
+    * slider in options to change zoom in center
   * Text tool
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
