@@ -42,14 +42,21 @@ or run the npm script
   * Move tool for moving layers, kinda meh on this one
 * ~~Show/hide grid~~
 * ~~Canvas Border~~
-* Button to clear everything out on grid
-* Grid options
+* Button to clear everything out on grid - just triangles on layer
+* Grid options - Add to already existing project
+  * Rows and columns
+  * Edit the size of the grid(append/remove)
+  * colors
 * Canvas Border options
-* Grid dialog on start
+* ~Grid dialog on start~
+  * ~Completed with New file functionality~
 * ~~Border around grid to show boundaries~~
-* Edit the size of the grid(append/remove)
 * Export/Import Image
-  * Update the view size to bounds of grid and then toDataURL that
+  * ~~Update the view size to bounds of grid and then toDataURL that~~
+  * Support more file types
+    * ~~PNG~~
+    * JPEG
+    * ~~SVG~~
 * Export/Import Save file(Might do local save and browser save)
   * AutoSave feature for recovery
 * ~~Undo/Redo history~~
@@ -57,8 +64,8 @@ or run the npm script
 * Full Screen button
 * Mouse co-ordinate system, figure out which square you are on
 * label indicate size of grid
-* Loading Screen if things look funny on start
-* Layering and layer manager
+* ~~Loading Screen if things look funny on start~~
+* ~~Layering and layer manager~~
   * ~~Add a new layer~~
   * ~~Remove Layer~~
   * ~~Duplicate Layer~~
@@ -91,7 +98,8 @@ or run the npm script
 * Small bug Move layer up to utmost top try to move up again, selection disappears
 * Small bug magnify options not saving on switch
 * Bucket tool clicking on existing triangle does not overwrite
-
+* Click and drag lines on the edge of canvas results in undefined exception and debug lines still show
+* Update styling for dialogs, currently fudged up
 
 ### Maybe read into for later
 * Information about layers, possibly useful for manipulating text, or just simply adding layers
