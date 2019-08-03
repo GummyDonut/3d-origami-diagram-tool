@@ -155,7 +155,7 @@ class ExportDialog extends EditorDialog {
           // callback(this);
           var link = document.createElement('a')
           link.download = options.fileName + '.png'
-          link.href = paper.view.element.toDataURL()
+          link.href = canvas.toDataURL('image/png')
           link.click()
         }
 
