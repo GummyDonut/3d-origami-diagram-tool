@@ -1,8 +1,8 @@
 
 import grid from '../grid.js'
-import Triangle from './triangle.js'
 import AddTrianglesAction from '../actions/AddTrianglesAction.js'
 import OverwriteTrianglesAction from '../actions/OverwriteTrianglesAction.js'
+import triangleFactory from './triangleFactory.js'
 
 /**
  * Object containing function that are used regularly
@@ -99,13 +99,20 @@ export default {
 
     let triangle = gridSquare.triangles[activeLayer._id]
     if (triangle === undefined || triangle == null) {
-      // adding action
-      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
+      let gridTriangle = triangleFactory.drawTriangle(gridSquare.square.rectangle, {
         'strokeColor': toolOption.strokeColor,
         'fillColor': toolOption.fillColor,
         'fill': toolOption.fill,
         'triangleType': toolOption.triangleType
       })
+
+      // sanity check
+      if (!gridTriangle) {
+        return null
+      }
+
+      // adding action
+      gridSquare.triangles[activeLayer._id] = gridTriangle
 
       return new AddTrianglesAction([gridSquare], activeLayer._id)
     } else if (!options.noOverwrite) {
@@ -118,11 +125,20 @@ export default {
       // If a triangle exist we will overwrite it
       triangle.path.remove()
       let oldTriangle = gridSquare.triangles[activeLayer._id]
-      gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
+
+      let gridTriangle = triangleFactory.drawTriangle(gridSquare.square.rectangle, {
         'strokeColor': toolOption.strokeColor,
         'fillColor': toolOption.fillColor,
-        'fill': toolOption.fill
+        'fill': toolOption.fill,
+        'triangleType': toolOption.triangleType
       })
+
+      gridSquare.triangles[activeLayer._id] = gridTriangle
+
+      // sanity check
+      if (!gridTriangle) {
+        return null
+      }
 
       // push action onto stack
       return new OverwriteTrianglesAction([gridSquare], [oldTriangle], activeLayer._id)

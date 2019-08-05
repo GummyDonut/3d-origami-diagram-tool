@@ -317,7 +317,7 @@ class LineTool extends Tool {
           if (strokeLine.intersects(gridSquare.square.path)) {
             // check if the triangle that is being added should be an overwrite or a normal add
             let actions = utilities.insertTriangle(gridSquare, this.toolOption)
-            if (actions !== undefined) {
+            if (actions !== undefined && actions !== null) {
               changedSquares.push(actions)
             }
             break

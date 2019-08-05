@@ -182,7 +182,7 @@ class BucketTool extends Tool {
       return false
     }
 
-    if (triangleAction != null) {
+    if (triangleAction !== null && triangleAction !== undefined) {
       changedSquares.push(triangleAction)
     }
 

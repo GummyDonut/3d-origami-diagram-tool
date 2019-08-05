@@ -115,7 +115,6 @@ Then run the development server by running npm script
 * ~~Bucket tool clicking on existing triangle does not overwrite~~
 * ~~Click and drag lines on the edge of canvas results in undefined exception and debug lines still show~~
 * ~~Update styling for dialogs, currently fudged up~~
-* hot keys stopped working like ctrl+z
 
 ## Further reading
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

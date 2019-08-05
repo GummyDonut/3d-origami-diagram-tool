@@ -89,7 +89,7 @@ class TriangleTool extends Tool {
     // loop through and update
     gridSquares.forEach(gridSquare => {
       let insideSquare = utilities.insertTriangle(gridSquare, this.toolOption)
-      if (insideSquare !== undefined) {
+      if (insideSquare !== undefined && insideSquare !== null) {
         changedSquares.push(insideSquare)
       }
     })
