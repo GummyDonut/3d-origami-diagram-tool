@@ -103,7 +103,8 @@ export default {
       gridSquare.triangles[activeLayer._id] = new Triangle(gridSquare.square.rectangle, {
         'strokeColor': toolOption.strokeColor,
         'fillColor': toolOption.fillColor,
-        'fill': toolOption.fill
+        'fill': toolOption.fill,
+        'triangleType': toolOption.triangleType
       })
 
       return new AddTrianglesAction([gridSquare], activeLayer._id)

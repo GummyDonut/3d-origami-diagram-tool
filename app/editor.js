@@ -25,6 +25,27 @@ import '@fortawesome/fontawesome-free/js/brands'
 
 // Note that the paper object is a global object
 window.onload = () => {
+  // load iconselectmenu function
+  // https:// jqueryui.com/selectmenu/#custom_render
+  $.widget('custom.iconselectmenu', $.ui.selectmenu, {
+    _renderItem: function (ul, item) {
+      var li = $('<li>')
+      var wrapper = $('<div>', { text: item.label })
+
+      if (item.disabled) {
+        li.addClass('ui-state-disabled')
+      }
+
+      $('<span>', {
+        style: item.element.attr('data-style'),
+        'class': item.element.attr('data-class')
+      })
+        .prependTo(wrapper)
+
+      return li.append(wrapper).appendTo(ul)
+    }
+  })
+
   // hide loading and show app
   $('#main-loading').hide()
   $('#main-app').show()

@@ -2,7 +2,6 @@
 /**
  * Singleton representing our dialog
  */
-
 import exportDialogHTML from '../html/exportDialog.html'
 import EditorDialog from './EditorDialog.js'
 import exportDiagram from './exportDiagram.js'

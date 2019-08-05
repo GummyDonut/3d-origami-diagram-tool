@@ -2,6 +2,7 @@
 import CustomShape from './customShape.js'
 /**
  * Custom class for triangle
+ * represents the basic traingle
  */
 class Triangle extends CustomShape {
   /**
@@ -17,10 +18,20 @@ class Triangle extends CustomShape {
     super()
     let path = new paper.Path()
 
-    path.add(new paper.Point(rectangle.x + (rectangle.width / 2), rectangle.y)) // top
-    path.add(new paper.Point(rectangle.x, rectangle.y + rectangle.height)) // bottom left
-    path.add(new paper.Point(rectangle.x + rectangle.width, rectangle.y + rectangle.height)) // bottom right
-    path.closed = true
+    // based on the options draw that type of triangle
+    if (!options.triangleType) {
+      options.triangleType = 'basic'
+    }
+
+    if (options.triangleType === 'basic') {
+      path.add(new paper.Point(rectangle.x + (rectangle.width / 2), rectangle.y)) // top
+      path.add(new paper.Point(rectangle.x, rectangle.y + rectangle.height)) // bottom left
+      path.add(new paper.Point(rectangle.x + rectangle.width, rectangle.y + rectangle.height)) // bottom right
+      path.closed = true
+    } else {
+      // option does not exist
+      console.log('Error triangle option does not exist at the moment')
+    }
 
     this.path = path
 
@@ -48,7 +59,7 @@ class Triangle extends CustomShape {
     return this.path.matches({
       'strokeColor': options.strokeColor,
       'fillColor': fillColor
-    })
+    }) && options.triangleType === this.options.triangleType
   }
 }
 

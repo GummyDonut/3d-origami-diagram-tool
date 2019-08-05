@@ -5,7 +5,7 @@ class TriangleOptions extends ToolOptions {
    * @param {Object} options options for enabling and disabling certain options
    *  popoverMove - object representing box on cursor for triangle tool
    */
-  constructor(options) {
+  constructor (options) {
     if (!options) {
       console.error('No options defined, for triangleOptions. Developer please fix')
     }
@@ -17,6 +17,7 @@ class TriangleOptions extends ToolOptions {
     this.fillColor = '#0000ff'
     this.fill = false
     this.toolSize = 1
+    this.triangleType = 'basic'
 
     if (options.popoverMove) {
       this.popoverMove = options.popoverMove
@@ -26,7 +27,7 @@ class TriangleOptions extends ToolOptions {
   /**
    * Run on start and add HTML to tool box options
    */
-  addToToolOptionBox() {
+  addToToolOptionBox () {
     // alias
     var self = this
 
@@ -43,7 +44,7 @@ class TriangleOptions extends ToolOptions {
   /**
    * Event listeners for items that occur within the tool options box
    */
-  optionsListeners() {
+  optionsListeners () {
     // alias
     let self = this
 
@@ -103,12 +104,20 @@ class TriangleOptions extends ToolOptions {
         $(el).ColorPickerHide()
       }
     })
+
+    // instantiate icon picker
+    $('#triangle-type-option').iconselectmenu({
+      change: function (event, ui) {
+        let value = $(this).val()
+        self.triangleType = value
+      }
+    }).iconselectmenu('menuWidget')
   }
 
   /**
    * Instantiate with initial values
    */
-  initValue() {
+  initValue () {
     $('#triangleFill').prop('checked', this.fill)
     $('#triangleFill').trigger('change')
 
@@ -116,6 +125,9 @@ class TriangleOptions extends ToolOptions {
     if (this.popoverMove) {
       $('#triangleToolSize').val(this.toolSize)
     }
+
+    // set triangle type
+    $('#triangle-type-option').val(this.triangleType)
 
     // set default loading color
     $('#triangleStrokeColorPicker div').css('background-color', this.strokeColor)

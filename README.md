@@ -41,14 +41,19 @@ Then run the development server by running npm script
     * Double click icon zoom in center
     * slider in options to change zoom in center
   * Text tool
+  * ~~Triangle tool~~
+    * Add padding to the triangle
+  * Select tool - similar to rts to change triangles
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
   * ~~Paint bucket tool~~
     * ~~Simple tutorial : http://www.williammalone.com/articles/html5-canvas-javascript-paint-bucket-tool/~~ Overly complicated
     * https://www.hackerearth.com/practice/algorithms/graphs/flood-fill-algorithm/tutorial/
   * Arrow Tool - for simply drawing errors
+  * Line numbers
   * Move tool for moving layers, kinda meh on this one
 * ~~Show/hide grid~~
+* Show/Hide canvas border
 * ~~Canvas Border~~
 * Button to clear everything out on grid - just triangles on layer
 * Grid options - Add to already existing project
@@ -92,8 +97,10 @@ Then run the development server by running npm script
 * ~~Color picker https://www.eyecon.ro/colorpicker/~~
   * TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404
   * Update styling of options
+  * Eye drop color picker?
 * Dark THEME IT UP so this application looks sleeker
-* Loading screen on start so it's not as ugly
+  * Loading screen is dialog dark theme is not nice
+* ~~Loading screen on start so it's not as ugly~~
 * Allow for the choice of different triangles
 
 ## Bug list
@@ -108,6 +115,7 @@ Then run the development server by running npm script
 * ~~Bucket tool clicking on existing triangle does not overwrite~~
 * ~~Click and drag lines on the edge of canvas results in undefined exception and debug lines still show~~
 * ~~Update styling for dialogs, currently fudged up~~
+* hot keys stopped working like ctrl+z
 
 ## Further reading
 * Information about layers, possibly useful for manipulating text, or just simply adding layers

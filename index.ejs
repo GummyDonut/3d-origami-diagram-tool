@@ -44,6 +44,13 @@
     <!-- Loading dialog used at start of app-->
     <div id="main-loading"></div>
 
+    <!-- Blocking dialog, this prevents people from using app at specific sizes -->
+    <!-- This should only appear when user is invalid size on start-->
+    <div id="blocking-dialog" style="display:none;">
+      <div class="slot">
+      </div>
+    </div>
+
     <!-- show on load-->
     <div id="main-app" style="display: none">
       <!--reusable popover-->
@@ -58,13 +65,6 @@
         </div>
       </div>
       <!-- SET OF DIALOGS-->
-
-      <!-- Blocking dialog, this prevents people from using app at specific sizes -->
-      <!-- This should only appear when user is invalid size on start-->
-      <div id="blocking-dialog" style="display:none;">
-        <div class="slot">
-        </div>
-      </div>
 
       <!-- Layer manager dialog-->
       <div id="layer-manager" title="Layers">

@@ -7,7 +7,7 @@ import GroupActions from '../actions/GroupActions.js'
 import utilities from '../lib/utilities.js'
 
 class TriangleTool extends Tool {
-  constructor() {
+  constructor () {
     super('#triangle-tool', 'TriangleTool')
     this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
     this.toolOption = new TriangleOptions({
@@ -22,7 +22,7 @@ class TriangleTool extends Tool {
   /**
    * Initialize the tool
    */
-  init() {
+  init () {
     // initialize event-listeners for button
     this.buttonEventListener()
     this.toolListeners()
@@ -31,7 +31,7 @@ class TriangleTool extends Tool {
   /**
    * Event-listener for button within toolbox
    */
-  buttonEventListener() {
+  buttonEventListener () {
     $(this.selector).on('click', () => {
       if (!this.data.active) {
         super.changeToolIcon('cursor-triangle')
@@ -47,9 +47,7 @@ class TriangleTool extends Tool {
         // reactive tool
         this.tool.activate()
         this.data.active = true
-      }
-
-      else {
+      } else {
         this.deActivateTool()
       }
     })
@@ -58,7 +56,7 @@ class TriangleTool extends Tool {
   /**
    * Event-listener for canvas
    */
-  toolListeners() {
+  toolListeners () {
     // Create new custom paper tool
     this.tool = new paper.Tool()
     this.tool.name = this.toolname
@@ -71,7 +69,7 @@ class TriangleTool extends Tool {
     paper.tool = null
   }
 
-  deActivateTool() {
+  deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
     $('#origami-editor').off('mousemove', this.popoverFunction)
@@ -85,7 +83,7 @@ class TriangleTool extends Tool {
    * How we are modifying the gridsquares upon click
    * @param {Array of GridSquare} gridSquares
    */
-  popoverCursorAction(gridSquares) {
+  popoverCursorAction (gridSquares) {
     let changedSquares = []
 
     // loop through and update
