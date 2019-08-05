@@ -44,6 +44,7 @@ Then run the development server by running npm script
   * ~~Triangle tool~~
     * Add padding to the triangle
   * Select tool - similar to rts to change triangles
+    * Allow us to mass modify triangles.
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
   * ~~Paint bucket tool~~

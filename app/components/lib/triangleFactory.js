@@ -1,4 +1,4 @@
-import Triangle from './triangles/triangle.js'
+import BasicTriangle from './triangles/BasicTriangle.js'
 /**
  * Function for creating the appropriate triangles based on the triangleType
  * set in triangleOptions
@@ -12,7 +12,7 @@ export default {
   drawTriangle (rectangle, options) {
     switch (options.triangleType) {
       case 'basic':
-        return new Triangle(rectangle, {
+        return new BasicTriangle(rectangle, {
           'strokeColor': options.strokeColor,
           'fillColor': options.fillColor,
           'fill': options.fill,

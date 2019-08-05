@@ -1,10 +1,9 @@
 
-import CustomShape from '../customShape.js'
 /**
  * Custom class for triangle
  * represents the basic traingle
  */
-class Triangle extends CustomShape {
+class Triangle {
   /**
    * Create a triangle on the board
    * @param {Rectangle} rectangle - rectangle object representing the sqaure grid
@@ -15,7 +14,6 @@ class Triangle extends CustomShape {
    * }
    */
   constructor (rectangle, options) {
-    super()
     this.path = this.createPathObject(rectangle, options)
 
     // store options
@@ -36,30 +34,8 @@ class Triangle extends CustomShape {
     }) && options.triangleType === this.options.triangleType
   }
 
-  /**
-   * Create the path object
-   * this class will be overwritten by other triangle classes.
-   * Currently triangles are generated from triangleFactory. To allow us to generate different kind of triangles.
-   * @param {Rectangle path object} rectangle
-   * @param {The triangle options} options
-   */
   createPathObject (rectangle, options) {
-    let path = new paper.Path()
-    path.add(new paper.Point(rectangle.x + (rectangle.width / 2), rectangle.y)) // top
-    path.add(new paper.Point(rectangle.x, rectangle.y + rectangle.height)) // bottom left
-    path.add(new paper.Point(rectangle.x + rectangle.width, rectangle.y + rectangle.height)) // bottom right
-    path.closed = true
-
-    // If there is a fill specified
-    if (options.fill) {
-      path.fillColor = (options.fillColor) ? options.fillColor : 'blue'
-    }
-
-    path.strokeColor = (options.strokeColor) ? options.strokeColor : 'blue'
-    path.selected = true
-    path.fullySelected = false
-
-    return path
+    console.log('createPathObject, running abstract class version. Please override this function')
   }
 }
 
