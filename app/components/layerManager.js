@@ -86,6 +86,11 @@ export default {
    * @param {Number} selectedLayer Number indicating which layer to show as selected
    */
   draw (event, selectedLayer) {
+    // sanity checks
+    if (selectedLayer === -1) {
+      return
+    }
+
     // Get the layers
     let layers = paper.project.layers
 

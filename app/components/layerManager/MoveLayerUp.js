@@ -20,6 +20,9 @@ class MoveLayerUp {
       } else {
         MoveLayer.moveLayer('up')
         let selectedIndex = selectedLayer.index() - 1
+        if (selectedIndex === -1) {
+          selectedIndex = 0
+        }
         $('#layer-manager').trigger('draw', [selectedIndex])
         actionStack.pushToUndo(new MoveLayerUpAction(selectedIndex, selectedLayer))
       }

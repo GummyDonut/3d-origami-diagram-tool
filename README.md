@@ -116,7 +116,7 @@ Then run the development server by running npm script
 * ~~Bug with bounds of stroke on diagonal lines with widths greater than 4~~
 * ~~Small bug large tool size eraser can't erase edge~~
 * ~~Small bug large tool size triangle can't add to edge~~
-* Small bug Move layer up to utmost top try to move up again, selection disappears
+* ~~Small bug Move layer up to utmost top try to move up again, selection disappears~~
 * Small bug magnify options not saving on switch
 * ~~Bucket tool clicking on existing triangle does not overwrite~~
 * ~~Click and drag lines on the edge of canvas results in undefined exception and debug lines still show~~
