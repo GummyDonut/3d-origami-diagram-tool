@@ -10,7 +10,7 @@ import GroupActions from '../actions/GroupActions.js'
  * Tool for removing triangles from canvas
  */
 class eraserTool extends Tool {
-  constructor() {
+  constructor () {
     super('#eraser-tool', 'eraserTool')
 
     this.popoverMove = new PopoverCursor(this.popoverCursorAction.bind(this), 1)
@@ -22,7 +22,7 @@ class eraserTool extends Tool {
   /**
    * Initialize the tool
    */
-  init() {
+  init () {
     // initialize event-listeners for button
     this.buttonEventListener()
     this.toolListeners()
@@ -31,7 +31,7 @@ class eraserTool extends Tool {
   /**
    * Event-listener for the tools button
    */
-  buttonEventListener() {
+  buttonEventListener () {
     $(this.selector).on('click', () => {
       if (!this.data.active) {
         $(this.selector).addClass('pure-button-active')
@@ -46,8 +46,7 @@ class eraserTool extends Tool {
 
         this.tool.activate()
         this.data.active = true
-      }
-      else {
+      } else {
         this.deActivateTool()
       }
     })
@@ -56,7 +55,7 @@ class eraserTool extends Tool {
   /**
    * Paper event-listeners
    */
-  toolListeners() {
+  toolListeners () {
     // check if click is within popover area
     // Create new custom paper tool
     this.tool = new paper.Tool()
@@ -70,7 +69,7 @@ class eraserTool extends Tool {
     paper.tool = null
   }
 
-  deActivateTool() {
+  deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
     $('#origami-editor').off('mousemove', this.popoverFunction)
@@ -83,7 +82,7 @@ class eraserTool extends Tool {
   * How we are modifying the gridsquares upon click
   * @param {Array of GridSquare} gridSquares
   */
-  popoverCursorAction(gridSquares) {
+  popoverCursorAction (gridSquares) {
     let changedSquares = []
 
     // loop through and update
@@ -104,7 +103,7 @@ class eraserTool extends Tool {
    * @param {Object} gridSquare - contains the rectangle, and path object we
    * will be using to add a triangle in.
    */
-  clickedInsideSquare(gridSquare) {
+  clickedInsideSquare (gridSquare) {
     // Get the triangle based on the active layer we are on
     let activeLayer = paper.project.activeLayer
     let triangle = gridSquare.triangles[activeLayer._id]

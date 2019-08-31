@@ -76,8 +76,31 @@ class PopoverCursor {
     let topleftRowColumn = utils.getRowColumn(topLeft.x, topLeft.y)
     let bottomRightRowColumn = utils.getRowColumn(bottomRight.x, bottomRight.y)
 
-    if (topleftRowColumn === null || bottomRightRowColumn === null) {
+    // if both are null the we are off screen
+    if (topleftRowColumn === null && bottomRightRowColumn === null) {
       return null
+    } else if (topleftRowColumn === null && bottomRightRowColumn !== null) {
+      // get the point closest to the grif
+      if (topLeft.x < 0) {
+        topLeft.x = 0
+      }
+
+      if (topLeft.y < 0) {
+        topLeft.y = 0
+      }
+
+      topleftRowColumn = utils.getRowColumn(topLeft.x, topLeft.y)
+    } else if (topleftRowColumn !== null && bottomRightRowColumn === null) {
+      // get the point closest to the grif
+      if (bottomRight.x > grid.totalWidth) {
+        bottomRight.x = grid.totalWidth
+      }
+
+      if (bottomRight.y > grid.totalHeight) {
+        bottomRight.y = grid.totalHeight
+      }
+
+      bottomRightRowColumn = utils.getRowColumn(bottomRight.x, bottomRight.y)
     }
 
     let popoverRectangle = new paper.Rectangle(topLeft.x, topLeft.y, boxWidth, boxHeight)

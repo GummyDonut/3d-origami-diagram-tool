@@ -51,12 +51,14 @@ export default {
     let gridWidth = grid.squareWidth
     let gridHeight = grid.squareHeight
 
+    // take into account if exactly on grid
     let row = Math.floor(y / (gridWidth))
+
     // validate row, can't go out of bounds
     if (row < 0) {
       row = 0
     } else if (row > grid.grid.length) {
-      row = grid.grid.length
+      row = grid.grid.length - 1
     }
 
     let offset = this._isEven(row) ? 0 : -1 * (gridWidth / 2)
@@ -67,6 +69,16 @@ export default {
       column = 0
     } else if (column > grid.grid[0].length) {
       column = grid.grid[0].length
+    }
+
+    // take into account of rounding error
+    // due to being on the grid
+    if (row > grid.rowsCount - 1) {
+      row = grid.rowsCount - 1
+    }
+
+    if (column > grid.columnsCount - 1) {
+      column = grid.columnsCount - 1
     }
 
     return { 'row': row, 'column': column }

@@ -37,12 +37,16 @@ Then run the development server by running npm script
   * ~~Line tool~~
   * ~~Eraser tool~~
   * ~~Magnify tool~~
+    * MERGE THE -/+ magnification tool together
     * Reset to zoom factor of one
     * Double click icon zoom in center
     * slider in options to change zoom in center
   * Text tool
   * ~~Triangle tool~~
-    * Add padding to the triangle
+    * ~~Add padding to the triangle~~
+    * Allow for the choice of different triangles
+      * flipped triangle
+      * representative triangle
   * Select tool - similar to rts to change triangles
     * Allow us to mass modify triangles.
   * Square tool
@@ -98,11 +102,11 @@ Then run the development server by running npm script
 * ~~Color picker https://www.eyecon.ro/colorpicker/~~
   * TODO Convert image to png https://stackoverflow.com/questions/923885/capture-html-canvas-as-gif-jpg-png-pdf/3514404#3514404
   * Update styling of options
+  * Store colors between triangle options.
   * Eye drop color picker?
 * Dark THEME IT UP so this application looks sleeker
   * Loading screen is dialog dark theme is not nice
 * ~~Loading screen on start so it's not as ugly~~
-* Allow for the choice of different triangles
 
 ## Bug list
 * ~~Small Bug where click outside grid throws error in POPOVERCursor.js - essentially better sanity checks~~
@@ -110,7 +114,8 @@ Then run the development server by running npm script
 * ~~Small bug with drawing lines, need to account for zoom factor~~
 * ~~Small bug fix needed keep old options after closing and reopening a tool~~
 * ~~Bug with bounds of stroke on diagonal lines with widths greater than 4~~
-* Small bug large tool size eraser can't erase edge
+* ~~Small bug large tool size eraser can't erase edge~~
+* ~~Small bug large tool size triangle can't add to edge~~
 * Small bug Move layer up to utmost top try to move up again, selection disappears
 * Small bug magnify options not saving on switch
 * ~~Bucket tool clicking on existing triangle does not overwrite~~
