@@ -4,6 +4,7 @@
  */
 import actionStack from './actionStack.js'
 import grid from './grid.js'
+import MagnifyLibrary from './lib/magnify.js'
 export default {
 
   /**
@@ -50,6 +51,13 @@ export default {
 
       // toggle grid visibility
       grid.visible = !grid.visible
+    })
+
+    /**
+     * Reset magnification to what it was at start
+     */
+    $('#reset-magnify-button').on('click', () => {
+      MagnifyLibrary.resetZoom()
     })
   },
 

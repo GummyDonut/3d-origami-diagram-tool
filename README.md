@@ -42,6 +42,9 @@ Then run the development server by running npm script
     * Double click icon zoom in center
     * slider in options to change zoom in center
   * Text tool
+    * Click down put cursor appears and start typing
+    * Create a completely new layer
+    * Support different kinds of fonts
   * ~~Triangle tool~~
     * ~~Add padding to the triangle~~
     * Allow for the choice of different triangles
@@ -49,6 +52,7 @@ Then run the development server by running npm script
       * representative triangle
   * Select tool - similar to rts to change triangles
     * Allow us to mass modify triangles.
+    * Allow us to mass move triangles as well.
   * Square tool
     * Use stroke bounds and line tool to create this, discovered by accident
   * ~~Paint bucket tool~~
@@ -133,6 +137,7 @@ Then run the development server by running npm script
 * ~~On smaller screens realign tool set~~
   * ~~https://www.pixilart.com/draw~~
 * API Gallery to store people's diagrams
+* Add eyedrop tool to color picker -- this will need to modify the attached source code for color picker
 
 ## Possible Improvements
 * ~~Get this working with webpack, https://webpack.js.org/guides/getting-started/~~

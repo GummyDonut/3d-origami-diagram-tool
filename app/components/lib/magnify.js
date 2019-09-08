@@ -2,6 +2,7 @@
  * Contains library functions for magnifying to be used by plus and minus
  */
 let popover = $('#popover')
+
 export default {
 
   /**
@@ -103,6 +104,14 @@ export default {
     // update the view
     paper.view.zoom = newZoom
     paper.view.center = newOffset
+  },
+
+  /**
+   * Reset zoom to where it originally was at the start of application
+   */
+  resetZoom () {
+    paper.view.zoom = 1
+    paper.view.center = new paper.Point(paper.view.viewSize.width / 2, paper.view.viewSize.height / 2)
   }
 
 }

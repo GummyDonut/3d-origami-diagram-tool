@@ -131,6 +131,18 @@ div.tool-row {
 .tool-button {
   padding-right: 5px;
 }
+button.tool-footer-button {
+  margin-right:0.5em;
+  padding:0.5em;
+  border-radius: 5px;
+  color:white;
+  border: 0.5px solid #403e3e;
+  background-color: #8a8a8a;
+}
+button.tool-footer-button span {
+  font-size:12px;
+ 
+}
 #global-tools {
   position: absolute;
   bottom:0;

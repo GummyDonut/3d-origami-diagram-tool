@@ -5,7 +5,7 @@ import MagnifyLibrary from '../lib/magnify.js'
 let toolOption = new MagnifyToolOptions()
 
 class MagnifyPlusTool extends Tool {
-  constructor() {
+  constructor () {
     super('#magnify-plus-tool', 'magnifyPlusTool')
     this.toolOption = toolOption
   }
@@ -13,13 +13,12 @@ class MagnifyPlusTool extends Tool {
   /**
   * Initialize the tools listeners
   */
-  init() {
+  init () {
     // Add event-listener for tools
     this.toolListeners()
 
     // Plus icon for magnify in
     $(this.selector).on('click', (event) => {
-
       if (!this.data.active) {
         // this.deActivateTool()
         $(this.selector).addClass('pure-button-active')
@@ -48,7 +47,7 @@ class MagnifyPlusTool extends Tool {
   /**
    * Reset all values for the tool
    */
-  deActivateTool() {
+  deActivateTool () {
     $(this.selector).removeClass('pure-button-active')
 
     // note don't remove listeners for these if opposite is on
@@ -67,7 +66,7 @@ class MagnifyPlusTool extends Tool {
   /**
    * Event listeners to run for the tool
    */
-  toolListeners() {
+  toolListeners () {
     // Create new custom paper tool
     this.tool = new paper.Tool()
     this.tool.name = this.toolname
