@@ -41,7 +41,7 @@ Then run the development server by running npm script
     * Reset to zoom factor of one
     * Double click icon zoom in center
     * slider in options to change zoom in center
-    * Hot key for zooming in the magnify
+    * ~~Hot key(scroll) for zooming in the magnify~~
   * Text tool
     * Click down put cursor appears and start typing
     * Create a completely new layer
