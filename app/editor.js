@@ -90,4 +90,16 @@ window.onload = () => {
 
   // init the loading dialog
   loadingDialog.initDialog()
+
+  // attempt to load what's was in last session
+  let paperProject = window.localStorage.getItem('paperProject')
+  if (paperProject) {
+    console.log(paperProject)
+  }
+
+  // When people leave the app save what they made
+  window.onunload = () => {
+    // TODO  change this to our grid object
+    window.localStorage.setItem('paperProject', paper.project.exportJSON())
+  }
 }
