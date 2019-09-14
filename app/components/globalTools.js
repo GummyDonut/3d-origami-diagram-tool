@@ -59,6 +59,15 @@ export default {
     $('#reset-magnify-button').on('click', () => {
       MagnifyLibrary.resetZoom()
     })
+
+    // hot key for scrolling
+    $('#canvas-container').bind('mousewheel', (event) => {
+      if (event.originalEvent.wheelDelta / 120 > 0) {
+        MagnifyLibrary.changeZoom(1, event.offsetX, event.offsetY)
+      } else {
+        MagnifyLibrary.changeZoom(-1, event.offsetX, event.offsetY)
+      }
+    })
   },
 
   /**

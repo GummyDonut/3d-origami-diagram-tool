@@ -70,10 +70,15 @@ export default {
    * negative is closer, positive is outward
    * @param {Number} offsetX event offset where we clicked x axis
    * @param {Number} offsetY event offset where we clicked y axis
-   * @param {Magnify} magnifyObj reference to the magnify class
+   * @param {Magnify} magnifyObj reference to the magnify class. Optional used by tool itself
    */
   changeZoom (delta, offsetX, offsetY, magnifyObj) {
-    let percent = magnifyObj.toolOption.factor
+    // if the magnifyObj is not defined use default
+    let percent = 5
+    if (magnifyObj) {
+      percent = magnifyObj.toolOption.factor
+    }
+
     // if factor is less than 1, error out
     if (percent < 1) {
       alert('Factor can not be lower than one')
